@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { ChatSettingsSchema } from './chat-settings.schema';
 import { Database } from '../database.types';
 import getContext from '../getContext';
+import { Address } from 'viem';
 export function createChatMessagesService(client: SupabaseClient<Database>) {
   return new ChatMessagesService(client);
 }
@@ -130,7 +131,7 @@ class ChatMessagesService {
     return chats;
   }
 
-  async getChatSettings(chatReferenceId: string) {
+  async getChatSettings(chatReferenceId: string, address: Address) {
     const { data, error } = await this.client
       .from('chats')
       .select('settings')
@@ -148,7 +149,7 @@ class ChatMessagesService {
     let systemMessage = settings.systemMessage;
 
     if (!systemMessage) {
-      const context = await this.fetchRelevantContext();
+      const context = await this.fetchRelevantContext(address);
 
       systemMessage = `You are a helpful assistant
 Here is some relevant data to help you answer:
@@ -165,9 +166,9 @@ Please use this information to provide accurate and relevant responses and don't
     };
   }
 
-  private async fetchRelevantContext(): Promise<string> {
+  private async fetchRelevantContext(address: Address = "0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38"): Promise<string> {
     try {
-      const context = await getContext("0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38");
+      const context = await getContext(address);
 
       return JSON.stringify(context, null, 2);
     } catch (error) {
