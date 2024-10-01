@@ -26,7 +26,6 @@ const getContext = async (address: string) => {
         zora_score: score
     };
 
-    console.log(context);
     return context;
 };
 
