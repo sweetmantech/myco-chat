@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 import { createChatMessagesService } from './chat-messages.service';
 import { Database } from '../database.types';
+import { Address } from 'viem';
 
 export const ChatMessagesSchema = z.object({
   messages: z.array(
@@ -21,6 +22,7 @@ export const ChatMessagesSchema = z.object({
 
 export const StreamResponseSchema = ChatMessagesSchema.extend({
   accountId: z.string().uuid(),
+  address: z.string().optional(),
 });
 
 /**
@@ -86,7 +88,7 @@ class ChatLLMService {
    * @description Stream a response to the user and store the messages in the database.
    */
   async streamResponse(
-    { messages, accountId }: z.infer<typeof StreamResponseSchema>,
+    { messages, accountId, address }: z.infer<typeof StreamResponseSchema>,
     referenceId: string,
   ) {
     // use a normal service instance using the current user RLS
@@ -103,7 +105,7 @@ class ChatLLMService {
     // await this.assertEnoughCredits(accountId);
 
     // retrieve the chat settings
-    const settings = await chatMessagesService.getChatSettings(referenceId);
+    const settings = await chatMessagesService.getChatSettings(referenceId, address as Address);
     const systemMessage = settings.systemMessage;
     const maxTokens = settings.maxTokens;
 
