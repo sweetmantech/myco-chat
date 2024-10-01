@@ -14,8 +14,6 @@ const Chat = () => {
     handleSubmit: handleChatSubmit,
   } = useChatProvider();
 
-  console.log("SWEETS messages", messages);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     if (!address) {
       e.preventDefault();
