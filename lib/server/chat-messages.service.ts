@@ -167,7 +167,7 @@ Please use this information to provide accurate and relevant responses and don't
 
   private async fetchRelevantContext(): Promise<string> {
     try {
-      const context = await getWaterAndMusicReportContext();
+      const context = await getWaterAndMusicReportContext("0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38");
 
       return JSON.stringify(context, null, 2);
     } catch (error) {
