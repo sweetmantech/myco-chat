@@ -1,6 +1,12 @@
-'use client'
+"use client";
 
-const Button = ({ onClick, children, className }: any) => (
+interface ButtonProps {
+  onClick: () => void;
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Button = ({ onClick, children, className }: ButtonProps) => (
   <button
     onClick={onClick}
     type="button"
@@ -8,6 +14,6 @@ const Button = ({ onClick, children, className }: any) => (
   >
     {children}
   </button>
-)
+);
 
-export default Button
+export default Button;
