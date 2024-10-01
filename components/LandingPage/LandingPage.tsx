@@ -3,7 +3,7 @@ import Chat from "../Chat";
 
 export default function Component() {
   return (
-    <div className="flex flex-col h-[100vh] bg-[#f5efd7] border border-black">
+    <div className="flex font-nounish flex-col h-[100vh] bg-[#f5efd7] border border-black">
       <main className="flex-1 flex flex-col justify-between p-4">
         <div className="flex flex-col items-center mt-8 space-y-4">
           {/* eslint-disable-next-line @next/next/no-img-element */}

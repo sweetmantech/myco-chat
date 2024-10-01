@@ -1,4 +1,3 @@
-import Suggestions from "./Suggestions";
 import ChatInput from "./ChatInput";
 import { useCsrfToken } from "@/packages/shared/src/hooks";
 import { useChat } from "ai/react";
@@ -26,7 +25,7 @@ const Chat = () => {
   });
 
   return (
-    <div>
+    <div className="w-full">
       <Messages messages={messages} />
       <ChatInput
         handleSubmit={handleSubmit}
