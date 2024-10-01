@@ -1,19 +1,32 @@
-import type { Config } from "tailwindcss";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+/** @type {import('tailwindcss').Config} */
 
-const config: Config = {
+module.exports = {
+  darkMode: ['class'],
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        grey: {
+          DEFAULT: '#949494',
+          light: '#f6f6f6',
+        },
+        background: {
+          DEFAULT: '#f2e8cd',
+        },
+      },
+      fontFamily: {
+        nounish: ['LondrinaSolid-Regular', 'sans-serif'],
       },
     },
   },
+  variants: {
+    extend: {
+      display: ['dark'],
+    },
+  },
   plugins: [],
-};
-export default config;
+}

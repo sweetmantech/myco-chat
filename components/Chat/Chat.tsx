@@ -27,13 +27,12 @@ const Chat = () => {
 
   return (
     <div>
+      <Messages messages={messages} />
       <ChatInput
         handleSubmit={handleSubmit}
         handleInputChange={handleInputChange}
         input={input}
       />
-      <Messages messages={messages} />
-      <Suggestions />
     </div>
   );
 };
