@@ -4,7 +4,7 @@ import { SupabaseClient } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { ChatSettingsSchema } from './chat-settings.schema';
 import { Database } from '../database.types';
-import getWaterAndMusicReportContext from '../getWaterAndMusicReportContext';
+import getContext from '../getContext';
 export function createChatMessagesService(client: SupabaseClient<Database>) {
   return new ChatMessagesService(client);
 }
@@ -167,7 +167,7 @@ Please use this information to provide accurate and relevant responses and don't
 
   private async fetchRelevantContext(): Promise<string> {
     try {
-      const context = await getWaterAndMusicReportContext();
+      const context = await getContext("0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38");
 
       return JSON.stringify(context, null, 2);
     } catch (error) {
