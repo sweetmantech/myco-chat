@@ -24,8 +24,6 @@ export const POST = enhanceRouteHandler(
     }
   },
   {
-    schema: StreamResponseSchema.extend({
-      address: StreamResponseSchema.shape.accountId.optional(),
-    }),
+    schema: StreamResponseSchema
   },
 );
