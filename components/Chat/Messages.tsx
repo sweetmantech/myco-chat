@@ -1,6 +1,7 @@
 import { Message } from "ai";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
+  console.log("SWEETS messages", messages);
   return (
     <div
       className="w-full max-w-xl mt-4 mb-4 overflow-y-auto"

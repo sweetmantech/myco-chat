@@ -1,16 +1,24 @@
+import { useChatProvider } from "@/providers/ChatProvider";
 import Chat from "../Chat";
+import Image from "next/image";
 
 export default function Component() {
+  const { messages } = useChatProvider();
+
   return (
     <div className="flex font-nounish flex-col h-[100vh] bg-[#f5efd7] border border-black">
       <main className="flex-1 flex flex-col justify-center p-4">
         <div className="flex flex-col items-center mt-8 space-y-4">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/myco-logo.png?height=80&width=80"
-            alt="Mushroom logo"
-            className="w-20 h-20 rounded-full"
-          />
+          {messages.length === 0 && (
+            <div className="rounded-full overflow-hidden">
+              <Image
+                src="/myco-logo.png"
+                alt="Mushroom logo"
+                width={80}
+                height={80}
+              />
+            </div>
+          )}
         </div>
       </main>
 
