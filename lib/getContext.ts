@@ -1,4 +1,4 @@
-const getWaterAndMusicReportContext = async (address: string) => {
+const getContext = async (address: string) => {
     const BASE_URL = 'https://api.myco.wtf';
 
     const [tokensResponse, scoreResponse] = await Promise.all([
@@ -30,4 +30,4 @@ const getWaterAndMusicReportContext = async (address: string) => {
     return context;
 };
 
-export default getWaterAndMusicReportContext;
+export default getContext;
