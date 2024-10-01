@@ -22,6 +22,13 @@ const ChatInput: React.FC<ChatInputProps> = ({
     }
   }, [input]);
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+    }
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -32,6 +39,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
           ref={textareaRef}
           value={input}
           onChange={handleInputChange}
+          onKeyDown={handleKeyDown}
           onFocus={() => setIsChatboxFocused(true)}
           onBlur={() => setIsChatboxFocused(false)}
           placeholder="Ask me anything about the music industry..."
