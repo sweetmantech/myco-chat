@@ -24,7 +24,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full items-center flex flex-col">
       <Messages messages={messages} />
       <ChatInput
         handleSubmit={handleSubmit}
