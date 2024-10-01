@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/Button";
 import Chat from "../Chat";
 
 export default function Component() {
@@ -12,13 +11,6 @@ export default function Component() {
             alt="Mushroom logo"
             className="w-20 h-20 rounded-full"
           />
-
-          <div className="flex space-x-4">
-            <Button variant="outline" className="bg-white">
-              <span className="mr-2">💡</span>
-              What did I create this week???
-            </Button>
-          </div>
         </div>
       </main>
 
