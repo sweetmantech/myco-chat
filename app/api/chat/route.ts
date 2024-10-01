@@ -13,10 +13,9 @@ export const POST = enhanceRouteHandler(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const service = createChatLLMService(client as any, adminClient as any);
     const referenceId = "if1Fg9bo"; // hard coded for demo
-    const address = body.address || "0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38";
 
     try {    
-      return await service.streamResponse(body, referenceId, address);
+      return await service.streamResponse(body, referenceId);
     } catch (error) {
       console.error(error);
       const message = error instanceof Error ? error.message : 'Unknown error';
