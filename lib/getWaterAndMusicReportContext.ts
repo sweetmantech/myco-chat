@@ -9,7 +9,8 @@ const getWaterAndMusicReportContext = async (address: string) => {
     const tokens = await tokensResponse.json();
     const score = await scoreResponse.json();
 
-    const processedTokens = tokens.tokens.map(token => ({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const processedTokens = tokens.tokens.map((token: any) => ({
         event: token.event,
         address: token.address,
         timestamp: token.timestamp,
