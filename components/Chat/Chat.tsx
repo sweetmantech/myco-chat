@@ -1,39 +1,37 @@
-import Suggestions from "./Suggestions";
 import ChatInput from "./ChatInput";
-import { useCsrfToken } from "@/packages/shared/src/hooks";
-import { useChat } from "ai/react";
-import { useQueryClient } from "@tanstack/react-query";
 import Messages from "./Messages";
+import { useAccount } from "wagmi";
+import useConnectWallet from "@/hooks/useConnectWallet";
+import { useChatProvider } from "@/providers/ChatProvider";
 
 const Chat = () => {
-  const csrfToken = useCsrfToken();
-  const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
-  const queryClient = useQueryClient();
-  const { messages, input, handleInputChange, handleSubmit } = useChat({
-    api: `/api/chat`,
-    headers: {
-      "X-CSRF-Token": csrfToken,
-    },
-    body: {
-      accountId,
-    },
-    onError: console.error,
-    onFinish: () => {
-      void queryClient.invalidateQueries({
-        queryKey: ["credits", accountId],
-      });
-    },
-  });
+  const { connectWallet } = useConnectWallet();
+  const { address } = useAccount();
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit: handleChatSubmit,
+  } = useChatProvider();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    if (!address) {
+      e.preventDefault();
+      await connectWallet();
+      console.log("No address");
+      return;
+    }
+    handleChatSubmit(e);
+  };
 
   return (
-    <div>
+    <div className="w-full">
+      <Messages messages={messages} />
       <ChatInput
         handleSubmit={handleSubmit}
         handleInputChange={handleInputChange}
         input={input}
       />
-      <Messages messages={messages} />
-      <Suggestions />
     </div>
   );
 };
