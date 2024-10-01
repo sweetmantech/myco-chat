@@ -9,6 +9,7 @@ import { z } from 'zod';
 
 import { createChatMessagesService } from './chat-messages.service';
 import { Database } from '../database.types';
+import { Address } from 'viem';
 
 export const ChatMessagesSchema = z.object({
   messages: z.array(
@@ -104,7 +105,7 @@ class ChatLLMService {
     // await this.assertEnoughCredits(accountId);
 
     // retrieve the chat settings
-    const settings = await chatMessagesService.getChatSettings(referenceId, address);
+    const settings = await chatMessagesService.getChatSettings(referenceId, address as Address);
     const systemMessage = settings.systemMessage;
     const maxTokens = settings.maxTokens;
 
