@@ -23,6 +23,6 @@ export const POST = enhanceRouteHandler(
     }
   },
   {
-    schema: StreamResponseSchema
+    schema: StreamResponseSchema,
   },
 );
