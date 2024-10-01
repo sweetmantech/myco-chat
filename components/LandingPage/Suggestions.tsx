@@ -8,7 +8,7 @@ const Suggestions = () => {
   const { append } = useChatProvider();
 
   const onSubmit = async (message: string) => {
-    append({ role: "user", content: message });
+    append({ id: "1", role: "user", content: message });
   };
 
   return (

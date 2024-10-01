@@ -1,5 +1,5 @@
 import { useCsrfToken } from "@/packages/shared/src/hooks";
-import { useChat as useAiChat } from "ai/react";
+import { Message, useChat as useAiChat } from "ai/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAccount } from "wagmi";
 import useConnectWallet from "./useConnectWallet";
@@ -15,7 +15,7 @@ const useChat = () => {
     input,
     handleInputChange,
     handleSubmit: handleAiChatSubmit,
-    append,
+    append: appendAiChat,
   } = useAiChat({
     api: `/api/chat`,
     headers: {
@@ -33,12 +33,22 @@ const useChat = () => {
     },
   });
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const isPrepared = () => {
     if (!address) {
-      e.preventDefault();
-      await connectWallet();
-      return;
+      connectWallet();
+      return false;
     }
+    return true;
+  };
+
+  const append = (message: Message) => {
+    if (!isPrepared()) return;
+    appendAiChat(message);
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!isPrepared()) return;
     handleAiChatSubmit(e);
   };
 
