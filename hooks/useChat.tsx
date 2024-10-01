@@ -8,7 +8,6 @@ const useChat = () => {
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const queryClient = useQueryClient();
   const { address } = useAccount();
-  console.log(address);
   const { messages, input, handleInputChange, handleSubmit } = useAiChat({
     api: `/api/chat`,
     headers: {

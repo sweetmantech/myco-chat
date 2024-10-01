@@ -18,7 +18,6 @@ const Chat = () => {
     if (!address) {
       e.preventDefault();
       await connectWallet();
-      console.log("No address");
       return;
     }
     handleChatSubmit(e);
