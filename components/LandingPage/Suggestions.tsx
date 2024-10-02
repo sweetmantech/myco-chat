@@ -1,34 +1,19 @@
 import Image from "next/image";
-import { useChatProvider } from "@/providers/ChatProvider";
-import { Button } from "@/components/ui/Button";
+import SuggestionButton from "./SuggestionButton";
 
-const promptOne = "How many tokens have I created this week?";
+const promptOne = "How many times did I post this week???";
+const promptTwo = "What's my Zora score???";
 
-const Suggestions = () => {
-  const { append } = useChatProvider();
-
-  const onSubmit = async (message: string) => {
-    append({ id: "1", role: "user", content: message });
-  };
-
-  return (
-    <div className="flex flex-col items-center space-y-4">
-      <div className="rounded-full overflow-hidden">
-        <Image
-          src="/myco-logo.png"
-          alt="Mushroom logo"
-          width={80}
-          height={80}
-        />
-      </div>
-      <Button
-        onClick={() => onSubmit(promptOne)}
-        className="text-black border border-black"
-      >
-        {promptOne}
-      </Button>
+const Suggestions = () => (
+  <div className="flex flex-col items-center space-y-4">
+    <div className="rounded-full overflow-hidden">
+      <Image src="/myco-logo.png" alt="Mushroom logo" width={80} height={80} />
     </div>
-  );
-};
+    <div className="flex items-center space-x-2">
+      <SuggestionButton suggestion={promptOne} />
+      <SuggestionButton suggestion={promptTwo} />
+    </div>
+  </div>
+);
 
 export default Suggestions;
