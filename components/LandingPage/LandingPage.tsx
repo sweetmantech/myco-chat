@@ -6,7 +6,7 @@ export default function LandingPage() {
   const { messages } = useChatProvider();
 
   return (
-    <div className="flex font-nounish flex-col h-[100vh] bg-[#F2E8CC] border border-black">
+    <div className="flex font-nounish flex-col h-[100vh] bg-background border border-black">
       <main className="flex-1 flex flex-col justify-center p-4">
         <div className="flex flex-col items-center mt-8 space-y-4">
           {messages.length === 0 && <Suggestions />}
