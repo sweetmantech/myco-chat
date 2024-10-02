@@ -12,7 +12,7 @@ const SuggestionButton = ({ suggestion }: { suggestion: string }) => {
   return (
     <Button
       onClick={() => onSubmit(suggestion)}
-      className="flex flex-col items-start gap-1 text-black text-left border border-gray-300 w-[156px] h-[156px] whitespace-normal rounded rounded-2xl shadow-md hover:shadow-lg transition-shadow text-lg"
+      className="flex flex-col items-start justify-start gap-1 text-black text-left border border-gray-300 w-[156px] h-auto whitespace-normal rounded rounded-2xl shadow-md hover:shadow-lg transition-shadow text-lg"
     >
       <Lightbulb size={18} color="#E0C45C" />
       {suggestion}
