@@ -11,6 +11,9 @@ const trackLoginPoints = async (address: Address) => {
     points: SMART_WALLET_LOGIN_POINT,
     account: address,
     uniqueId: address,
+    metadata: {
+      domain: "https://chat.myco.wtf",
+    },
   });
 };
 
