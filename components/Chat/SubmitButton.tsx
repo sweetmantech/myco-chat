@@ -1,17 +1,17 @@
-import { ArrowUpRightIcon } from "lucide-react";
+import { useChatProvider } from "@/providers/ChatProvider";
+import { ArrowUpIcon } from "lucide-react";
 
-const SubmitButton = ({ isChatboxFocused }: { isChatboxFocused: boolean }) => {
+const SubmitButton = () => {
+  const { input } = useChatProvider();
+  const color = input.length > 0 ? "#000000" : `#F2E8CC`;
+  const borderColor = input.length > 0 ? `black` : `[#F2E8CC]`;
   return (
     <button
       type="submit"
-      className={`absolute bottom-1.5 right-1.5 p-1.5 rounded-md transition-all duration-150 ease-in-out ${
-        isChatboxFocused
-          ? "bg-[#00309A] text-white hover:bg-[#002277]"
-          : "bg-white text-[#00309A] border border-[#00309A] hover:bg-gray-100"
-      } hover:shadow-md group-hover:scale-105`}
+      className={`rounded-full border border-[5px] border-${borderColor}`}
       aria-label="Send message"
     >
-      <ArrowUpRightIcon className="w-3 h-3" />
+      <ArrowUpIcon size={24} strokeWidth={4} color={color} />
     </button>
   );
 };
