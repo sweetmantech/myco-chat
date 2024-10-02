@@ -19,7 +19,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
   };
 
   return (
-    <div className="w-full bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
+    <div className="w-full max-w-[555px] bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
       <form onSubmit={handleSubmit} className="w-full flex items-center">
         <textarea
           value={input}
