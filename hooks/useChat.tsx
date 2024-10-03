@@ -5,6 +5,7 @@ import { useAccount } from "wagmi";
 import useConnectWallet from "./useConnectWallet";
 import trackNewMessage from "@/lib/stack/trackNewMessage";
 import { Address } from "viem";
+import useInitialMessages from "./useInitialMessages";
 
 const useChat = () => {
   const { connectWallet } = useConnectWallet();
@@ -12,6 +13,8 @@ const useChat = () => {
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const queryClient = useQueryClient();
   const { address } = useAccount();
+  const { initialMessages } = useInitialMessages();
+
   const {
     messages,
     input,
@@ -27,6 +30,7 @@ const useChat = () => {
       accountId,
       address,
     },
+    initialMessages,
     onError: console.error,
     onFinish: () => {
       void queryClient.invalidateQueries({
@@ -45,8 +49,8 @@ const useChat = () => {
 
   const append = async (message: Message) => {
     if (!isPrepared()) return;
-    await appendAiChat(message);
     await trackNewMessage(address as Address, message);
+    await appendAiChat(message);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
