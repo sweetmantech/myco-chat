@@ -1,14 +1,11 @@
 import 'server-only';
 
-import { SupabaseClient } from '@supabase/supabase-js';
-
 import { openai } from '@ai-sdk/openai';
-import { LanguageModelV1, StreamingTextResponse, generateText, streamText } from 'ai';
+import { LanguageModelV1, StreamingTextResponse, streamText } from 'ai';
 import { encodeChat } from 'gpt-tokenizer';
 import { z } from 'zod';
 
 import { createChatMessagesService } from './chat-messages.service';
-import { Database } from '../database.types';
 import { Address } from 'viem';
 import trackNewMessage from '../stack/trackNewMessage';
 
@@ -29,14 +26,9 @@ export const StreamResponseSchema = ChatMessagesSchema.extend({
 /**
  * @name createChatLLMService
  * @description Create a new instance of the ChatLLMService.
- * @param client
- * @param adminClient
  */
-export function createChatLLMService(
-  client: SupabaseClient<Database>,
-  adminClient: SupabaseClient<Database>,
-) {
-  return new ChatLLMService(client, adminClient);
+export function createChatLLMService() {
+  return new ChatLLMService();
 }
 
 /**
@@ -44,21 +36,18 @@ export function createChatLLMService(
  * @description Chat service that uses the LLM model to generate responses.
  */
 class ChatLLMService {
-  constructor(
-    private readonly client: SupabaseClient<Database>,
-    private readonly adminClient: SupabaseClient<Database>,
-  ) {}
+  constructor() {}
 
   /**
    * @name streamResponse
    * @description Stream a response to the user and store the messages in the database.
    */
   async streamResponse(
-    { messages, accountId, address }: z.infer<typeof StreamResponseSchema>,
+    { messages, address }: z.infer<typeof StreamResponseSchema>,
     referenceId: string,
   ) {
     // use a normal service instance using the current user RLS
-    const chatMessagesService = createChatMessagesService(this.adminClient);
+    const chatMessagesService = createChatMessagesService();
 
     // get the last message
     const lastMessage = messages[messages.length - 1];
@@ -101,67 +90,14 @@ class ChatLLMService {
 
     const stream = result.toAIStream({
       onFinal: async (completion) => {
-        // get the chat ID using the reference ID
-        const chatId =
-          await chatMessagesService.getChatIdByReferenceId(referenceId);
-
-        // store messages in the DB
-        await this.storeMessages({
-          accountId,
-          chatId,
-          messages: [
-            lastMessage,
-            {
-              content: completion,
-              role: 'assistant',
-            },
-          ],
-        });
-
         await trackNewMessage(address as Address, {
           content: completion,
           role: "assistant",
           id: `${address}-${Date.now().toLocaleString()}`,
         });
-
-        // deduct the credits from the user
-        const tokensUsage = await result.usage;
-
-        await this.adminClient.rpc('deduct_credits', {
-          account_id: accountId,
-          amount: tokensUsage.totalTokens,
-        });
       },
     });
 
     return new StreamingTextResponse(stream);
-  }
-
-  /**
-   * @name storeMessages
-   * @description Store messages in the database.
-   * @param params
-   * @private
-   */
-  private async storeMessages(params: {
-    accountId: string;
-    chatId: number;
-    messages: Array<{
-      content: string;
-      role: 'user' | 'assistant';
-    }>;
-  }) {
-    // we need to create a new service instance using the admin client
-    // because we do not allow inserting messages using RLS (locked down by default)
-    const adminChatMessagesService = createChatMessagesService(
-      this.adminClient,
-    );
-
-    // store messages in the DB
-    await adminChatMessagesService.insertMessage({
-      chatId: params.chatId,
-      accountId: params.accountId,
-      messages: params.messages,
-    });
   }
 }
