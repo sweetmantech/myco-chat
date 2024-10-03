@@ -6,7 +6,7 @@ const SuggestionButton = ({ suggestion }: { suggestion: string }) => {
   const { append } = useChatProvider();
 
   const onSubmit = async (message: string) => {
-    append({ id: "1", role: "user", content: message });
+    await append({ id: "1", role: "user", content: message });
   };
 
   return (

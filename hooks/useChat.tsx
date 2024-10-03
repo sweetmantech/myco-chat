@@ -49,8 +49,8 @@ const useChat = () => {
 
   const append = async (message: Message) => {
     if (!isPrepared()) return;
-    await appendAiChat(message);
     await trackNewMessage(address as Address, message);
+    await appendAiChat(message);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
