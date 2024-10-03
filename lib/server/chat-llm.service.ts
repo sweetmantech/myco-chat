@@ -50,41 +50,6 @@ class ChatLLMService {
   ) {}
 
   /**
-   * @name createChatNameFromMessage
-   * @description Create a chat name from a message.
-   * @param params
-   */
-  async createChatNameFromMessage(params: {
-    message: string;
-    accountId: string;
-  }) {
-    // make sure the user has enough credits
-    await this.assertEnoughCredits(params.accountId);
-
-    const result = await generateText({
-      model: openai('gpt-3.5-turbo') as LanguageModelV1,
-      system:
-        'You convert a user message to a chat name for a seamless experience.',
-      messages: [
-        {
-          content: `Given the message "${params.message}", what would be a good chat name in less than 3 words? Avoid any double quotes.`,
-          role: 'user',
-        },
-      ],
-    });
-
-    const usage = result.usage;
-    const text = result.text;
-
-    await this.adminClient.rpc('deduct_credits', {
-      account_id: params.accountId,
-      amount: usage.totalTokens,
-    });
-
-    return text;
-  }
-
-  /**
    * @name streamResponse
    * @description Stream a response to the user and store the messages in the database.
    */
@@ -198,21 +163,5 @@ class ChatLLMService {
       accountId: params.accountId,
       messages: params.messages,
     });
-  }
-
-  /**
-   * @name assertEnoughCredits
-   * @description Assert that the user has enough credits to generate a response.
-   * @param accountId
-   * @private
-   */
-  private async assertEnoughCredits(accountId: string) {
-    const { data: hasCredits } = await this.client.rpc('has_credits', {
-      account_id: accountId,
-    });
-
-    if (!hasCredits) {
-      throw new Error('No credits available');
-    }
   }
 }
