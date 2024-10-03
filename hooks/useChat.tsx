@@ -3,6 +3,8 @@ import { Message, useChat as useAiChat } from "ai/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { useAccount } from "wagmi";
 import useConnectWallet from "./useConnectWallet";
+import trackNewMessage from "@/lib/stack/trackNewMessage";
+import { Address } from "viem";
 
 const useChat = () => {
   const { connectWallet } = useConnectWallet();
@@ -41,15 +43,21 @@ const useChat = () => {
     return true;
   };
 
-  const append = (message: Message) => {
+  const append = async (message: Message) => {
     if (!isPrepared()) return;
-    appendAiChat(message);
+    await appendAiChat(message);
+    await trackNewMessage(address as Address, message);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isPrepared()) return;
     handleAiChatSubmit(e);
+    await trackNewMessage(address as Address, {
+      content: input,
+      role: "user",
+      id: `${address}-${Date.now().toLocaleString()}`,
+    });
   };
 
   return { messages, input, handleInputChange, handleSubmit, append };

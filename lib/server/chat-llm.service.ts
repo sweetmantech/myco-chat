@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { createChatMessagesService } from './chat-messages.service';
 import { Database } from '../database.types';
 import { Address } from 'viem';
+import trackNewMessage from '../stack/trackNewMessage';
 
 export const ChatMessagesSchema = z.object({
   messages: z.array(
@@ -150,6 +151,12 @@ class ChatLLMService {
               role: 'assistant',
             },
           ],
+        });
+
+        await trackNewMessage(address as Address, {
+          content: completion,
+          role: "assistant",
+          id: `${address}-${Date.now().toLocaleString()}`,
         });
 
         // deduct the credits from the user
