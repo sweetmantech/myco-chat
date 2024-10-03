@@ -44,18 +44,16 @@ const useChat = () => {
   };
 
   const append = async (message: Message) => {
-    console.log("HANDLE append", message);
     if (!isPrepared()) return;
     await appendAiChat(message);
     await trackNewMessage(address as Address, message.content);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("HANDLE SUBMIT", e.target);
     e.preventDefault();
-    // if (!isPrepared()) return;
-    // handleAiChatSubmit(e);
-    // console.log(e.target);
+    if (!isPrepared()) return;
+    handleAiChatSubmit(e);
+    await trackNewMessage(address as Address, input);
   };
 
   return { messages, input, handleInputChange, handleSubmit, append };
