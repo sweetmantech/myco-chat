@@ -16,14 +16,12 @@ const getInitialMessages = async (walletAddress: Address) => {
       .offset(0)
       .build(),
   });
-  console.log("events", events);
   const messages: Message[] = events.map((event) => ({
     id: event.metadata.id,
     content: event.metadata.content,
     role: event.metadata.role as Message["role"],
     createdAt: new Date(event.timestamp),
   }));
-  console.log("messages", messages);
   messages.sort((a, b) => a.createdAt!.getTime() - b.createdAt!.getTime());
   return messages;
 };
