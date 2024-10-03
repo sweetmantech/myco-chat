@@ -2,7 +2,6 @@ import 'server-only';
 
 import { isRedirectError } from 'next/dist/client/components/redirect';
 import { NextRequest, NextResponse } from 'next/server';
-import { User } from '@supabase/supabase-js';
 import { z } from 'zod';
 import { captureException, zodParseFactory } from '../utils';
 
@@ -18,7 +17,7 @@ interface HandlerParams<
   RequireAuth extends boolean | undefined,
 > {
   request: NextRequest;
-  user: RequireAuth extends false ? undefined : User;
+  user: RequireAuth extends false ? undefined : undefined;
   body: Schema extends z.ZodType ? z.infer<Schema> : undefined;
   params: Record<string, string>;
 }
@@ -69,7 +68,7 @@ export const enhanceRouteHandler = <
       params: Record<string, string>;
     },
   ) {
-    type UserParam = Params['auth'] extends false ? undefined : User;
+    type UserParam = Params['auth'] extends false ? undefined : undefined;
 
     let user: UserParam = undefined as UserParam;
 
