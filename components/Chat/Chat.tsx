@@ -7,7 +7,7 @@ const Chat = () => {
     useChatProvider();
 
   return (
-    <div className="w-full items-center flex flex-col">
+    <div className="w-full items-center flex flex-col max-h-[85vh]">
       <Messages messages={messages} />
       <ChatInput
         handleSubmit={handleSubmit}
