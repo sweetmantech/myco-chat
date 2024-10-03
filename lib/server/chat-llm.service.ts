@@ -153,8 +153,11 @@ class ChatLLMService {
           ],
         });
 
-        console.log("AI completion", completion);
-        // await trackNewMessage(address as Address, {completion});
+        await trackNewMessage(address as Address, {
+          content: completion,
+          role: "assistant",
+          id: `${address}-${Date.now().toLocaleString()}`,
+        });
 
         // deduct the credits from the user
         const tokensUsage = await result.usage;
