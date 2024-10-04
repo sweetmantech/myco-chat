@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { createChatMessagesService } from './chat-messages.service';
 import { Address } from 'viem';
 import trackNewMessage from '../stack/trackNewMessage';
+import { AI_MODEL } from '../consts';
 
 export const ChatMessagesSchema = z.object({
   messages: z.array(
@@ -69,14 +70,13 @@ class ChatLLMService {
     // so we need to make sure that the history doesn't exceed output length + system message length
     const maxModelTokens = 128000;
 
-    const model = "gpt-4o-mini"
     const maxHistoryLength = maxModelTokens - systemMessage.length - maxTokens;
-    let decodedHistory = encodeChat(messages, model);
+    let decodedHistory = encodeChat(messages, AI_MODEL);
 
     if (decodedHistory.length > maxHistoryLength) {
       while (decodedHistory.length > maxHistoryLength) {
         messages.shift();
-        decodedHistory = encodeChat(messages, model);
+        decodedHistory = encodeChat(messages, AI_MODEL);
       }
     }
 
