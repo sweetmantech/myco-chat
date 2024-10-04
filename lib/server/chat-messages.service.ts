@@ -21,7 +21,7 @@ Please use this information to provide accurate and relevant responses and don't
     return {
       maxTokens: 500,
       systemMessage,
-      model: 'gpt-40-mini',
+      model: 'gpt-4o-mini',
       temperature: 0.7,
     };
   }

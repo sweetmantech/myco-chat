@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const ChatModelsSchema = z.enum([`gpt-3.5-turbo`, `gpt-4o`]);
+const ChatModelsSchema = z.enum([`gpt-3.5-turbo`, `gpt-4o`, `gpt-4o-mini`]);
 
 export const ChatSettingsSchema = z.object({
   model: ChatModelsSchema,
