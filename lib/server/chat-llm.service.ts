@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { createChatMessagesService } from './chat-messages.service';
 import { Address } from 'viem';
 import trackNewMessage from '../stack/trackNewMessage';
+import { AI_MODEL } from '../consts';
 
 export const ChatMessagesSchema = z.object({
   messages: z.array(
@@ -67,15 +68,15 @@ class ChatLLMService {
     // we need to limit the history length so not to exceed the max tokens of the model
     // let's assume for simplicity that all models have a max tokens of 4096
     // so we need to make sure that the history doesn't exceed output length + system message length
-    const maxModelTokens = 4096;
+    const maxModelTokens = 128000;
 
     const maxHistoryLength = maxModelTokens - systemMessage.length - maxTokens;
-    let decodedHistory = encodeChat(messages, 'gpt-3.5-turbo');
+    let decodedHistory = encodeChat(messages, AI_MODEL);
 
     if (decodedHistory.length > maxHistoryLength) {
       while (decodedHistory.length > maxHistoryLength) {
         messages.shift();
-        decodedHistory = encodeChat(messages, 'gpt-3.5-turbo');
+        decodedHistory = encodeChat(messages, AI_MODEL);
       }
     }
 

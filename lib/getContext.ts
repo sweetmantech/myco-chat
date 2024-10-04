@@ -19,7 +19,7 @@ const getContext = async (address: string) => {
         tokenId: token.metadata.tokenId,
         collection: token.metadata.collection,
         transactionHash: token.metadata.transactionHash
-    })).slice(0, 7);
+    }))
     const zoraScore = {
         address: score.address,
         score: score.score,
