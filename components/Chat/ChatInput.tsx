@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { TvMinimalPlay } from "lucide-react";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import SubmitButton from "./SubmitButton";
 
@@ -14,6 +14,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
   input,
 }) => {
   const { profile } = useProfileSearch()
+  const color = input.length > 0 ? "#000000" : "#F2E8CC";
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -27,9 +28,9 @@ const ChatInput: React.FC<ChatInputProps> = ({
       <form onSubmit={handleSubmit} className="w-full flex items-center">
         {
           profile.length > 0 ? (
-            <Image src={profile[0].avatar} alt="PFP" width={36} height={36} className="rounded-full" />
+            <img src={profile[0].avatar} alt="PFP" width={36} height={36} className="rounded-full" />
           ) : (
-            <Image src="/PFP.png" alt="PFP" width={44} height={44} className="rounded-full" />
+            <TvMinimalPlay size={32} color={color} />
           )
         }
         <textarea

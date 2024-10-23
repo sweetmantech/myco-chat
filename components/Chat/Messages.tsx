@@ -1,5 +1,5 @@
 import { Message } from "ai";
-import Image from "next/image";
+import { TvMinimalPlay } from "lucide-react";
 import useProfileSearch from "@/hooks/useProfileSearch";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
@@ -18,9 +18,9 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                 <div className="w-8 h-8">
                   {
                     profile.length > 0 ? (
-                      <Image src={profile[0].avatar} alt="PFP" width={32} height={32} className="rounded-full" />
+                      <img src={profile[0].avatar} alt="PFP" width={32} height={32} className="rounded-full" />
                     ) : (
-                      <Image src="/PFP.png" alt="PFP" width={32} height={32} className="rounded-full" />
+                      <TvMinimalPlay size={32} color="#000000" />
                     )
                   }
                 </div>
