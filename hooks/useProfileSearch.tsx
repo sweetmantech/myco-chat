@@ -9,9 +9,7 @@ const useProfileSearch = () => {
   const fetchResults = useCallback(async (query: string) => {
     if (query.length > 0) {
       try {
-        const encodedSearch = encodeURIComponent(query)
-        const fetchUrl = `/api/profile?address=${encodedSearch}`
-        const response = await fetch(fetchUrl)
+        const response = await fetch(`https://api.myco.wtf/api/profile?address=${query}`)
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
