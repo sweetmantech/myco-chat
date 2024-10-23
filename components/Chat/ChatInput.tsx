@@ -28,7 +28,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
       <form onSubmit={handleSubmit} className="w-full flex items-center">
         {
           profile.length > 0 ? (
-            <img src={profile[0].avatar} alt="PFP" width={36} height={36} className="rounded-full" />
+            <img src={`https://zora.co/api/avatar/${profile[0].address}`} alt="PFP" width={36} height={36} className="rounded-full" />
           ) : (
             <TvMinimalPlay size={32} color={color} />
           )
