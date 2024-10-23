@@ -1,4 +1,5 @@
 import Image from "next/image";
+import useProfileSearch from "@/hooks/useProfileSearch";
 import SubmitButton from "./SubmitButton";
 
 interface ChatInputProps {
@@ -12,6 +13,8 @@ const ChatInput: React.FC<ChatInputProps> = ({
   handleInputChange,
   input,
 }) => {
+  const { profile } = useProfileSearch()
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -22,7 +25,13 @@ const ChatInput: React.FC<ChatInputProps> = ({
   return (
     <div className="w-full max-w-[555px] bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
       <form onSubmit={handleSubmit} className="w-full flex items-center">
-        <Image src="/PFP.png" alt="PFP" width={44} height={44} className="rounded-full" />
+        {
+          profile.length > 0 ? (
+            <Image src={profile[0].avatar} alt="PFP" width={36} height={36} className="rounded-full" />
+          ) : (
+            <Image src="/PFP.png" alt="PFP" width={44} height={44} className="rounded-full" />
+          )
+        }
         <textarea
           value={input}
           onChange={handleInputChange}

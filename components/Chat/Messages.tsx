@@ -1,8 +1,10 @@
 import { Message } from "ai";
 import Image from "next/image";
+import useProfileSearch from "@/hooks/useProfileSearch";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
-  console.log(messages)
+  const { profile } = useProfileSearch()
+
   return (
     <div className="w-full max-w-xl mt-4 mb-4 overflow-y-auto">
       <div className="space-y-4 flex flex-col">
@@ -14,7 +16,13 @@ const Messages = ({ messages }: { messages: Message[] }) => {
             {
               message.role === "assistant" && (
                 <div className="w-8 h-8">
-                  <Image src="/PFP.png" alt="PFP" width={32} height={32} className="rounded-full" />
+                  {
+                    profile.length > 0 ? (
+                      <Image src={profile[0].avatar} alt="PFP" width={32} height={32} className="rounded-full" />
+                    ) : (
+                      <Image src="/PFP.png" alt="PFP" width={32} height={32} className="rounded-full" />
+                    )
+                  }
                 </div>
               )
             }
