@@ -15,7 +15,14 @@ export const ChatMessagesSchema = z.object({
     z.object({
       content: z.string(),
       role: z.enum(['user', 'assistant']),
-      toolInvocations: z.array(z.any()).optional(),
+      toolInvocations: z.array(
+        z.object({
+          toolName: z.string(),
+          state: z.string(),
+          result: z.string(),
+          toolCallId: z.string(),
+        })
+      ).optional(),
     }),
   ),
 });
@@ -38,7 +45,7 @@ export function createChatLLMService() {
  * @description Chat service that uses the LLM model to generate responses.
  */
 class ChatLLMService {
-  constructor() { }
+  constructor() {}
 
   /**
    * @name streamResponse

@@ -36,7 +36,14 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                   : "bg-transparent text-black w-[90%]"
               }`}
             >
-              <p className="text-sm" dangerouslySetInnerHTML={{ __html: marked.parse(message.toolInvocations?.[0]?.result ?? message.content, { async: false }) as string }} />
+              <p
+                className="text-sm"
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(
+                    message.toolInvocations?.[0]?.state === "result" ? message.toolInvocations?.[0]?.result : message.content, { async: false }
+                  ) as string
+                }}
+              />
             </div>
           </div>
         ))}
