@@ -15,6 +15,7 @@ export const ChatMessagesSchema = z.object({
     z.object({
       content: z.string(),
       role: z.enum(['user', 'assistant']),
+      toolInvocations: z.array(z.any()).optional(),
     }),
   ),
 });
@@ -37,7 +38,7 @@ export function createChatLLMService() {
  * @description Chat service that uses the LLM model to generate responses.
  */
 class ChatLLMService {
-  constructor() {}
+  constructor() { }
 
   /**
    * @name streamResponse
@@ -87,6 +88,23 @@ class ChatLLMService {
       maxTokens: settings.maxTokens,
       temperature: settings.temperature,
       messages,
+      tools: {
+        getConnectedProfile: {
+          name: "getConnectedProfile",
+          description: "Get the connected profile for a coinbase smart wallet. Call this whenever you need to know the connected profile, for example when a customer asks 'What is my Zora profile'",
+          parameters: z.object({
+            address: z.string().describe("The connected coinbase smart wallet."),
+          }),
+          execute: async ({ address }) => {
+            const response = await fetch(`https://api.myco.wtf/api/profile?address=${address}`)
+            if (!response.ok) {
+              return "I couldn't find your profile.";
+            }
+            const data = await response.json();
+            return `<img src="https://zora.co/api/avatar/${data.zoraProfile.address}" alt="PFP" style="border-radius: 99999px; width: 128px; height: 128px;" />`;
+          },
+        },
+      },
     });
 
     const stream = result.toAIStream({
