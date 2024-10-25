@@ -42,7 +42,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
               }`}
             >
               <ReactMarkdown className="text-sm">
-                {message.toolInvocations?.[0]?.state === "result" ? message.toolInvocations?.[0]?.result : message.content}
+                {message.toolInvocations?.[0]?.state === "result" ? message.toolInvocations[0].result : message.content}
               </ReactMarkdown>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { createChatMessagesService } from './chat-messages.service';
 import { Address } from 'viem';
 import trackNewMessage from '../stack/trackNewMessage';
 import { AI_MODEL } from '../consts';
+import getZoraPfpLink from '../zora/getZoraPfpLink';
 
 export const ChatMessagesSchema = z.object({
   messages: z.array(
@@ -108,7 +109,7 @@ class ChatLLMService {
               return "I couldn't find your profile.";
             }
             const data = await response.json();
-            return `<img src="https://zora.co/api/avatar/${data.zoraProfile.address}" alt="PFP" style="border-radius: 99999px; width: 128px; height: 128px;" />`;
+            return `<img src="${getZoraPfpLink(data.zoraProfile)}" alt="PFP" style="border-radius: 99999px; width: 128px; height: 128px;" />`;
           },
         },
       },
