@@ -1,6 +1,6 @@
 import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
-import { marked } from "marked";
+import ReactMarkdown from "react-markdown";
 import useProfileSearch from "@/hooks/useProfileSearch";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
@@ -36,7 +36,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                   : "bg-transparent text-black w-[90%]"
               }`}
             >
-              <p className="text-sm" dangerouslySetInnerHTML={{ __html: marked.parse(message.content, { async: false }) as string }} />
+              <ReactMarkdown className="text-sm">{message.content}</ReactMarkdown>
             </div>
           </div>
         ))}
