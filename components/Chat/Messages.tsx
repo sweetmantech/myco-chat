@@ -1,6 +1,7 @@
 import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
@@ -41,7 +42,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                   : "flex-1 bg-transparent text-black"
               }`}
             >
-              <ReactMarkdown className="text-sm">
+              <ReactMarkdown className="text-sm" rehypePlugins={[rehypeRaw]}>
                 {message.toolInvocations?.[0]?.state === "result" ? message.toolInvocations[0].result : message.content}
               </ReactMarkdown>
             </div>

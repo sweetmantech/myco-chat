@@ -96,6 +96,7 @@ class ChatLLMService {
       maxTokens: settings.maxTokens,
       temperature: settings.temperature,
       messages,
+      experimental_toolCallStreaming: true,
       tools: {
         getConnectedProfile: {
           name: "getConnectedProfile",
@@ -109,7 +110,13 @@ class ChatLLMService {
               return "I couldn't find your profile.";
             }
             const data = await response.json();
-            return `<img src="${getZoraPfpLink(data.zoraProfile)}" alt="PFP" style="border-radius: 99999px; width: 128px; height: 128px;" />`;
+            return `Here's your connected Zora profile.
+            <img src="${getZoraPfpLink(data.zoraProfile)}" alt="PFP" style="border-radius: 99999px; width: 64px; height: 64px;" />
+            - Name: ${data.zoraProfile.displayName} <br />
+            - Followers: ${data.zoraProfile.totalFollowers} <br />
+            - Following: ${data.zoraProfile.totalFollowing} <br />
+            - View Profile: <a href="https://profile.myco.wtf/${data.zoraProfile.address}">https://profile.myco.wtf/${data.zoraProfile.address}</a>
+            `;
           },
         },
       },
