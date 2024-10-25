@@ -5,7 +5,6 @@ import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
   const { profile } = useProfileSearch()
-  console.log(profile)
 
   return (
     <div className="w-full max-w-xl mt-4 mb-4 overflow-y-auto">
