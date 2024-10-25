@@ -1,5 +1,6 @@
 import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
+import ReactMarkdown from "react-markdown";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
@@ -12,14 +13,20 @@ const Messages = ({ messages }: { messages: Message[] }) => {
         {messages.map((message: Message, index: number) => (
           <div
             key={index}
-            className={`${message.role === "assistant" ? "flex" : ""}`}
+            className={message.role === "assistant" ? "flex" : ""}
           >
             {
               message.role === "assistant" && (
                 <div className="w-8 h-8">
                   {
                     profile.length > 0 ? (
-                      <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
+                      <img
+                        src={getZoraPfpLink(profile[0])}
+                        alt="PFP"
+                        width={36}
+                        height={36}
+                        className="rounded-full"
+                      />
                     ) : (
                       <TvMinimalPlay size={32} color="#000000" />
                     )
@@ -28,12 +35,13 @@ const Messages = ({ messages }: { messages: Message[] }) => {
               )
             }
             <div
-              className={`p-3 rounded-lg ${message.role === "user"
-                ? "bg-black text-white w-1/2 float-right"
-                : "bg-transparent text-black w-[90%]"
-                }`}
+              className={`p-3 rounded-lg ${
+                message.role === "user"
+                  ? "bg-black text-white float-right max-w-[85%]"
+                  : "flex-1 bg-transparent text-black"
+              }`}
             >
-              <p className="text-sm">{message.content}</p>
+              <ReactMarkdown className="text-sm">{message.content}</ReactMarkdown>
             </div>
           </div>
         ))}
