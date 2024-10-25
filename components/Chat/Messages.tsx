@@ -37,8 +37,8 @@ const Messages = ({ messages }: { messages: Message[] }) => {
             <div
               className={`p-3 rounded-lg ${
                 message.role === "user"
-                  ? "bg-black text-white max-w-1/2 float-right"
-                  : "bg-transparent text-black w-[90%]"
+                  ? "bg-black text-white float-right max-w-[85%]"
+                  : "flex-1 bg-transparent text-black"
               }`}
             >
               <ReactMarkdown className="text-sm">{message.content}</ReactMarkdown>
