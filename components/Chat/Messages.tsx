@@ -2,6 +2,7 @@ import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import useProfileSearch from "@/hooks/useProfileSearch";
+import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
   const { profile } = useProfileSearch()
@@ -14,21 +15,25 @@ const Messages = ({ messages }: { messages: Message[] }) => {
             key={index}
             className={message.role === "assistant" ? "flex" : ""}
           >
-            {message.role === "assistant" && (
-              <div className="w-8 h-8">
-                {profile.length > 0 ? (
-                  <img
-                    src={`https://zora.co/api/avatar/${profile[0].address}`}
-                    alt="PFP"
-                    width={36}
-                    height={36}
-                    className="rounded-full"
-                  />
-                ) : (
-                  <TvMinimalPlay size={32} color="#000000" />
-                )}
-              </div>
-            )}
+            {
+              message.role === "assistant" && (
+                <div className="w-8 h-8">
+                  {
+                    profile.length > 0 ? (
+                      <img
+                        src={getZoraPfpLink(profile[0])}
+                        alt="PFP"
+                        width={36}
+                        height={36}
+                        className="rounded-full"
+                      />
+                    ) : (
+                      <TvMinimalPlay size={32} color="#000000" />
+                    )
+                  }
+                </div>
+              )
+            }
             <div
               className={`p-3 rounded-lg ${
                 message.role === "user"
