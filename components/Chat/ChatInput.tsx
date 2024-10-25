@@ -1,5 +1,6 @@
 import { TvMinimalPlay } from "lucide-react";
 import useProfileSearch from "@/hooks/useProfileSearch";
+import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import SubmitButton from "./SubmitButton";
 
 interface ChatInputProps {
@@ -28,7 +29,7 @@ const ChatInput: React.FC<ChatInputProps> = ({
       <form onSubmit={handleSubmit} className="w-full flex items-center">
         {
           profile.length > 0 ? (
-            <img src={`https://zora.co/api/avatar/${profile[0].address}`} alt="PFP" width={36} height={36} className="rounded-full" />
+            <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
           ) : (
             <TvMinimalPlay size={32} color={color} />
           )

@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from 'react'
 import { useAccount } from 'wagmi';
 
 const useProfileSearch = () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [profile, setProfile] = useState<any[]>([])
 
   const { address } = useAccount();

@@ -1,9 +1,11 @@
 import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
 import useProfileSearch from "@/hooks/useProfileSearch";
+import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
   const { profile } = useProfileSearch()
+  console.log(profile)
 
   return (
     <div className="w-full max-w-xl mt-4 mb-4 overflow-y-auto">
@@ -18,7 +20,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                 <div className="w-8 h-8">
                   {
                     profile.length > 0 ? (
-                      <img src={`https://zora.co/api/avatar/${profile[0].address}`} alt="PFP" width={36} height={36} className="rounded-full" />
+                      <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
                     ) : (
                       <TvMinimalPlay size={32} color="#000000" />
                     )
