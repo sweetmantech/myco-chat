@@ -1,6 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const getZoraPfpLink = (profile: any) => {
-    if (profile?.avatar && profile.avatar.startsWith("/")) {
+import { ZoraProfile } from "../zora.types"
+
+const getZoraPfpLink = (profile: ZoraProfile) => {
+    if (profile.avatar.startsWith("/")) {
       return `https://zora.co/api/avatar/${profile.address}`
     }
     return profile.avatar
