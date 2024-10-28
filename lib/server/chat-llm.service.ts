@@ -90,7 +90,7 @@ class ChatLLMService {
       system: settings.systemMessage,
       maxTokens: settings.maxTokens,
       temperature: settings.temperature,
-      messages: messages,
+      messages,
       experimental_toolCallStreaming: true,
       maxSteps: 2,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
