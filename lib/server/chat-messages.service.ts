@@ -12,7 +12,7 @@ export function createChatMessagesService() {
 }
 
 class ChatMessagesService {
-  constructor() {}
+  constructor() { }
 
   async getChatSettings(chatReferenceId: string, address: Address) {
     const context = await this.fetchRelevantContext(address);
@@ -55,9 +55,15 @@ Please use this information to provide accurate and relevant responses and don't
           execute: async ({ address }) => {
             const response = await fetch(`https://api.myco.wtf/api/profile?address=${address}`)
             if (!response.ok) {
-              return "I couldn't find your profile.";
+              return { error: "I couldn't find your profile." };
             }
+
             const data = await response.json();
+
+            if (!data.zoraProfile) {
+              return { error: "I couldn't find your profile." };
+            }
+
             const context = {
               pfp: getZoraPfpLink(data.zoraProfile),
               name: data.zoraProfile.displayName || "Unknown",
@@ -71,7 +77,7 @@ Please use this information to provide accurate and relevant responses and don't
       };
     } catch (error) {
       console.error("Error reading or parsing JSON files:", error);
-      return [];
+      return {};
     }
   }
 }
