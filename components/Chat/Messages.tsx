@@ -1,17 +1,17 @@
 import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
   const { profile } = useProfileSearch()
+  console.log(messages)
 
   return (
     <div className="w-full max-w-xl mt-4 mb-4 overflow-y-auto">
       <div className="space-y-4 flex flex-col">
-        {messages.map((message: Message, index: number) => (
+        {messages.map((message: Message, index: number) => message.content && (
           <div
             key={index}
             className={message.role === "assistant" ? "flex" : ""}
@@ -42,8 +42,8 @@ const Messages = ({ messages }: { messages: Message[] }) => {
                   : "flex-1 bg-transparent text-black"
               }`}
             >
-              <ReactMarkdown className="text-sm" rehypePlugins={[rehypeRaw]}>
-                {message.toolInvocations?.[0]?.state === "result" ? message.toolInvocations[0].result : message.content}
+              <ReactMarkdown className="text-sm">
+                {message.content}
               </ReactMarkdown>
             </div>
           </div>
