@@ -64,14 +64,14 @@ Please use this information to provide accurate and relevant responses and don't
               return { error: "I couldn't find your profile." };
             }
 
-            const context = {
+            const content = {
               pfp: getZoraPfpLink(data.zoraProfile),
               name: data.zoraProfile.displayName || "Unknown",
               followers: data.zoraProfile.totalFollowers || 0,
               following: data.zoraProfile.totalFollowing || 0,
               profileUrl: `https://profile.myco.wtf/${data.zoraProfile.address}`,
             };
-            return context;
+            return { content, role: "assistant" };
           },
         }),
       };
