@@ -65,7 +65,7 @@ Please use this information to provide accurate and relevant responses and don't
             }
 
             const content = {
-              pfp: getZoraPfpLink(data.zoraProfile),
+              profilePicture: getZoraPfpLink(data.zoraProfile),
               name: data.zoraProfile.displayName || "Unknown",
               followers: data.zoraProfile.totalFollowers || 0,
               following: data.zoraProfile.totalFollowing || 0,
