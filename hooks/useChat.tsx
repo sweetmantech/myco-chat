@@ -21,6 +21,7 @@ const useChat = () => {
     handleInputChange,
     handleSubmit: handleAiChatSubmit,
     append: appendAiChat,
+    isLoading: pending,
   } = useAiChat({
     api: `/api/chat`,
     headers: {
@@ -73,6 +74,7 @@ const useChat = () => {
     append,
     suggestions,
     finalCallback,
+    pending,
   };
 };
 
