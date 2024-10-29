@@ -12,6 +12,10 @@ export async function GET(req: NextRequest) {
       model: AI_MODEL,
       messages: [
         {
+          role: "system",
+          content: `Please respond only with a JSON object in this format. {"data": [string]}`,
+        },
+        {
           role: "user",
           content: `Based on the conversation context, generate helpful follow-up questions that encourage deeper exploration and analysis of the provided data. 
           - Questions should be framed to help guide the user to actionable insights.
@@ -28,10 +32,6 @@ export async function GET(req: NextRequest) {
           Answer:
           ${answer}
           `,
-        },
-        {
-          role: "system",
-          content: `Let's get response with only this json format. {"data": [string]}`,
         },
       ],
     });
