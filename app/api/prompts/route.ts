@@ -31,6 +31,7 @@ export async function GET(req: NextRequest) {
           - Keep questions to 10 words or less.
           - Dumb it down to a 7th grade reading level.
           - Limit number of questions to 4 max.
+          - Use first person point of view when answering.
 
           For example:
           "What should we do with this data?" - Too broad.
