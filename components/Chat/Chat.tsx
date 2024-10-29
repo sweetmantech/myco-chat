@@ -10,7 +10,7 @@ const Chat = () => {
   return (
     <div className="w-full items-center flex flex-col max-h-[85vh]">
       <Messages messages={messages} />
-      <Suggestions />
+      {messages.length !== 0 && <Suggestions />}
       <ChatInput
         handleSubmit={handleSubmit}
         handleInputChange={handleInputChange}
