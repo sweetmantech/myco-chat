@@ -25,7 +25,7 @@ ${context}
 Please use this information to provide accurate and relevant responses and don't mention the data source in your response. Respond with a text string.`;
 
     return {
-      maxTokens: 500,
+      maxTokens: 1111,
       systemMessage,
       model: AI_MODEL,
       temperature: 0.7,
