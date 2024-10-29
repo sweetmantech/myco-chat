@@ -8,7 +8,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
   const { profile } = useProfileSearch()
 
   return (
-    <div className="w-full max-w-xl mt-4 mb-4 overflow-y-auto">
+    <div className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
       <div className="space-y-4 flex flex-col">
         {messages.map((message: Message, index: number) => message.content && (
           <div
