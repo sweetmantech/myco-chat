@@ -1,11 +1,10 @@
-import { useCsrfToken } from "@/packages/shared/src/hooks";
-import { Message, useChat as useAiChat } from "ai/react";
 import { useQueryClient } from "@tanstack/react-query";
+import { Message, useChat as useAiChat } from "ai/react";
 import { useAccount } from "wagmi";
+import { useCsrfToken } from "@/packages/shared/src/hooks";
 import useConnectWallet from "./useConnectWallet";
-import trackNewMessage from "@/lib/stack/trackNewMessage";
-import { Address } from "viem";
 import useInitialMessages from "./useInitialMessages";
+import useSuggestions from "./useSuggestions";
 
 const useChat = () => {
   const { connectWallet } = useConnectWallet();
@@ -14,6 +13,7 @@ const useChat = () => {
   const queryClient = useQueryClient();
   const { address } = useAccount();
   const { initialMessages } = useInitialMessages();
+  const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
 
   const {
     messages,
@@ -33,7 +33,8 @@ const useChat = () => {
     },
     initialMessages,
     onError: console.error,
-    onFinish: () => {
+    onFinish: async (message) => {
+      await finalCallback(message, messages[messages.length - 2]);
       void queryClient.invalidateQueries({
         queryKey: ["credits", accountId],
       });
@@ -50,7 +51,7 @@ const useChat = () => {
 
   const append = async (message: Message) => {
     if (!isPrepared()) return;
-    await trackNewMessage(address as Address, message);
+    setCurrentQuestion(message);
     await appendAiChat(message);
   };
 
@@ -58,14 +59,23 @@ const useChat = () => {
     e.preventDefault();
     if (!isPrepared()) return;
     handleAiChatSubmit(e);
-    await trackNewMessage(address as Address, {
+    setCurrentQuestion({
       content: input,
       role: "user",
-      id: `${address}-${Date.now().toLocaleString()}`,
+      id: `${address}-${Date.now()}`,
     });
   };
 
-  return { messages, input, handleInputChange, handleSubmit, append, pending };
+  return {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    append,
+    suggestions,
+    finalCallback,
+    pending,
+  };
 };
 
 export default useChat;

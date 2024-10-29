@@ -7,3 +7,9 @@ export const CHAT_POINT_SYSTEM_ID = 4026
 
 // Vercel AI SDK
 export const AI_MODEL = "gpt-4o-mini"
+
+// Suggestions
+export const SUGGESTIONS = [
+  "What did I create this week???",
+  "What's my Zora score???",
+]
