@@ -22,7 +22,8 @@ class ChatMessagesService {
 Here is some relevant data to help you answer:
 ${context}
 
-Please use this information to provide accurate and relevant responses and don't mention the data source in your response.`;
+Please use this information to provide accurate and relevant responses and don't mention the data source in your response.
+Please include profile picture, name, followers, following and profile url in your response if you have it and user asks for zora profile.`;
 
     return {
       maxTokens: 1111,
