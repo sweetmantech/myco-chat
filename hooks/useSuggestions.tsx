@@ -29,7 +29,7 @@ const useSuggestions = () => {
       {
         content: message.content.replace(/[^a-zA-Z0-9\s,\.]/g, ""),
         role: message.role,
-        id: `${address}-${Date.now().toLocaleString()}`,
+        id: `${address}-${Date.now()}`,
       },
     );
     setCurrentQuestion(null);

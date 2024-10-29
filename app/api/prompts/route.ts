@@ -5,6 +5,13 @@ import OpenAI from "openai";
 export async function GET(req: NextRequest) {
   const answer = req.nextUrl.searchParams.get("answer");
 
+  if (!answer) {
+    return Response.json(
+      { message: "'answer' query parameter is required" },
+      { status: 400 }
+    );
+  }
+
   try {
     const openai = new OpenAI();
 
@@ -27,7 +34,7 @@ export async function GET(req: NextRequest) {
 
           For example:
           "What should we do with this data?" - Too broad.
-          "How can we use data from top users to boost engagement?" - More specific and action-oriented.
+          "How can we use data from top collectors to boost engagement?" - More specific and action-oriented.
           
           Answer:
           ${answer}

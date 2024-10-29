@@ -62,7 +62,7 @@ const useChat = () => {
     setCurrentQuestion({
       content: input,
       role: "user",
-      id: `${address}-${Date.now().toLocaleString()}`,
+      id: `${address}-${Date.now()}`,
     });
   };
 

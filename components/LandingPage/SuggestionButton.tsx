@@ -18,7 +18,7 @@ const SuggestionButton = ({
 
   const onSubmit = async (message: string) =>
     append({
-      id: `${address}-${Date.now().toLocaleString()}`,
+      id: `${address}-${Date.now()}`,
       role: "user",
       content: message,
     });
