@@ -3,9 +3,12 @@ import { TvMinimalPlay } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
+import { useChatProvider } from "@/providers/ChatProvider";
+import Thinking from "./Thinking";
 
 const Messages = ({ messages }: { messages: Message[] }) => {
-  const { profile } = useProfileSearch()
+  const { profile } = useProfileSearch();
+  const { pending } = useChatProvider();
 
   return (
     <div className="w-full max-w-xl mt-4 mb-4 overflow-y-auto">
@@ -47,6 +50,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
             </div>
           </div>
         ))}
+        {pending && <Thinking />}
       </div>
     </div>
   );
