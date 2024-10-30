@@ -1,49 +1,38 @@
 import { Message } from "ai";
-import { useChat as useAiChat } from "ai/react";
-import { useAccount } from "wagmi";
+import { useRouter } from "next/navigation";
+import { v4 as uuidV4 } from "uuid";
 import useConnectWallet from "./useConnectWallet";
 import useSuggestions from "./useSuggestions";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCsrfToken } from "@/packages/shared/src/hooks";
-import useInitialMessages from "./useInitialMessages";
+import useMessages from "./useMessages";
+import useConversations from "./useConversations";
 
 const useChat = () => {
-  const { connectWallet } = useConnectWallet();
-  const { address } = useAccount();
+  const { address, connectWallet } = useConnectWallet();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
-  const csrfToken = useCsrfToken();
-  const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
-  const queryClient = useQueryClient();
-  const { initialMessages } = useInitialMessages();
-
+  const { push } = useRouter();
+  const { conversationId } = useConversations();
   const {
-    messages,
+    conversationRef,
     input,
+    appendAiChat,
+    handleAiChatSubmit,
     handleInputChange,
-    handleSubmit: handleAiChatSubmit,
-    append: appendAiChat,
-    isLoading: pending,
-  } = useAiChat({
-    api: `/api/chat`,
-    headers: {
-      "X-CSRF-Token": csrfToken,
-    },
-    body: {
-      accountId,
-      address,
-    },
-    initialMessages,
-    onError: console.error,
-    onFinish: async (message) => {
-      await finalCallback(
-        message,
-        messages[messages.length - 2],
-      );
-      void queryClient.invalidateQueries({
-        queryKey: ["credits", accountId],
-      });
-    },
-  });
+    messagesRef,
+    pending,
+    fetchInitialMessages,
+  } = useMessages();
+
+  const goToNewConversation = async () => {
+    if (conversationId) return;
+    const newId = uuidV4();
+    conversationRef.current = newId;
+    push(`/${newId}`);
+  };
+
+  const clearQuery = async () => {
+    if (!address) return;
+    await fetchInitialMessages(address);
+  };
 
   const isPrepared = () => {
     if (!address) {
@@ -56,7 +45,8 @@ const useChat = () => {
   const append = async (message: Message) => {
     if (!isPrepared()) return;
     setCurrentQuestion(message);
-    await appendAiChat(message);
+    appendAiChat(message);
+    await goToNewConversation();
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,17 +58,19 @@ const useChat = () => {
       id: `${address}-${Date.now()}`,
     });
     handleAiChatSubmit(e);
+    await goToNewConversation();
   };
 
   return {
-    messages,
+    suggestions,
+    messages: messagesRef.current,
     input,
+    pending,
+    append,
     handleInputChange,
     handleSubmit,
-    append,
-    suggestions,
     finalCallback,
-    pending,
+    clearQuery,
   };
 };
 

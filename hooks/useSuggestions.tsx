@@ -1,15 +1,16 @@
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { Message } from "ai";
 import { Address } from "viem";
-import { useAccount } from "wagmi";
 import { SUGGESTIONS } from "@/lib/consts";
 import trackNewMessage from "@/lib/stack/trackNewMessage";
+import useConnectWallet from "./useConnectWallet";
 
 const useSuggestions = () => {
-  const { address } = useAccount();
+  const { address } = useConnectWallet();
   const [suggestions, setSuggestions] = useState(SUGGESTIONS);
   const [currentQuestion, setCurrentQuestion] = useState<Message | null>(null);
+  const { conversation: pathId } = useParams();
   const pathname = usePathname();
   const isNewChat = pathname === "/";
 
@@ -20,10 +21,12 @@ const useSuggestions = () => {
   const finalCallback = async (
     message: Message,
     lastQuestion?: Message,
+    newConversationId?: string,
   ) => {
+    const convId = newConversationId || (pathId as string);
     const question = lastQuestion || currentQuestion;
     if (!message.content || !question) return;
-    await trackNewMessage(address as Address, question);
+    await trackNewMessage(address as Address, question, convId);
     await trackNewMessage(
       address as Address,
       {
@@ -31,6 +34,7 @@ const useSuggestions = () => {
         role: message.role,
         id: `${address}-${Date.now()}`,
       },
+      convId,
     );
     setCurrentQuestion(null);
     const response = await fetch(`/api/prompts?answer=${message.content}`);

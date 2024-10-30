@@ -26,6 +26,7 @@
     "react-scroll-to": "^3.0.0-beta.6",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.2",
     "viem": "^2.21.16",
     "wagmi": "^2.12.16",
     "zod": "^3.23.8"

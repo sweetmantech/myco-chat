@@ -1,7 +1,7 @@
-import { useAccount } from "wagmi";
 import { Lightbulb } from "lucide-react";
 import { useChatProvider } from "@/providers/ChatProvider";
 import { cn } from "@/lib/utils";
+import useConnectWallet from "@/hooks/useConnectWallet";
 import { Button } from "../ui/Button";
 
 const SuggestionButton = ({
@@ -14,7 +14,7 @@ const SuggestionButton = ({
   initial?: boolean;
 }) => {
   const { append } = useChatProvider();
-  const { address } = useAccount();
+  const { address } = useConnectWallet();
 
   const onSubmit = async (message: string) =>
     append({

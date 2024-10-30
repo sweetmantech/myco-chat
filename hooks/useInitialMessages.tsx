@@ -1,12 +1,12 @@
 import { Message } from "ai";
 import { Address } from "viem";
 import { useEffect, useState } from "react";
-import { useAccount } from "wagmi";
 import getInitialMessages from "@/lib/stack/getInitialMessages";
+import useConnectWallet from "./useConnectWallet";
 
 const useInitialMessages = () => {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
-  const { address } = useAccount();
+  const { address } = useConnectWallet();
 
   useEffect(() => {
     if (address) {
@@ -23,7 +23,7 @@ const useInitialMessages = () => {
     }
   };
 
-  return { initialMessages };
+  return { initialMessages, fetchInitialMessages };
 };
 
 export default useInitialMessages;

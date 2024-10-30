@@ -16,6 +16,7 @@ const useConnectWallet = () => {
 
   return {
     connectWallet,
+    address,
   };
 };
 

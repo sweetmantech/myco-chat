@@ -1,11 +1,16 @@
 "use client";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChatProvider } from "./ChatProvider";
 import WagmiProvider from "./WagmiProvider";
 
+const queryClient = new QueryClient();
+
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <WagmiProvider>
-    <ChatProvider>{children}</ChatProvider>
+    <QueryClientProvider client={queryClient}>
+      <ChatProvider>{children}</ChatProvider>
+    </QueryClientProvider>
   </WagmiProvider>
 );
 
