@@ -1,37 +1,76 @@
+import { useEffect } from "react";
 import { Message } from "ai";
-import { useRouter } from "next/navigation";
+import { useChat as useAiChat } from "ai/react";
+import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
 import useConnectWallet from "./useConnectWallet";
 import useSuggestions from "./useSuggestions";
-import useMessages from "./useMessages";
 import useConversations from "./useConversations";
+import { useCsrfToken } from "@/packages/shared/src/hooks";
+import { useQueryClient } from "@tanstack/react-query";
+import useInitialMessages from "./useInitialMessages";
 
 const useChat = () => {
   const { address, connectWallet } = useConnectWallet();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const { push } = useRouter();
-  const { conversationId } = useConversations();
+  const { initialMessages } = useInitialMessages();
+  const { conversationId, conversationRef } = useConversations();
+  const csrfToken = useCsrfToken();
+  const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
+  const queryClient = useQueryClient();
+
+  const pathname = usePathname();
+
+  const isNewChat = pathname === "/";
+
   const {
-    conversationRef,
+    messages,
     input,
-    appendAiChat,
-    handleAiChatSubmit,
     handleInputChange,
-    messagesRef,
-    pending,
-    fetchInitialMessages,
-  } = useMessages();
+    handleSubmit: handleAiChatSubmit,
+    append: appendAiChat,
+    isLoading: pending,
+    setMessages,
+  } = useAiChat({
+    api: `/api/chat`,
+    headers: {
+      "X-CSRF-Token": csrfToken,
+    },
+    body: {
+      accountId,
+      address,
+    },
+    initialMessages,
+    onError: console.error,
+    onFinish: async (message) => {
+      await finalCallback(
+        message,
+        messages[messages.length - 2],
+        conversationRef.current,
+      );
+      void queryClient.invalidateQueries({
+        queryKey: ["credits", accountId],
+      });
+    },
+  });
+
+  useEffect(() => {
+    if (initialMessages.length) setMessages(initialMessages);
+  }, [initialMessages]);
+
+  useEffect(() => {
+    if (isNewChat) {
+      conversationRef.current = "";
+      setMessages([]);
+    }
+  }, [isNewChat]);
 
   const goToNewConversation = async () => {
     if (conversationId) return;
     const newId = uuidV4();
     conversationRef.current = newId;
     push(`/${newId}`);
-  };
-
-  const clearQuery = async () => {
-    if (!address) return;
-    await fetchInitialMessages(address);
   };
 
   const isPrepared = () => {
@@ -63,14 +102,13 @@ const useChat = () => {
 
   return {
     suggestions,
-    messages: messagesRef.current,
+    messages,
     input,
     pending,
     append,
     handleInputChange,
     handleSubmit,
     finalCallback,
-    clearQuery,
   };
 };
 

@@ -3,7 +3,6 @@ import SuggestionButton from "../LandingPage/SuggestionButton";
 
 const Suggestions = () => {
   const { suggestions } = useChatProvider();
-  console.log(suggestions);
 
   return (
     <div className="flex flex-col items-center space-y-1 mb-2">
