@@ -1,27 +1,23 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Message } from "ai";
 import { TvMinimalPlay } from "lucide-react";
 import ReactMarkdown from "react-markdown";
-import { ScrollArea } from "react-scroll-to";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
 
-const Messages = ({
-  scroll,
-}: {
-  scroll: ({ smooth, y }: { smooth: boolean; y: number }) => void;
-}) => {
+const Messages = () => {
   const { messages, pending } = useChatProvider();
   const { profile } = useProfileSearch();
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    scroll({ smooth: true, y: Number.MAX_SAFE_INTEGER });
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   });
 
   return (
-    <ScrollArea className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
+    <div className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
       <div className="space-y-4 flex flex-col">
         {messages.map((message: Message, index: number) => message.content && (
           <div
@@ -62,7 +58,8 @@ const Messages = ({
         ))}
         {pending && <Thinking />}
       </div>
-    </ScrollArea>
+      <div ref={scrollRef} />
+    </div>
   );
 };
 
