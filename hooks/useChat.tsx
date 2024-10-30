@@ -13,6 +13,7 @@ const useChat = () => {
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const csrfToken = useCsrfToken();
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
+  const lastQuestionOffset = 2;
   const queryClient = useQueryClient();
   const { initialMessages } = useInitialMessages();
 
@@ -37,7 +38,7 @@ const useChat = () => {
     onFinish: async (message) => {
       await finalCallback(
         message,
-        messages[messages.length - 2],
+        messages[messages.length - lastQuestionOffset],
       );
       void queryClient.invalidateQueries({
         queryKey: ["credits", accountId],
