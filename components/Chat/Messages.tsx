@@ -13,13 +13,12 @@ const Messages = ({
 }: {
   scroll: ({ smooth, y }: { smooth: boolean; y: number }) => void;
 }) => {
-  const { messages, pending, suggestions } = useChatProvider();
+  const { messages, pending } = useChatProvider();
   const { profile } = useProfileSearch();
 
   useEffect(() => {
     scroll({ smooth: true, y: Number.MAX_SAFE_INTEGER });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages, pending, suggestions]);
+  });
 
   return (
     <ScrollArea className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
