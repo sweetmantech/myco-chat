@@ -1,21 +1,12 @@
-import { useChatProvider } from "@/providers/ChatProvider";
+import { ScrollTo } from "react-scroll-to";
 import ChatInput from "./ChatInput";
 import Messages from "./Messages";
-import Suggestions from "./Suggestions";
 
 const Chat = () => {
-  const { messages, input, handleInputChange, handleSubmit } =
-    useChatProvider();
-
   return (
     <div className="w-full items-center flex flex-col max-h-[85vh]">
-      <Messages messages={messages} />
-      {messages.length !== 0 && <Suggestions />}
-      <ChatInput
-        handleSubmit={handleSubmit}
-        handleInputChange={handleInputChange}
-        input={input}
-      />
+      <ScrollTo>{({ scroll }) => <Messages scroll={scroll} />}</ScrollTo>
+      <ChatInput />
     </div>
   );
 };
