@@ -14,7 +14,8 @@ const Messages = () => {
 
   useEffect(() => {
     if (virtuoso.current) {
-      virtuoso.current.scrollToIndex({ index: messages.length, behavior: "auto", align: "end" });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (virtuoso.current as any).scrollToIndex({ index: messages.length, behavior: "auto", align: "end" });
     }
   });
 
