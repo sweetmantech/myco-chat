@@ -84,8 +84,8 @@ const useChat = () => {
   const append = async (message: Message) => {
     if (!isPrepared()) return;
     setCurrentQuestion(message);
-    appendAiChat(message);
     await goToNewConversation();
+    appendAiChat(message);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -96,8 +96,8 @@ const useChat = () => {
       role: "user",
       id: `${address}-${Date.now()}`,
     });
-    handleAiChatSubmit(e);
     await goToNewConversation();
+    handleAiChatSubmit(e);
   };
 
   return {

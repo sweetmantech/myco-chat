@@ -12,6 +12,10 @@ const useConversations = () => {
   const conversationRef = useRef(conversation as string);
 
   useEffect(() => {
+    conversationRef.current = conversation as string;
+  }, [conversation]);
+
+  useEffect(() => {
     if (address) {
       fetchConversations(address);
     }
