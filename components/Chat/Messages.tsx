@@ -8,9 +8,10 @@ import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
 
 const Messages = () => {
-  const { messages, pending } = useChatProvider();
+  const { messages, pending, suggestions } = useChatProvider();
   const { profile } = useProfileSearch();
   const virtuoso = useRef(null);
+  const heightOffset = 240 + 40 * suggestions.length;
 
   useEffect(() => {
     if (virtuoso.current) {
@@ -22,7 +23,7 @@ const Messages = () => {
   return (
     <div className="w-full max-w-xl mt-4 mb-2">
       <Virtuoso
-        style={{ height: pending ? "calc(100vh - 350px)" : "calc(100vh - 320px)" }}
+        style={{ height: pending ? `calc(100vh - ${heightOffset + 40}px)` : `calc(100vh - ${heightOffset}px)` }}
         data={messages}
         totalCount={messages.length}
         ref={virtuoso}
