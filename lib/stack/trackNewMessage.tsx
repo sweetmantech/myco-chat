@@ -13,8 +13,8 @@ const trackNewMessage = async (
   conversationId: string,
 ) => {
   const stackClient = getStackClient(CHAT_POINT_SYSTEM_ID);
-  const pointSystemId = MESSAGE_SENT_EVENT;
-  await stackClient.track(pointSystemId, {
+  const eventName = `${MESSAGE_SENT_EVENT}-${conversationId}`;
+  await stackClient.track(eventName, {
     points: MESSAGE_SENT_POINT,
     account: address,
     uniqueId: `${address}-${Date.now()}`,

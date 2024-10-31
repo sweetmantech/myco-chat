@@ -1,3 +1,5 @@
+import { Message } from "ai";
+
 export type Conversation = {
   address: string;
   event: string;
@@ -11,4 +13,8 @@ export type Conversation = {
   };
   points: number;
   timestamp: string;
+};
+
+export type StackMessage = Message & {
+  questionId?: string;
 };

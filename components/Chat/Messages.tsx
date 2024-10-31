@@ -24,7 +24,7 @@ const Messages = () => {
     <div className="w-full max-w-xl mt-4 mb-2">
       <Virtuoso
         style={{ height: pending ? `calc(100vh - ${heightOffset + 40}px)` : `calc(100vh - ${heightOffset}px)` }}
-        data={messages}
+        data={messages.filter((message) => message.content)}
         totalCount={messages.length}
         ref={virtuoso}
         itemContent={(_, message) => {
