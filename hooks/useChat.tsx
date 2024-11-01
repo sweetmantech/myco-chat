@@ -1,21 +1,29 @@
+import { useEffect } from "react";
 import { Message } from "ai";
 import { useChat as useAiChat } from "ai/react";
-import { useAccount } from "wagmi";
+import { usePathname, useRouter } from "next/navigation";
+import { v4 as uuidV4 } from "uuid";
 import useConnectWallet from "./useConnectWallet";
 import useSuggestions from "./useSuggestions";
-import { useQueryClient } from "@tanstack/react-query";
+import useConversations from "./useConversations";
 import { useCsrfToken } from "@/packages/shared/src/hooks";
+import { useQueryClient } from "@tanstack/react-query";
 import useInitialMessages from "./useInitialMessages";
 
 const useChat = () => {
-  const { connectWallet } = useConnectWallet();
-  const { address } = useAccount();
+  const { address, connectWallet } = useConnectWallet();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
+  const { push } = useRouter();
+  const { initialMessages } = useInitialMessages();
+  const { conversationId, conversationRef } = useConversations();
   const csrfToken = useCsrfToken();
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const lastQuestionOffset = 2;
   const queryClient = useQueryClient();
-  const { initialMessages } = useInitialMessages();
+
+  const pathname = usePathname();
+
+  const isNewChat = pathname === "/";
 
   const {
     messages,
@@ -24,6 +32,7 @@ const useChat = () => {
     handleSubmit: handleAiChatSubmit,
     append: appendAiChat,
     isLoading: pending,
+    setMessages,
   } = useAiChat({
     api: `/api/chat`,
     headers: {
@@ -46,6 +55,24 @@ const useChat = () => {
     },
   });
 
+  useEffect(() => {
+    if (initialMessages.length) setMessages(initialMessages);
+  }, [initialMessages]);
+
+  useEffect(() => {
+    if (isNewChat) {
+      conversationRef.current = "";
+      setMessages([]);
+    }
+  }, [isNewChat]);
+
+  const goToNewConversation = async () => {
+    if (conversationId) return;
+    const newId = uuidV4();
+    conversationRef.current = newId;
+    push(`/${newId}`);
+  };
+
   const isPrepared = () => {
     if (!address) {
       connectWallet();
@@ -57,7 +84,8 @@ const useChat = () => {
   const append = async (message: Message) => {
     if (!isPrepared()) return;
     setCurrentQuestion(message);
-    await appendAiChat(message);
+    await goToNewConversation();
+    appendAiChat(message);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -68,18 +96,19 @@ const useChat = () => {
       role: "user",
       id: `${address}-${Date.now()}`,
     });
+    await goToNewConversation();
     handleAiChatSubmit(e);
   };
 
   return {
+    suggestions,
     messages,
     input,
+    pending,
+    append,
     handleInputChange,
     handleSubmit,
-    append,
-    suggestions,
     finalCallback,
-    pending,
   };
 };
 

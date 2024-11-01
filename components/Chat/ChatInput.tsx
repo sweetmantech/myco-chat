@@ -1,4 +1,5 @@
 import { TvMinimalPlay } from "lucide-react";
+import { usePathname } from "next/navigation";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
@@ -6,9 +7,13 @@ import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
 
 const ChatInput = () => {
-  const { handleSubmit, handleInputChange, input, messages } = useChatProvider();
+  const { handleSubmit, handleInputChange, input } = useChatProvider();
   const { profile } = useProfileSearch();
   const color = input.length > 0 ? "#000000" : "#F2E8CC";
+
+  const pathname = usePathname();
+
+  const isNewChat = pathname === "/";
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
@@ -19,7 +24,7 @@ const ChatInput = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      {messages.length !== 0 && <Suggestions />}
+      {!isNewChat && <Suggestions />}
       <div className="w-full max-w-[555px] bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
         <form onSubmit={handleSubmit} className="w-full flex items-center">
           {
