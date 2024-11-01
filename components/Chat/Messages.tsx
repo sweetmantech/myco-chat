@@ -1,14 +1,20 @@
-import { Message } from "ai";
+import { useEffect, useRef } from "react";
 import { TvMinimalPlay } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
+import { Message } from "ai";
 
-const Messages = ({ messages }: { messages: Message[] }) => {
+const Messages = () => {
+  const { messages, pending } = useChatProvider();
   const { profile } = useProfileSearch();
-  const { pending } = useChatProvider();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "auto" });
+  });
 
   return (
     <div className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
@@ -38,11 +44,10 @@ const Messages = ({ messages }: { messages: Message[] }) => {
               )
             }
             <div
-              className={`p-3 rounded-lg ${
-                message.role === "user"
-                  ? "bg-black text-white float-right max-w-[85%]"
-                  : "flex-1 bg-transparent text-black"
-              }`}
+              className={`p-3 rounded-lg ${message.role === "user"
+                ? "bg-black text-white float-right max-w-[85%]"
+                : "flex-1 bg-transparent text-black"
+                }`}
             >
               <ReactMarkdown className="text-sm">
                 {message.content}
@@ -52,6 +57,7 @@ const Messages = ({ messages }: { messages: Message[] }) => {
         ))}
         {pending && <Thinking />}
       </div>
+      <div ref={scrollRef} />
     </div>
   );
 };
