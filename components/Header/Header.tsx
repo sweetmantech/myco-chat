@@ -8,11 +8,13 @@ import LoginButton from "../LoginButton";
 
 const Header = () => {
   const { push } = useRouter();
-  const { address } = useConnectWallet();
+  const { address, connectWallet } = useConnectWallet();
 
   const handleClick = (link: string) => {
     if (address) {
       push(link);
+    } else {
+      connectWallet();
     }
   };
 
