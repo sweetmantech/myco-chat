@@ -4,6 +4,7 @@ import { Address } from 'viem';
 import getContext from '../getContext';
 import { AI_MODEL } from '../consts';
 import getConnectedProfile from '../tools/getConnectedProfile';
+import create from '../tools/create';
 
 export function createChatMessagesService() {
   return new ChatMessagesService();
@@ -46,6 +47,7 @@ Please use this information to provide accurate and relevant responses and don't
     try {
       return {
         getConnectedProfile: getConnectedProfile(),
+        create: create(),
       };
     } catch (error) {
       console.error("Error reading or parsing JSON files:", error);
@@ -53,5 +55,3 @@ Please use this information to provide accurate and relevant responses and don't
     }
   }
 }
-
-
