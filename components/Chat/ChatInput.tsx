@@ -14,14 +14,14 @@ const ChatInput = () => {
     pending,
   } = useChatProvider();
   const { profile } = useProfileSearch();
-  const color = input.length > 0 ? "#000000" : "#F2E8CC";
+  const color = (!pending && input.length > 0) ? "#000000" : "#F2E8CC";
 
   const pathname = usePathname();
 
   const isNewChat = pathname === "/";
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !pending) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
@@ -53,7 +53,6 @@ const ChatInput = () => {
             className="w-full text-black outline-none text-lg px-4 resize-none pr-12 font-normal duration-150 ease-in-out flex items-center"
             aria-label="Chat input"
             rows={1}
-            disabled={pending}
           />
           <SubmitButton />
         </form>
