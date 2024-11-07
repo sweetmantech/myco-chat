@@ -50,6 +50,7 @@ const useChat = () => {
       await finalCallback(
         message,
         messages[messages.length - lastQuestionOffset],
+        conversationRef.current,
       );
       void queryClient.invalidateQueries({
         queryKey: ["credits", accountId],

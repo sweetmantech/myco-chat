@@ -5,7 +5,7 @@ const ToolContent = () => {
 
   return (
     <div>
-      {toolName === "getConnectedProfile" && <div />}
+      {toolName === "getConnectedProfile" && <div className="text-black">Tool Calling</div>}
     </div>
   );
 };

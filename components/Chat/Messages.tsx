@@ -8,6 +8,7 @@ import { ToolCallProvider } from "@/providers/ToolCallProvider";
 const Messages = () => {
   const { messages, pending } = useChatProvider();
   const scrollRef = useRef<HTMLDivElement>(null);
+  console.log(messages)
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "auto" });

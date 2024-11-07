@@ -9,7 +9,7 @@ const ToolDescription = ({ message }: { message: AIMessage }) => {
   const content = message.content || answer;
 
   return (
-    <div>
+    <>
       {(toolName === "getCampaign" || toolName === "getArtistAnalysis") && (
         <>
           {loading && !content ? (
@@ -23,7 +23,7 @@ const ToolDescription = ({ message }: { message: AIMessage }) => {
         </>
       )}
       {!toolName && <Answer content={content} role={message.role} />}
-    </div>
+    </>
   );
 };
 

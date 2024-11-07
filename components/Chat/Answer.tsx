@@ -1,4 +1,5 @@
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 
 const Answer = ({
   content,
@@ -15,7 +16,7 @@ const Answer = ({
         : "flex-1 bg-transparent text-black"
         }`}
     >
-      <ReactMarkdown className="text-sm">
+      <ReactMarkdown className="text-sm" rehypePlugins={[rehypeRaw]}>
         {content || ""}
       </ReactMarkdown>
     </div>
