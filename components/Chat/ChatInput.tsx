@@ -7,7 +7,12 @@ import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
 
 const ChatInput = () => {
-  const { handleSubmit, handleInputChange, input } = useChatProvider();
+  const {
+    handleSubmit,
+    handleInputChange,
+    input,
+    pending,
+  } = useChatProvider();
   const { profile } = useProfileSearch();
   const color = input.length > 0 ? "#000000" : "#F2E8CC";
 
@@ -29,7 +34,13 @@ const ChatInput = () => {
         <form onSubmit={handleSubmit} className="w-full flex items-center">
           {
             profile.length > 0 ? (
-              <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
+              <img
+                src={getZoraPfpLink(profile[0])}
+                alt="PFP"
+                width={36}
+                height={36}
+                className="rounded-full"
+              />
             ) : (
               <TvMinimalPlay size={32} color={color} />
             )
@@ -42,6 +53,7 @@ const ChatInput = () => {
             className="w-full text-black outline-none text-lg px-4 resize-none pr-12 font-normal duration-150 ease-in-out flex items-center"
             aria-label="Chat input"
             rows={1}
+            disabled={pending}
           />
           <SubmitButton />
         </form>
