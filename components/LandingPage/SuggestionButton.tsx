@@ -13,7 +13,7 @@ const SuggestionButton = ({
   className?: string;
   initial?: boolean;
 }) => {
-  const { append } = useChatProvider();
+  const { append, pending } = useChatProvider();
   const { address } = useConnectWallet();
 
   const onSubmit = async (message: string) =>
@@ -25,6 +25,7 @@ const SuggestionButton = ({
 
   return (
     <Button
+      disabled={pending}
       onClick={() => onSubmit(suggestion)}
       className={cn(
         "flex flex-col items-start justify-start gap-1 text-black text-left border border-gray-300 w-[156px] h-auto whitespace-normal rounded-2xl shadow-md hover:shadow-lg transition-shadow text-lg",

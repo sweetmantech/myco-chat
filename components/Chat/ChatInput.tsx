@@ -1,5 +1,6 @@
 import { TvMinimalPlay } from "lucide-react";
 import { usePathname } from "next/navigation";
+import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import SubmitButton from "./SubmitButton";
@@ -10,16 +11,17 @@ const ChatInput = () => {
     handleSubmit,
     handleInputChange,
     input,
-    profile,
+    pending,
   } = useChatProvider();
-  const color = input.length > 0 ? "#000000" : "#F2E8CC";
+  const { profile } = useProfileSearch();
+  const color = (!pending && input.length > 0) ? "#000000" : "#F2E8CC";
 
   const pathname = usePathname();
 
   const isNewChat = pathname === "/";
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !pending) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
@@ -32,7 +34,13 @@ const ChatInput = () => {
         <form onSubmit={handleSubmit} className="w-full flex items-center">
           {
             profile.length > 0 ? (
-              <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
+              <img
+                src={getZoraPfpLink(profile[0])}
+                alt="PFP"
+                width={36}
+                height={36}
+                className="rounded-full"
+              />
             ) : (
               <TvMinimalPlay size={32} color={color} />
             )
