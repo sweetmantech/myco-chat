@@ -47,7 +47,7 @@ Please use this information to provide accurate and relevant responses and don't
     try {
       return {
         getConnectedProfile: getConnectedProfile(question),
-        createToken: createToken(),
+        createToken: createToken(question),
       };
     } catch (error) {
       console.error("Error reading or parsing JSON files:", error);

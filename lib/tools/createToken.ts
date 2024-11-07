@@ -1,7 +1,8 @@
 import { tool } from "ai";
 import { z } from "zod";
+import { CreateTokenResponse } from "../toolResponse.types";
 
-const createToken = () => tool({
+const createToken = (question: string) => tool({
   description: `Create a new token.
     IMPORTANT: Always call this tool first for ANY question related to creating token.
     Do NOT attempt to answer questions on these topics without calling this tool first.
@@ -18,22 +19,31 @@ const createToken = () => tool({
   execute: async ({ address, media, title, contractAddress }) => {
     if (!media) {
       return {
-        content: "Please provide a media.",
-        role: "assistant",
+        context: {
+          status: CreateTokenResponse.MISSING_MEDIA,
+          answer: "Please provide a media to proceed.",
+        },
+        question,
       };
     }
 
     if (!title) {
       return {
-        content: "Please provide a title.",
-        role: "assistant",
+        context: {
+          status: CreateTokenResponse.MISSING_TITLE,
+          answer: "Please provide a title.",
+        },
+        question,
       };
     }
 
     if (!contractAddress) {
       return {
-        content: "Please select a collection.",
-        role: "assistant",
+        context: {
+          status: CreateTokenResponse.MISSING_COLLECTION,
+          answer: "Please select a collection.",
+        },
+        question,
       };
     }
 
