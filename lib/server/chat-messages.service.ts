@@ -13,9 +13,9 @@ export function createChatMessagesService() {
 class ChatMessagesService {
   constructor() {}
 
-  async getChatSettings(chatReferenceId: string, address: Address) {
+  async getChatSettings(chatReferenceId: string, address: Address, question: string) {
     const context = await this.fetchRelevantContext(address);
-    const tools = this.fetchRelevantTools();
+    const tools = this.fetchRelevantTools(question);
 
     const systemMessage = `You are a helpful assistant
 Here is some relevant data to help you answer:
@@ -43,10 +43,10 @@ Please use this information to provide accurate and relevant responses and don't
     }
   }
 
-  private fetchRelevantTools() {
+  private fetchRelevantTools(question: string) {
     try {
       return {
-        getConnectedProfile: getConnectedProfile(),
+        getConnectedProfile: getConnectedProfile(question),
         createToken: createToken(),
       };
     } catch (error) {

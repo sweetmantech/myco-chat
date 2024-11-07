@@ -2,9 +2,15 @@ import { tool } from "ai";
 import { z } from "zod";
 import getZoraPfpLink from "../zora/getZoraPfpLink";
 
-const getConnectedProfile = () =>
+const getConnectedProfile = (question: string) =>
   tool({
-    description: "Get the connected profile for a coinbase smart wallet. Call this whenever you need to know the connected profile, for example when a customer asks 'What is my Zora profile'",
+    description: `Get the connected zora profile.
+    IMPORTANT: Always call this tool first for ANY question related to getting zora profile.
+    Do NOT attempt to answer questions on these topics without calling this tool first.
+    
+    Example questions that MUST trigger this tool:
+    - "What's my zora profile?"
+    - "What's my connected zora profile?"`,
     parameters: z.object({
       address: z.string().describe("The connected coinbase smart wallet."),
     }),
@@ -20,14 +26,17 @@ const getConnectedProfile = () =>
         return { error: "I couldn't find your profile." };
       }
 
-      const content = {
+      const profile = {
         profilePicture: getZoraPfpLink(data.zoraProfile),
         name: data.zoraProfile.displayName || "Unknown",
         followers: data.zoraProfile.totalFollowers || 0,
         following: data.zoraProfile.totalFollowing || 0,
         profileUrl: `https://profile.myco.wtf/${data.zoraProfile.address}`,
       };
-      return { content, role: "assistant" };
+      return {
+        context: profile,
+        question,
+      };
     },
   });
 

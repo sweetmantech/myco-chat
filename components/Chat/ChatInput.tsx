@@ -1,14 +1,17 @@
 import { TvMinimalPlay } from "lucide-react";
 import { usePathname } from "next/navigation";
-import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
 
 const ChatInput = () => {
-  const { handleSubmit, handleInputChange, input } = useChatProvider();
-  const { profile } = useProfileSearch();
+  const {
+    handleSubmit,
+    handleInputChange,
+    input,
+    profile,
+  } = useChatProvider();
   const color = input.length > 0 ? "#000000" : "#F2E8CC";
 
   const pathname = usePathname();

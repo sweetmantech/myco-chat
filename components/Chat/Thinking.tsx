@@ -1,16 +1,22 @@
 import { LoaderCircle, TvMinimalPlay } from "lucide-react";
-import useProfileSearch from "@/hooks/useProfileSearch";
+import { useChatProvider } from "@/providers/ChatProvider";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
 const Thinking = () => {
-  const { profile } = useProfileSearch();
+  const { profile } = useChatProvider();
 
   return (
     <div className="flex gap-2 w-full max-w-3xl mx-auto items-center pb-2 text-black">
       <div className="size-fit">
         {
           profile.length > 0 ? (
-            <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
+            <img
+              src={getZoraPfpLink(profile[0])}
+              alt="PFP"
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
           ) : (
             <TvMinimalPlay className="h-6 w-6" />
           )
