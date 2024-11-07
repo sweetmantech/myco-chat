@@ -7,16 +7,21 @@ import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
 
 const ChatInput = () => {
-  const { handleSubmit, handleInputChange, input } = useChatProvider();
+  const {
+    handleSubmit,
+    handleInputChange,
+    input,
+    pending,
+  } = useChatProvider();
   const { profile } = useProfileSearch();
-  const color = input.length > 0 ? "#000000" : "#F2E8CC";
+  const color = (!pending && input.length > 0) ? "#000000" : "#F2E8CC";
 
   const pathname = usePathname();
 
   const isNewChat = pathname === "/";
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey && !pending) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
     }
@@ -29,7 +34,13 @@ const ChatInput = () => {
         <form onSubmit={handleSubmit} className="w-full flex items-center">
           {
             profile.length > 0 ? (
-              <img src={getZoraPfpLink(profile[0])} alt="PFP" width={36} height={36} className="rounded-full" />
+              <img
+                src={getZoraPfpLink(profile[0])}
+                alt="PFP"
+                width={36}
+                height={36}
+                className="rounded-full"
+              />
             ) : (
               <TvMinimalPlay size={32} color={color} />
             )
