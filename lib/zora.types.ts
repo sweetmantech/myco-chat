@@ -22,3 +22,23 @@ export type PROFILE = {
   zoraProfile: ZoraProfile
   connectedZoraProfile: ZoraProfile | null
 }
+
+export type METADATA_TYPE = {
+  name: string
+  description: string
+  image: string
+  content?: {
+    uri: string
+    mime: string
+  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  attributes?: any[]
+  animation_url?: string
+}
+
+export type COLLECTION_TYPE = {
+  tokensCreated: number
+  address: Address
+  chainId: number
+  metadata: METADATA_TYPE
+}

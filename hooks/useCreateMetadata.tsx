@@ -1,16 +1,6 @@
-import { uploadJson } from '@/lib/ipfs/uploadJson'
 import { useState } from 'react'
-
-type Metadata = {
-  name: string
-  description: string
-  image: string
-  animation_url?: string
-  content?: {
-    mime: string
-    uri: string
-  }
-}
+import { uploadJson } from '@/lib/ipfs/uploadJson'
+import { METADATA_TYPE } from '@/lib/zora.types'
 
 const useCreateMetadata = () => {
   const [name, setName] = useState<string>('')
@@ -28,7 +18,7 @@ const useCreateMetadata = () => {
       throw new Error('Cover Image is required')
     }
 
-    const metadata: Metadata = {
+    const metadata: METADATA_TYPE = {
       name,
       description: '',
       image: imageUri,

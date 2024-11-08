@@ -1,7 +1,10 @@
 import { CreateTokenResponse } from "@/lib/toolResponse.types";
 import { useToolCallProvider } from "@/providers/ToolCallProvider";
+import { FileUploadProvider } from "@/providers/FileUploadProvider";
 import MediaUpload from "./MediaUpload";
 import Answer from "../Chat/Answer";
+import CollectionSelect from "./CollectionSelect";
+import Title from "./Title";
 
 const CreateToken = () => {
   const { context } = useToolCallProvider();
@@ -10,9 +13,13 @@ const CreateToken = () => {
   return (
     <div>
       <Answer content={context.answer} role="assistant" />
-      {status === CreateTokenResponse.MISSING_MEDIA && <MediaUpload />}
-      {status === CreateTokenResponse.MISSING_TITLE && <div />}
-      {status === CreateTokenResponse.MISSING_COLLECTION && <div />}
+      {status === CreateTokenResponse.MISSING_MEDIA && (
+        <FileUploadProvider>
+          <MediaUpload />
+        </FileUploadProvider>
+      )}
+      {status === CreateTokenResponse.MISSING_TITLE && <Title />}
+      {status === CreateTokenResponse.MISSING_COLLECTION && <CollectionSelect />}
     </div>
   );
 };
