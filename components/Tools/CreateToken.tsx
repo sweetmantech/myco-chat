@@ -5,13 +5,14 @@ import MediaUpload from "./MediaUpload";
 import Answer from "../Chat/Answer";
 import CollectionSelect from "./CollectionSelect";
 import Title from "./Title";
+import ProceedButton from "./ProceedButton";
 
 const CreateToken = () => {
   const { context } = useToolCallProvider();
   const status = context?.status;
 
   return (
-    <div>
+    <div className="w-full">
       <Answer content={context.answer} role="assistant" />
       {status === CreateTokenResponse.MISSING_MEDIA && (
         <FileUploadProvider>
@@ -20,6 +21,7 @@ const CreateToken = () => {
       )}
       {status === CreateTokenResponse.MISSING_TITLE && <Title />}
       {status === CreateTokenResponse.MISSING_COLLECTION && <CollectionSelect />}
+      <ProceedButton />
     </div>
   );
 };

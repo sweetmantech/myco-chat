@@ -6,13 +6,13 @@ const Title = () => {
   const { name, setName } = useZoraCreateProvider()
 
   return (
-    <div className="flex flex-col items-start w-full gap-2">
+    <div className="flex items-center w-full gap-2 text-black px-3">
       <Label htmlFor="title">Title</Label>
       <Input
         id="title"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="border border-black py-7 text-xl"
+        className="border border-black max-w-[250px]"
       />
     </div>
   )

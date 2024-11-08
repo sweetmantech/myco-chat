@@ -9,9 +9,9 @@ const CollectionSelect = () => {
   const [isOpenDropList, setIsOpenDropList] = useState(false)
 
   return (
-    <div className="mt-4 md:mt-0 w-full flex flex-col items-center gap-1">
-      <p className="text-left w-full">Collection</p>
-      <div className="w-full flex flex-col items-start gap-4">
+    <div className="px-3 w-full flex items-center gap-1 text-black">
+      <p className="text-left">Collection: </p>
+      <div className="w-full max-w-[250px] flex flex-col items-start gap-4">
         <button
           type="button"
           className="w-full relative border-black border rounded-md p-2"

@@ -10,7 +10,7 @@ import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 
 const useFileUpload = () => {
   const { address } = useAccount()
-  const { setName, setImageUri, setAnimationUri, setMimeType, animationUri } =
+  const { setImageUri, setAnimationUri, setMimeType, animationUri } =
     useZoraCreateProvider()
   const [blurImageUrl, setBlurImageUrl] = useState<string>('')
   const [error, setError] = useState<string>('')
@@ -38,9 +38,6 @@ const useFileUpload = () => {
       }
 
       const isImage = mimeType.includes('image')
-
-      const fileNameWithoutExtension = file.name.replace(/\.[^/.]+$/, '')
-      setName(fileNameWithoutExtension)
 
       const { uri } = await uploadFile(file, JWT)
       if (isImage) {
