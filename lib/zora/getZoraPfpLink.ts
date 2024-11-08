@@ -1,10 +1,10 @@
-import { ZoraProfile } from "../zora.types"
+import { PROFILE } from "../zora.types"
 
-const getZoraPfpLink = (profile: ZoraProfile) => {
-    if (profile.avatar.startsWith("/")) {
-      return `https://zora.co/api/avatar/${profile.address}`
+const getZoraPfpLink = (profile: PROFILE) => {
+    if (profile.zoraProfile.avatar.startsWith("/")) {
+      return `https://zora.co/api/avatar/${profile.zoraProfile.address}`
     }
-    return profile.avatar
+    return profile.zoraProfile.avatar
 }
 
 export default getZoraPfpLink

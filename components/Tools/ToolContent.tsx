@@ -6,12 +6,12 @@ const ToolContent = () => {
   const { toolName } = useToolCallProvider();
 
   return (
-    <div>
+    <>
       {toolName === "getConnectedProfile" && (
         <Answer content={"Here is your Zora profile:"} role={"assistant"} />
       )}
       {toolName === "createToken" && <CreateToken />}
-    </div>
+    </>
   );
 };
 

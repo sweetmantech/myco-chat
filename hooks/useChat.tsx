@@ -9,7 +9,6 @@ import useConnectWallet from "./useConnectWallet";
 import useSuggestions from "./useSuggestions";
 import useConversations from "./useConversations";
 import useInitialMessages from "./useInitialMessages";
-import useProfileSearch from "./useProfileSearch";
 
 const useChat = () => {
   const { address, connectWallet } = useConnectWallet();
@@ -17,7 +16,6 @@ const useChat = () => {
   const { push } = useRouter();
   const { initialMessages, fetchInitialMessages } = useInitialMessages();
   const { conversationId, conversationRef } = useConversations();
-  const { profile } = useProfileSearch();
   const csrfToken = useCsrfToken();
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const lastQuestionOffset = 2;
@@ -113,7 +111,6 @@ const useChat = () => {
     messages,
     input,
     pending,
-    profile,
     append,
     clearQuery,
     handleInputChange,

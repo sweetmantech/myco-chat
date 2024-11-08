@@ -1,9 +1,9 @@
-const getContext = async (address: string) => {
-    const BASE_URL = 'https://api.myco.wtf';
+import { API_APP_URL } from "./consts";
 
+const getContext = async (address: string) => {
     const [tokensResponse, scoreResponse] = await Promise.all([
-        fetch(`${BASE_URL}/api/zora/tokens?creatorAddress=${address}`),
-        fetch(`${BASE_URL}/api/zora/score?address=${address}`)
+        fetch(`${API_APP_URL}/api/zora/tokens?creatorAddress=${address}`),
+        fetch(`${API_APP_URL}/api/zora/score?address=${address}`)
     ]);
 
     const tokens = await tokensResponse.json();

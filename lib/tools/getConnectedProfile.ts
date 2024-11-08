@@ -1,6 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod";
 import getZoraPfpLink from "../zora/getZoraPfpLink";
+import { API_APP_URL } from "../consts";
 
 const getConnectedProfile = (question: string) =>
   tool({
@@ -15,15 +16,25 @@ const getConnectedProfile = (question: string) =>
       address: z.string().describe("The connected coinbase smart wallet."),
     }),
     execute: async ({ address }) => {
-      const response = await fetch(`https://api.myco.wtf/api/profile?address=${address}`)
+      const response = await fetch(`${API_APP_URL}/api/profile?address=${address}`)
       if (!response.ok) {
-        return { error: "I couldn't find your profile." };
+        return {
+          context: {
+            error: "I couldn't find your profile."
+          },
+          question,
+        };
       }
 
       const data = await response.json();
 
       if (!data.zoraProfile) {
-        return { error: "I couldn't find your profile." };
+        return {
+          context: {
+            error: "I couldn't find your profile."
+          },
+          question,
+        };
       }
 
       const profile = {
