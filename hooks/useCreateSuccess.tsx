@@ -2,19 +2,20 @@ import { useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { parseEventLogs } from 'viem'
 import { useCallsStatus } from 'wagmi/experimental'
+import { useChainId } from 'wagmi'
 import {
   zoraCreator1155FactoryImplABI,
   zoraCreator1155ImplABI,
 } from '@zoralabs/protocol-deployments'
 import trackSetupNewContractPoints from '@/lib/stack/trackSetupNewContractPoints'
-import { useAccount, useChainId } from 'wagmi'
+import useConnectWallet from './useConnectWallet'
 
 export default function useCreateSuccess(
   callsStatusId: string | undefined,
   onSuccess: () => void,
   isExistingContract: boolean,
 ) {
-  const { address } = useAccount()
+  const { address } = useConnectWallet()
   const { data: callsStatus } = useCallsStatus({
     id: callsStatusId as string,
     query: {
@@ -45,7 +46,7 @@ export default function useCreateSuccess(
           )
 
           await trackSetupNewContractPoints(
-            address,
+            address!,
             { newContract: relevantLog.address, ...serializedArgs },
             chainId,
           )

@@ -16,7 +16,7 @@ const createToken = (question: string) => tool({
     title: z.string().optional().describe("The title of the token."),
     contractAddress: z.string().optional().describe("The contract address of the collection."),
   }),
-  execute: async ({ address, media, title, contractAddress }) => {
+  execute: async ({ media, title, contractAddress }) => {
     if (!media) {
       return {
         context: {

@@ -1,10 +1,10 @@
 import { useProfileProvider } from '@/providers/ProfileProvider'
 import { useSearchParams } from 'next/navigation'
 import { isAddress } from 'viem'
-import { useAccount } from 'wagmi'
+import useConnectWallet from './useConnectWallet'
 
 const useCreatorAddress = () => {
-  const { address } = useAccount()
+  const { address } = useConnectWallet()
   const { profile } = useProfileProvider()
   const searchParams = useSearchParams()
 

@@ -4,6 +4,7 @@ import { SETUP_NEW_CONTRACT_EVENT, SETUP_NEW_CONTRACT_POINT } from '../consts'
 
 const trackSetupNewContractPoints = async (
   address: Address,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setupContractEventArgs: any,
   chainId: number,
 ) => {

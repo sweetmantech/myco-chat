@@ -1,16 +1,17 @@
-import { createCreatorClient } from '@zoralabs/protocol-sdk'
-import { Address, isAddress } from 'viem'
-import { REFERRAL_RECIPIENT } from '@/lib/consts'
-import { useAccount, usePublicClient } from 'wagmi'
 import { useSearchParams } from 'next/navigation'
+import { Address, isAddress } from 'viem'
+import { usePublicClient } from 'wagmi'
+import { createCreatorClient } from '@zoralabs/protocol-sdk'
+import { REFERRAL_RECIPIENT } from '@/lib/consts'
 import { useProfileProvider } from '@/providers/ProfileProvider'
 import useCreateMetadata from '@/hooks/useCreateMetadata'
 import useCreatorAddress from './useCreatorAddress'
+import useConnectWallet from './useConnectWallet'
 
 const useZoraCreateParameters = (collection: Address | undefined) => {
   const publicClient = usePublicClient()
   const searchParams = useSearchParams()
-  const { address } = useAccount()
+  const { address } = useConnectWallet()
   const { profile } = useProfileProvider()
   const createMetadata = useCreateMetadata()
   const creatorAddress = useCreatorAddress()

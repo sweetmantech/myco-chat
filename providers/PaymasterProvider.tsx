@@ -2,16 +2,16 @@
 
 import React, { createContext, useContext } from 'react'
 import { base } from 'viem/chains'
-import { useAccount } from 'wagmi'
 import { useCapabilities } from 'wagmi/experimental'
+import useConnectWallet from '@/hooks/useConnectWallet'
 
-const PaymasterContext = createContext({})
+const PaymasterContext = createContext<any>({})
 
 const PaymasterProvider = ({ children }: { children: React.ReactNode }) => {
-  const account = useAccount()
+  const { address } = useConnectWallet()
 
   const { data: availableCapabilities } = useCapabilities({
-    account: account.address,
+    account: address,
   })
 
   const getCapabilities = (chainId: number) => {

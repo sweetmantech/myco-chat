@@ -38,7 +38,7 @@ const useCollections = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        let collectionUris = []
+        let collectionUris: any[] = []
         const groupByChainId = (collection: COLLECTION_TYPE[]) => {
           return collection.reduce(
             (acc, item) => {

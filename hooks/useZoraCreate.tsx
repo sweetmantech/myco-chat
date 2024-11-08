@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
-import { useAccount, useSwitchChain } from 'wagmi'
+import { useSwitchChain } from 'wagmi'
 import { useWriteContracts } from 'wagmi/experimental'
 import { Address } from 'viem'
 import { PROFILE_APP_URL } from '@/lib/consts'
@@ -11,10 +11,11 @@ import { usePaymasterProvider } from '@/providers/PaymasterProvider'
 import useCreateSuccess from '@/hooks/useCreateSuccess'
 import useZoraCreateParameters from './useZoraCreateParameters'
 import useCreatorAddress from './useCreatorAddress'
+import useConnectWallet from './useConnectWallet'
 
 export default function useZoraCreate() {
   const { push } = useRouter()
-  const { address } = useAccount()
+  const { address } = useConnectWallet()
   const { getCapabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   const { switchChainAsync } = useSwitchChain()

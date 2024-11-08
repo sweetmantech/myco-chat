@@ -1,15 +1,15 @@
 import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { useAccount } from 'wagmi'
 import getIsPro from '@/lib/actions/getIsPro'
 import { MAX_FILE_SIZE, ONE_MB } from '@/lib/consts'
 import getIpfsJwt from '@/lib/getIpfsJwt'
 import { uploadFile } from '@/lib/ipfs/uploadFile'
 import isSupportedFileType from '@/lib/isSupportedFileType'
 import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
+import useConnectWallet from './useConnectWallet'
 
 const useFileUpload = () => {
-  const { address } = useAccount()
+  const { address } = useConnectWallet()
   const { setImageUri, setAnimationUri, setMimeType, animationUri } =
     useZoraCreateProvider()
   const [blurImageUrl, setBlurImageUrl] = useState<string>('')
