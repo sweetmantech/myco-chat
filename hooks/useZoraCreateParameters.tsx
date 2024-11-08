@@ -1,4 +1,3 @@
-import { useSearchParams } from 'next/navigation'
 import { Address, isAddress } from 'viem'
 import { usePublicClient } from 'wagmi'
 import { createCreatorClient } from '@zoralabs/protocol-sdk'
@@ -10,12 +9,10 @@ import useConnectWallet from './useConnectWallet'
 
 const useZoraCreateParameters = (collection: Address | undefined) => {
   const publicClient = usePublicClient()
-  const searchParams = useSearchParams()
   const { address } = useConnectWallet()
   const { profile } = useProfileProvider()
   const createMetadata = useCreateMetadata()
   const creatorAddress = useCreatorAddress()
-  const payoutParam = searchParams.get('payoutRecipient')
 
   const fetchParameters = async (chainId: number) => {
     if (!publicClient) return
@@ -24,8 +21,7 @@ const useZoraCreateParameters = (collection: Address | undefined) => {
     if (!cc0MusicIpfsHash) return
     const connnectedProfileAddress =
       profile?.connectedZoraProfile?.address || profile?.zoraProfile?.address
-    const fallbackPayoutAddress = isAddress(payoutParam!) ? payoutParam : address
-    const payoutRecipient = connnectedProfileAddress || fallbackPayoutAddress
+    const payoutRecipient = connnectedProfileAddress || address
 
     let newParameters
     if (collection) {

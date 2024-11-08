@@ -1,8 +1,7 @@
 "use client";
 
 import LandingPage from "@/components/LandingPage";
-import { Suspense } from "react";
 
-const Home = () => <Suspense fallback={<div />}><LandingPage /></Suspense>;
+const Home = () => <LandingPage />;
 
 export default Home;
