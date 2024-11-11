@@ -28,7 +28,7 @@ const getConnectedProfile = (question: string) =>
 
       const data = await response.json();
 
-      if (!data.zoraProfile) {
+      if (!data || !data.zoraProfile) {
         return {
           context: {
             error: "I couldn't find your profile."

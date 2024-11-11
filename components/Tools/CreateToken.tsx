@@ -6,6 +6,7 @@ import Answer from "../Chat/Answer";
 import CollectionSelect from "./CollectionSelect";
 import Title from "./Title";
 import ProceedButton from "./ProceedButton";
+import SignButton from "./SignButton";
 
 const CreateToken = () => {
   const { context } = useToolCallProvider();
@@ -17,7 +18,8 @@ const CreateToken = () => {
         status === CreateTokenResponse.MISSING_MEDIA ||
         status === CreateTokenResponse.MISSING_TITLE ||
         status === CreateTokenResponse.MISSING_COLLECTION ||
-        status === CreateTokenResponse.MISSING_THUMBNAIL
+        status === CreateTokenResponse.MISSING_THUMBNAIL ||
+        status === CreateTokenResponse.SIGN_TRANSACTION
       ) && (
           <>
             <Answer content={context.answer} role="assistant" />
@@ -31,7 +33,7 @@ const CreateToken = () => {
               )}
             {status === CreateTokenResponse.MISSING_TITLE && <Title />}
             {status === CreateTokenResponse.MISSING_COLLECTION && <CollectionSelect />}
-            <ProceedButton />
+            {status === CreateTokenResponse.SIGN_TRANSACTION ? (<SignButton />) : (<ProceedButton />)}
           </>
         )}
     </div>

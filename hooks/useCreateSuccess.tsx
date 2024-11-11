@@ -12,7 +12,7 @@ import useConnectWallet from './useConnectWallet'
 
 export default function useCreateSuccess(
   callsStatusId: string | undefined,
-  onSuccess: () => void,
+  onSuccess: (hash: string) => void,
   isExistingContract: boolean,
 ) {
   const { address } = useConnectWallet()
@@ -50,16 +50,16 @@ export default function useCreateSuccess(
             { newContract: relevantLog.address, ...serializedArgs },
             chainId,
           )
-          onSuccess()
+          onSuccess(callsStatusId!)
         } else {
           console.error('Unexpected log structure:', logs)
           toast.error('Creation successful, but there was an issue processing the result.')
-          onSuccess()
+          onSuccess(callsStatusId!)
         }
       } else {
         console.error('No logs found')
         toast.error('Creation successful, but there was an issue processing the result.')
-        onSuccess()
+        onSuccess(callsStatusId!)
       }
     }
     if (callsStatus?.status !== 'CONFIRMED') return

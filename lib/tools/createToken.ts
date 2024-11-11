@@ -16,9 +16,22 @@ const createToken = (question: string) => tool({
     animation: z.string().optional().describe("The media to create the token with."),
     title: z.string().optional().describe("The title of the token."),
     collectionAddress: z.string().optional().describe("The contract address of the collection."),
-    mimeType: z.string().optional().describe("The type of media"),
+    mimeType: z.string().optional().describe("The type of media."),
+    transaction: z.string().optional().describe("The transaction of token creation."),
   }),
-  execute: async ({ address, image, animation, title, collectionAddress, mimeType }) => {
+  execute: async ({ address, image, animation, title, collectionAddress, mimeType, transaction }) => {
+    if (transaction) {
+      const data = {
+        media: image,
+        title,
+        zoraLink: `https://profile.myco.wtf/${address}`
+      }
+  
+      return {
+        context: data,
+        question,
+      };
+    }
     if (animation && !image) {
       return {
         context: {
@@ -59,14 +72,11 @@ const createToken = (question: string) => tool({
       };
     }
 
-    const data = {
-      media: image,
-      title,
-      zoraLink: `https://profile.myco.wtf/${address}`
-    }
-
     return {
-      context: data,
+      context: {
+        status: CreateTokenResponse.SIGN_TRANSACTION,
+        answer: "Please sign a transaction.",
+      },
       question,
     };
   },
