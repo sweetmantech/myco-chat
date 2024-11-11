@@ -3,6 +3,7 @@ import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import getChainIcon from '@/lib/getChainIcon'
 import { COLLECTION_TYPE, METADATA_TYPE } from '@/lib/zora.types'
 import { useCollectionProvider } from '@/providers/CollectionProvider'
+import { NEW_COLLECTION } from '@/lib/consts'
 
 const Collection = ({
   metadata,
@@ -12,6 +13,17 @@ const Collection = ({
   collection: COLLECTION_TYPE
 }) => {
   const { setSelectedCollection } = useCollectionProvider()
+
+  if (collection.address === NEW_COLLECTION.address) {
+    return (
+      <button
+        className="flex w-full"
+        type="button"
+      >
+        <p>Create Collection</p>
+      </button>
+    )
+  }
 
   return (
     <button

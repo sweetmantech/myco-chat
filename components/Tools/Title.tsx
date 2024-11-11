@@ -7,7 +7,7 @@ const Title = () => {
 
   return (
     <div className="flex items-center w-full gap-2 text-black px-3">
-      <Label htmlFor="title">Title</Label>
+      <Label htmlFor="title">Title: </Label>
       <Input
         id="title"
         value={name}

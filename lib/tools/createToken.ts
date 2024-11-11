@@ -1,6 +1,8 @@
 import { tool } from "ai";
 import { z } from "zod";
+import { Address } from "viem";
 import { CreateTokenResponse } from "../toolResponse.types";
+import zoraCreate from "../zora/zoraCreate";
 
 const createToken = (question: string) => tool({
   description: `Create a new token.
@@ -12,12 +14,24 @@ const createToken = (question: string) => tool({
     - "I wanna create a new token."`,
   parameters: z.object({
     address: z.string().describe("The connected coinbase smart wallet."),
-    media: z.string().optional().describe("The media to create the token with."),
+    image: z.string().optional().describe("The image to create the token with."),
+    animation: z.string().optional().describe("The media to create the token with."),
     title: z.string().optional().describe("The title of the token."),
-    contractAddress: z.string().optional().describe("The contract address of the collection."),
+    collectionAddress: z.string().optional().describe("The contract address of the collection."),
+    mimeType: z.string().optional().describe("The type of media"),
   }),
-  execute: async ({ media, title, contractAddress }) => {
-    if (!media) {
+  execute: async ({ address, image, animation, title, collectionAddress, mimeType }) => {
+    if (animation && !image) {
+      return {
+        context: {
+          status: CreateTokenResponse.MISSING_THUMBNAIL,
+          answer: "Please provide a Thumbnail to proceed.",
+        },
+        question,
+      };
+    }
+
+    if (!image || !mimeType) {
       return {
         context: {
           status: CreateTokenResponse.MISSING_MEDIA,
@@ -37,7 +51,7 @@ const createToken = (question: string) => tool({
       };
     }
 
-    if (!contractAddress) {
+    if (!collectionAddress) {
       return {
         context: {
           status: CreateTokenResponse.MISSING_COLLECTION,
@@ -47,9 +61,24 @@ const createToken = (question: string) => tool({
       };
     }
 
+    await zoraCreate({
+      address: address as Address,
+      name: title,
+      imageUri: image,
+      animationUri: animation,
+      collection: collectionAddress,
+      mimeType,
+    });
+
+    const data = {
+      media: image,
+      title,
+      zoraLink: `https://profile.myco.wtf/${address}`
+    }
+
     return {
-      content: "Token created successfully.",
-      role: "assistant",
+      context: data,
+      question,
     };
   },
 });

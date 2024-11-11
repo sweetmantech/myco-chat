@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Address } from 'viem'
 import { zoraCreator1155ImplABI } from '@zoralabs/protocol-deployments'
 import { useQuery } from '@tanstack/react-query'
-import { getPublicClient } from '@/lib/clients'
-import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import { COLLECTION_TYPE, METADATA_TYPE } from '@/lib/zora.types'
+import { getPublicClient } from '@/lib/clients/publicClient'
+import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import useConnectWallet from './useConnectWallet'
 
 const useCollections = () => {
   const { address } = useConnectWallet()
   const [selectedCollection, setSelectedCollection] = useState<COLLECTION_TYPE | null>(null)
-  const { push } = useRouter()
   const [metadatas, setMetadatas] = useState<METADATA_TYPE[] | []>([])
 
   const getCollections = async (): Promise<COLLECTION_TYPE[]> => {
@@ -24,16 +22,6 @@ const useCollections = () => {
     queryKey: ['getCollections'],
     queryFn: getCollections,
   })
-
-  useEffect(() => {
-    if (selectedCollection) {
-      push(`/${selectedCollection.chainId}/${selectedCollection.address}`)
-      return
-    }
-
-    push('/')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedCollection])
 
   useEffect(() => {
     const init = async () => {

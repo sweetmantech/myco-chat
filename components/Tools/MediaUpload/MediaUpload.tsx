@@ -1,7 +1,9 @@
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { useFileUploadProvider } from '@/providers/FileUploadProvider'
+import { useToolCallProvider } from '@/providers/ToolCallProvider';
+import { CreateTokenResponse } from "@/lib/toolResponse.types";
 import { cn } from '@/lib/utils'
 import Spinner from '@/components/ui/Spinner'
 import getIpfsLink from '@/lib/ipfs/getIpfsLink'
@@ -12,7 +14,13 @@ import VideoPlayer from './VideoPlayer'
 const MediaUpload = () => {
   const { imageUri, animationUri, mimeType } = useZoraCreateProvider()
   const { fileUpload, loading, error, blurImageUrl } = useFileUploadProvider()
+  const { context, scrollDown } = useToolCallProvider()
+  const status = context?.status
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    scrollDown()
+  })
 
   const handleImageClick = () => {
     fileInputRef.current?.click()
@@ -57,7 +65,7 @@ const MediaUpload = () => {
     <div className="grid w-full max-w-3xl items-center gap-4 pl-3">
       <div
         className={cn(
-          'relative rounded-md h-[300px] w-[300px]',
+          'relative rounded-md min-h-[300px] w-[300px]',
           !imageUri && !animationUri && 'aspect-square',
           (loading || (!imageUri && !animationUri)) && 'border-dashed border-2 border-black',
         )}
@@ -68,7 +76,7 @@ const MediaUpload = () => {
           type="file"
           className="hidden"
           onChange={fileUpload}
-          accept="image/*, audio/*, video/*"
+          accept={`${status === CreateTokenResponse.MISSING_THUMBNAIL ? "image/*" : "image/*, audio/*, video/*"}`}
         />
         {renderMedia()}
       </div>

@@ -1,6 +1,7 @@
-import { base } from "viem/chains"
+import { Address } from "viem"
+import { zora } from "viem/chains"
 
-export const CHAIN_ID = base.id
+export const CHAIN_ID = zora.id
 
 // STACK EVENTS
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
@@ -29,3 +30,14 @@ export const SUGGESTIONS = [
   "What did I create this week???",
   "What's my Zora score???",
 ]
+
+export const NEW_COLLECTION = {
+  address: "0x0000000000000000000000000000000000000000" as Address,
+  tokensCreated: 0,
+  chainId: CHAIN_ID,
+  metadata: {
+    name: "",
+    description: "",
+    image: "",
+  },
+}

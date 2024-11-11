@@ -13,15 +13,27 @@ const CreateToken = () => {
 
   return (
     <div className="w-full">
-      <Answer content={context.answer} role="assistant" />
-      {status === CreateTokenResponse.MISSING_MEDIA && (
-        <FileUploadProvider>
-          <MediaUpload />
-        </FileUploadProvider>
-      )}
-      {status === CreateTokenResponse.MISSING_TITLE && <Title />}
-      {status === CreateTokenResponse.MISSING_COLLECTION && <CollectionSelect />}
-      <ProceedButton />
+      {(
+        status === CreateTokenResponse.MISSING_MEDIA ||
+        status === CreateTokenResponse.MISSING_TITLE ||
+        status === CreateTokenResponse.MISSING_COLLECTION ||
+        status === CreateTokenResponse.MISSING_THUMBNAIL
+      ) && (
+          <>
+            <Answer content={context.answer} role="assistant" />
+            {(
+              status === CreateTokenResponse.MISSING_MEDIA ||
+              status === CreateTokenResponse.MISSING_THUMBNAIL
+            ) && (
+                <FileUploadProvider>
+                  <MediaUpload />
+                </FileUploadProvider>
+              )}
+            {status === CreateTokenResponse.MISSING_TITLE && <Title />}
+            {status === CreateTokenResponse.MISSING_COLLECTION && <CollectionSelect />}
+            <ProceedButton />
+          </>
+        )}
     </div>
   );
 };

@@ -4,22 +4,28 @@ import { cn } from "@/lib/utils";
 import useConnectWallet from "@/hooks/useConnectWallet";
 import { Button } from "../ui/Button";
 import { useCollectionProvider } from "@/providers/CollectionProvider";
+import { NEW_COLLECTION } from "@/lib/consts";
 
 const ProceedButton = ({ className }: { className?: string }) => {
   const { append, pending } = useChatProvider();
   const { address } = useConnectWallet();
-  const { name, animationUri, imageUri } = useZoraCreateProvider();
+  const { name, animationUri, imageUri, mimeType } = useZoraCreateProvider();
   const { selectedCollection } = useCollectionProvider();
 
   const onSubmit = async () => {
     append({
       id: `${address}-${Date.now()}`,
       role: "user",
-      content: `Create a new token. <br />
-        ${imageUri ? `Image: ${imageUri} <br />` : ""}
-        ${animationUri ? `Media: ${animationUri} <br />` : ""}
-        ${name ? `Title: ${name} <br />` : ""}
-        ${selectedCollection?.address ? "Collection: " + selectedCollection.address : ""}`,
+      content: `Create a new token.
+${imageUri ? "Image: " + imageUri : ""}
+${animationUri ? "Media: " + animationUri : ""}
+${mimeType ? "MimeType: " + mimeType : ""}
+${name ? "Title: " + name : ""}
+${selectedCollection?.address ?
+  (selectedCollection.address === NEW_COLLECTION.address ?
+    "Collection Address: New collection" :
+    "Collection Address: " + selectedCollection.address) :
+  ""}`,
     })
   };
 

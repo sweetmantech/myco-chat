@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { useCollectionProvider } from '@/providers/CollectionProvider'
 import Collection from './Collection'
+import { NEW_COLLECTION } from '@/lib/consts'
 
 const CollectionSelect = () => {
   const { collections, selectedCollection, setSelectedCollection, metadatas } =
@@ -30,14 +31,14 @@ const CollectionSelect = () => {
             <button
               className={`px-2 flex gap-2 py-2 border-b border-dashed border-b-black w-full ${collections?.length > 0 ? 'border-b border-dashed border-b-black' : ''}`}
               type="button"
-              onClick={() => setSelectedCollection(null)}
+              onClick={() => setSelectedCollection(NEW_COLLECTION)}
             >
               <Image src={'/icons/New.svg'} width={20} height={20} alt="" />
               <p>Create Collection</p>
             </button>
             {collections &&
               metadatas &&
-              collections?.map((collection, index) => (
+              collections.map((collection, index) => (
                 <Collection
                   key={collection.address}
                   collection={collection}

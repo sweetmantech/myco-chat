@@ -8,10 +8,10 @@ import { Slider } from '@/components/ui/Slider'
 
 const AudioPlayer = ({ onClick }: { onClick: () => void }) => {
   const { imageUri, animationUri } = useZoraCreateProvider()
+  const { blurImageUrl } = useFileUploadProvider()
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)
-  const { blurImageUrl } = useFileUploadProvider()
 
   const togglePlayPause = () => {
     if (audioRef.current) {
