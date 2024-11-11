@@ -3,7 +3,7 @@ import { Address } from 'viem'
 import { zoraCreator1155ImplABI } from '@zoralabs/protocol-deployments'
 import { useQuery } from '@tanstack/react-query'
 import { COLLECTION_TYPE, METADATA_TYPE } from '@/lib/zora.types'
-import { getPublicClient } from '@/lib/clients/publicClient'
+import { getPublicClient } from '@/lib/clients'
 import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import useConnectWallet from './useConnectWallet'
 
