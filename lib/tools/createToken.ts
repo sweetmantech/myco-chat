@@ -1,8 +1,6 @@
 import { tool } from "ai";
 import { z } from "zod";
-import { Address } from "viem";
 import { CreateTokenResponse } from "../toolResponse.types";
-import zoraCreate from "../zora/zoraCreate";
 
 const createToken = (question: string) => tool({
   description: `Create a new token.
@@ -60,15 +58,6 @@ const createToken = (question: string) => tool({
         question,
       };
     }
-
-    await zoraCreate({
-      address: address as Address,
-      name: title,
-      imageUri: image,
-      animationUri: animation,
-      collection: collectionAddress,
-      mimeType,
-    });
 
     const data = {
       media: image,
