@@ -1,8 +1,8 @@
 import { TvMinimalPlay } from "lucide-react";
 import { usePathname } from "next/navigation";
-import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
+import { useProfileProvider } from "@/providers/ProfileProvider";
 import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
 
@@ -13,7 +13,7 @@ const ChatInput = () => {
     input,
     pending,
   } = useChatProvider();
-  const { profile } = useProfileSearch();
+  const { profile } = useProfileProvider();
   const color = (!pending && input.length > 0) ? "#000000" : "#F2E8CC";
 
   const pathname = usePathname();
@@ -33,9 +33,9 @@ const ChatInput = () => {
       <div className="w-full max-w-[555px] bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
         <form onSubmit={handleSubmit} className="w-full flex items-center">
           {
-            profile.length > 0 ? (
+            profile ? (
               <img
-                src={getZoraPfpLink(profile[0])}
+                src={getZoraPfpLink(profile)}
                 alt="PFP"
                 width={36}
                 height={36}

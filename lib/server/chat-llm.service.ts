@@ -63,6 +63,7 @@ class ChatLLMService {
     const settings = await chatMessagesService.getChatSettings(
       referenceId,
       address as Address,
+      lastMessage.content,
     );
     const systemMessage = settings.systemMessage;
     const maxTokens = settings.maxTokens;
@@ -90,8 +91,6 @@ class ChatLLMService {
       maxTokens: settings.maxTokens,
       temperature: settings.temperature,
       messages,
-      experimental_toolCallStreaming: true,
-      maxSteps: 2,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tools: tools as Record<string, CoreTool<any, any>> | undefined,
     });
