@@ -1,18 +1,16 @@
 import { createConfig, http } from 'wagmi'
 import { coinbaseWallet } from 'wagmi/connectors'
-import { base, baseSepolia, zora, zoraTestnet } from 'viem/chains'
+import { base, baseSepolia } from 'viem/chains'
 
 const wagmiConfig = createConfig({
-  chains: [base, baseSepolia, zora],
+  chains: [base, baseSepolia],
   connectors: [
     coinbaseWallet({
       appName: 'myco.wtf',
-      // preference: 'smartWalletOnly',
+      preference: 'smartWalletOnly',
     }),
   ],
   transports: {
-    [zora.id]: http(),
-    [zoraTestnet.id]: http(),
     [base.id]: http(),
     [baseSepolia.id]: http(),
   },

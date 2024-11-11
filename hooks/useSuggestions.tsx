@@ -5,7 +5,6 @@ import { Address } from "viem";
 import { SUGGESTIONS } from "@/lib/consts";
 import trackNewMessage from "@/lib/stack/trackNewMessage";
 import useConnectWallet from "./useConnectWallet";
-import formatContent from "@/lib/formatContent";
 
 const useSuggestions = () => {
   const { address } = useConnectWallet();
@@ -31,7 +30,7 @@ const useSuggestions = () => {
     await trackNewMessage(
       address as Address,
       {
-        content: formatContent(message.content),
+        content: message.content.replace(/[^a-zA-Z0-9\s,\.]/g, ""),
         role: message.role,
         id: `${address}-${Date.now()}`,
       },
