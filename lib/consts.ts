@@ -14,6 +14,7 @@ export const CHAT_POINT_SYSTEM_ID = 4026
 export const ONE_MB = 1024 * 1024
 export const MAX_FILE_SIZE = 5 * ONE_MB
 
+export const SUPPORTED_FILES = ['image', 'audio', 'video']
 export const API_APP_URL = 'https://api.myco.wtf'
 
 // Vercel AI SDK
