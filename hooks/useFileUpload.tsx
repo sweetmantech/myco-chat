@@ -14,6 +14,7 @@ const useFileUpload = () => {
   const [imageUri, setImageUri] = useState<string>('')
   const [animationUri, setAnimationUri] = useState<string>('')
   const [mimeType, setMimeType] = useState<string>('')
+  const [name, setName] = useState<string>('')
 
   const fileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setError('')
@@ -64,6 +65,8 @@ const useFileUpload = () => {
     imageUri,
     animationUri,
     mimeType,
+    name,
+    setName,
   }
 }
 
