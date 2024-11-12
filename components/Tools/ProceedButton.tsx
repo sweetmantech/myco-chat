@@ -7,14 +7,15 @@ import { Button } from "../ui/Button";
 const ProceedButton = ({ className }: { className?: string }) => {
   const { append, pending } = useChatProvider();
   const { address } = useConnectWallet();
-  const { imageUri } = useFileUploadProvider();
+  const { imageUri, mimeType } = useFileUploadProvider();
 
   const onSubmit = async () => {
     append({
       id: `${address}-${Date.now()}`,
       role: "user",
       content: `Create a new token.
-${imageUri ? "Image: " + imageUri : ""}`,
+${imageUri ? "Image: " + imageUri : ""}
+${mimeType ? "MimeType: " + mimeType : ""}`,
     })
   };
 

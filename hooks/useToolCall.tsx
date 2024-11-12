@@ -4,17 +4,20 @@ import useToolChat from "./useToolChat";
 import useToolCallParams from "./useToolCallParams";
 
 const useToolCall = (message: Message) => {
-  console.log(message)
   const [isCalled, setIsCalled] = useState(false);
   const { toolName, context, question } = useToolCallParams(message);
-  const { answer, loading } = useToolChat(question, context, toolName);
+  const { setBeginCall, answer, loading } = useToolChat(question, context, toolName);
 
   useEffect(() => {
     const init = async () => {
       const isAssistant = message.role === "assistant";
       if (!isAssistant) return;
       if (isCalled) return;
+      
       setIsCalled(true);
+      if (toolName === "getConnectedProfile") {
+        setBeginCall(true);
+      }
     };
 
     if (!context || !question) return;

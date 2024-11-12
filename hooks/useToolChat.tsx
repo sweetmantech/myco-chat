@@ -1,6 +1,6 @@
 import { Message, useChat } from "ai/react";
 import { useParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useChatProvider } from "@/providers/ChatProvider";
 import useConnectWallet from "./useConnectWallet";
 
@@ -12,6 +12,7 @@ const useToolChat = (question?: string, context?: any, toolName?: string) => {
   const toolCallContext = {
     ...(context !== null && { context }),
   };
+  const [beginCall, setBeginCall] = useState(false);
 
   const {
     messages,
@@ -50,16 +51,18 @@ const useToolChat = (question?: string, context?: any, toolName?: string) => {
         content: question as string,
         role: "user",
       });
+      setBeginCall(false)
     };
-    if (!question) return;
+    if (!beginCall || !question) return;
     init();
-  }, [question]);
+  }, [beginCall, question]);
 
   return {
     messages,
     append,
     loading,
     answer,
+    setBeginCall,
   };
 };
 
