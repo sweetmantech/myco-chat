@@ -91,7 +91,6 @@ class ChatLLMService {
       maxTokens: settings.maxTokens,
       temperature: settings.temperature,
       messages,
-      maxSteps: 2,
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       tools: tools as Record<string, CoreTool<any, any>> | undefined,
     });
