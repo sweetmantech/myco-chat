@@ -4,7 +4,6 @@ import useToolChat from "./useToolChat";
 import useToolCallParams from "./useToolCallParams";
 
 const useToolCall = (message: Message) => {
-  console.log(message)
   const [isCalled, setIsCalled] = useState(false);
   const { toolName, context, question } = useToolCallParams(message);
   const { answer, loading } = useToolChat(question, context, toolName);
