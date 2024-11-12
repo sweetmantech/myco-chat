@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { useFileUploadProvider } from '@/providers/FileUploadProvider'
+import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider';
 import { useToolCallProvider } from '@/providers/ToolCallProvider';
 import { CreateTokenResponse } from "@/lib/toolResponse.types";
 import { cn } from '@/lib/utils'
@@ -11,15 +12,8 @@ import AudioPlayer from './AudioPlayer'
 import VideoPlayer from './VideoPlayer'
 
 const MediaUpload = () => {
-  const {
-    fileUpload,
-    loading,
-    error,
-    blurImageUrl,
-    imageUri,
-    animationUri,
-    mimeType,
-  } = useFileUploadProvider()
+  const { fileUpload, loading, error, blurImageUrl } = useFileUploadProvider()
+  const { imageUri, animationUri, mimeType } = useZoraCreateProvider()
   const { context, scrollDown } = useToolCallProvider()
   const status = context?.status
   const fileInputRef = useRef<HTMLInputElement>(null)

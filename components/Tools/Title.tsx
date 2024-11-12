@@ -1,9 +1,9 @@
-import { useFileUploadProvider } from '@/providers/FileUploadProvider'
+import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { Input } from '../ui/Input'
 import { Label } from '../ui/Label'
 
 const Title = () => {
-  const { name, setName } = useFileUploadProvider()
+  const { name, setName } = useZoraCreateProvider()
 
   return (
     <div className="flex items-center w-full gap-2 text-black px-3">

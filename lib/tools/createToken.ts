@@ -19,8 +19,25 @@ const createToken = (question: string) => tool({
     title: z.string().optional().describe("The title of the token."),
     collectionAddress: z.string().optional().describe("The contract address of the collection."),
     mimeType: z.string().optional().describe("The type of media."),
+    transaction: z.string().optional().describe("The transaction of token creation."),
   }),
-  execute: async ({ image, animation, title, collectionAddress, mimeType }) => {
+  execute: async ({ address, image, animation, title, collectionAddress, mimeType, transaction }) => {
+    if (transaction) {
+      const data = {
+        media: image,
+        title,
+        zoraLink: `https://profile.myco.wtf/${address}`
+      }
+
+      return {
+        context: {
+          status: CreateTokenResponse.TOKEN_CREATED,
+          data,
+        },
+        question,
+      };
+    }
+
     if (animation && !image) {
       return {
         context: {

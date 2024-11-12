@@ -1588,10 +1588,23 @@
   resolved "https://registry.yarnpkg.com/@zoralabs/protocol-deployments/-/protocol-deployments-0.3.8.tgz#96ab8bfbdb2487e81cfaa48aa1df82f0be8b9644"
   integrity sha512-710nO9QmIkSkEvjhKtwlqwwXyH9XaW73fY0DWXLktDT/83CfCGTk7RchxMfi+JSAzv+PX8mFYedK/iFPD+6COg==
 
+"@zoralabs/protocol-sdk@^0.11.6":
+  version "0.11.6"
+  resolved "https://registry.yarnpkg.com/@zoralabs/protocol-sdk/-/protocol-sdk-0.11.6.tgz#a9faa003fa36072460c7eda050cdee93e583085c"
+  integrity sha512-KqVSYVnQsi2LswcuYSN4JwfuLN1SPDBTBLXIN8XaE7BSzuH2SEP5SQNyV3zqM3XPEXCBXG6wSp1DyGSeAO5zPA==
+  dependencies:
+    "@zoralabs/protocol-deployments" "^0.3.8"
+    abitype "^1.0.2"
+
 abitype@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/abitype/-/abitype-1.0.5.tgz#29d0daa3eea867ca90f7e4123144c1d1270774b6"
   integrity sha512-YzDhti7cjlfaBhHutMaboYB21Ha3rXR9QTkNJFzYC4kC8YclaiwPBBBJY8ejFdu2wnJeZCVZSMlQJ7fi8S6hsw==
+
+abitype@^1.0.2:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/abitype/-/abitype-1.0.6.tgz#76410903e1d88e34f1362746e2d407513c38565b"
+  integrity sha512-MMSqYh4+C/aVqI2RQaWqbvI4Kxo5cQV40WQ4QFtDnNzCkqChm8MuENhElmynZlO0qUy/ObkEUaXtKqYnx1Kp3A==
 
 abort-controller@^3.0.0:
   version "3.0.0"
@@ -2080,7 +2093,7 @@ clsx@^1.2.1:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
-clsx@^2.1.1:
+clsx@^2.1.0, clsx@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
@@ -5131,6 +5144,13 @@ react-native-webview@^11.26.0:
   dependencies:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
+
+react-toastify@^10.0.6:
+  version "10.0.6"
+  resolved "https://registry.yarnpkg.com/react-toastify/-/react-toastify-10.0.6.tgz#19c364b1150f495522c738d592d1dcc93879ade1"
+  integrity sha512-yYjp+omCDf9lhZcrZHKbSq7YMuK0zcYkDFTzfRFgTXkTFHZ1ToxwAonzA4JI5CxA91JpjFLmwEsZEgfYfOqI1A==
+  dependencies:
+    clsx "^2.1.0"
 
 react-tooltip@^5.28.0:
   version "5.28.0"

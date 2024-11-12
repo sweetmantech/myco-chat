@@ -4,8 +4,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChatProvider } from "./ChatProvider";
 import WagmiProvider from "./WagmiProvider";
 import ProfileProvider from "./ProfileProvider";
-import { FileUploadProvider } from "./FileUploadProvider";
 import CollectionProvider from "./CollectionProvider";
+import { ZoraCreateProvider } from "./ZoraCreateProvider";
 
 const queryClient = new QueryClient();
 
@@ -14,9 +14,9 @@ const Providers = ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>
       <ProfileProvider>
         <CollectionProvider>
-          <FileUploadProvider>
+          <ZoraCreateProvider>
             <ChatProvider>{children}</ChatProvider>
-          </FileUploadProvider>
+          </ZoraCreateProvider>
         </CollectionProvider>
       </ProfileProvider>
     </QueryClientProvider>

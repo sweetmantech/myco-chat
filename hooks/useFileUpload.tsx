@@ -1,20 +1,20 @@
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import getIsPro from '@/lib/actions/getIsPro'
 import { MAX_FILE_SIZE, ONE_MB } from '@/lib/consts'
 import getIpfsJwt from '@/lib/getIpfsJwt'
 import { uploadFile } from '@/lib/ipfs/uploadFile'
 import isSupportedFileType from '@/lib/isSupportedFileType'
+import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import useConnectWallet from './useConnectWallet'
 
 const useFileUpload = () => {
   const { address } = useConnectWallet()
+  const { setImageUri, setAnimationUri, setMimeType, animationUri } =
+    useZoraCreateProvider()
   const [blurImageUrl, setBlurImageUrl] = useState<string>('')
   const [error, setError] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
-  const [imageUri, setImageUri] = useState<string>('')
-  const [animationUri, setAnimationUri] = useState<string>('')
-  const [mimeType, setMimeType] = useState<string>('')
-  const [name, setName] = useState<string>('')
 
   const fileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setError('')
@@ -32,6 +32,7 @@ const useFileUpload = () => {
       const mimeType = file.type
 
       if (!isSupportedFileType(file.type)) {
+        toast.error('File type is not supported!')
         setLoading(false)
         return
       }
@@ -57,17 +58,7 @@ const useFileUpload = () => {
     setLoading(false)
   }
 
-  return {
-    fileUpload,
-    loading,
-    error,
-    blurImageUrl,
-    imageUri,
-    animationUri,
-    mimeType,
-    name,
-    setName,
-  }
+  return { fileUpload, loading, error, blurImageUrl }
 }
 
 export default useFileUpload

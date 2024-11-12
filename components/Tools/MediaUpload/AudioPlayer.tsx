@@ -2,11 +2,13 @@ import { useRef, useState } from 'react'
 import { Pause, Play } from 'lucide-react'
 import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import { useFileUploadProvider } from '@/providers/FileUploadProvider'
+import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { Button } from '@/components/ui/Button'
 import { Slider } from '@/components/ui/Slider'
 
 const AudioPlayer = ({ onClick }: { onClick: () => void }) => {
-  const { blurImageUrl, imageUri, animationUri } = useFileUploadProvider()
+  const { blurImageUrl } = useFileUploadProvider()
+  const { imageUri, animationUri } = useZoraCreateProvider()
   const [isPlaying, setIsPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const audioRef = useRef<HTMLAudioElement>(null)

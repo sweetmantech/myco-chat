@@ -1,5 +1,5 @@
 import { useChatProvider } from "@/providers/ChatProvider";
-import { useFileUploadProvider } from "@/providers/FileUploadProvider";
+import { useZoraCreateProvider } from "@/providers/ZoraCreateProvider";
 import { useCollectionProvider } from "@/providers/CollectionProvider";
 import useConnectWallet from "@/hooks/useConnectWallet";
 import { NEW_COLLECTION } from "@/lib/consts";
@@ -9,7 +9,7 @@ import { Button } from "../ui/Button";
 const ProceedButton = ({ className }: { className?: string }) => {
   const { append, pending } = useChatProvider();
   const { address } = useConnectWallet();
-  const { imageUri, mimeType, name } = useFileUploadProvider();
+  const { animationUri, imageUri, mimeType, name } = useZoraCreateProvider();
   const { selectedCollection } = useCollectionProvider();
 
   const onSubmit = async () => {
@@ -18,6 +18,7 @@ const ProceedButton = ({ className }: { className?: string }) => {
       role: "user",
       content: `Create a new token.
 ${imageUri ? "Image: " + imageUri : ""}
+${animationUri ? "Media: " + animationUri : ""}
 ${mimeType ? "MimeType: " + mimeType : ""}
 ${name ? "Title: " + name : ""}
 ${selectedCollection?.address ?

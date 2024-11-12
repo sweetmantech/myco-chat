@@ -1,7 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod";
 import getZoraPfpLink from "../zora/getZoraPfpLink";
-import { API_APP_URL } from "../consts";
+import { API_APP_URL, PROFILE_APP_URL } from "../consts";
 
 const getConnectedProfile = (question: string) =>
   tool({
@@ -29,7 +29,7 @@ const getConnectedProfile = (question: string) =>
 
         const data = await response.json();
 
-        if (!data.zoraProfile) {
+        if (!data || !data.zoraProfile) {
           return {
             context: {
               error: "I couldn't find your profile."
@@ -43,7 +43,7 @@ const getConnectedProfile = (question: string) =>
           name: data.zoraProfile.displayName || "Unknown",
           followers: data.zoraProfile.totalFollowers || 0,
           following: data.zoraProfile.totalFollowing || 0,
-          profileUrl: `https://profile.myco.wtf/${data.zoraProfile.address}`,
+          profileUrl: `${PROFILE_APP_URL}/${data.zoraProfile.address}`,
         };
         return {
           context: profile,

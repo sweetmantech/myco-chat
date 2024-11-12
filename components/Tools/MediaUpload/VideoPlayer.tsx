@@ -1,8 +1,10 @@
 import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import { useFileUploadProvider } from '@/providers/FileUploadProvider'
+import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 
 const VideoPlayer = ({ onClick }: { onClick: () => void }) => {
-  const { blurImageUrl, imageUri, animationUri, mimeType } = useFileUploadProvider()
+  const { blurImageUrl } = useFileUploadProvider()
+  const { imageUri, animationUri, mimeType } = useZoraCreateProvider()
 
   return (
     <section>

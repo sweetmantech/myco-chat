@@ -2,6 +2,7 @@ import { Message } from "ai";
 import { useEffect, useState } from "react";
 import useToolChat from "./useToolChat";
 import useToolCallParams from "./useToolCallParams";
+import { CreateTokenResponse } from "@/lib/toolResponse.types";
 
 const useToolCall = (message: Message) => {
   const [isCalled, setIsCalled] = useState(false);
@@ -15,7 +16,9 @@ const useToolCall = (message: Message) => {
       if (isCalled) return;
       
       setIsCalled(true);
-      if (toolName === "getConnectedProfile") {
+      if (toolName === "getConnectedProfile" || (
+        toolName === "createToken" && context.status === CreateTokenResponse.TOKEN_CREATED
+      )) {
         setBeginCall(true);
       }
     };
