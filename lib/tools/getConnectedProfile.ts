@@ -1,6 +1,7 @@
 import { tool } from "ai";
 import { z } from "zod";
 import getZoraPfpLink from "../zora/getZoraPfpLink";
+import { API_APP_URL } from "../consts";
 
 const getConnectedProfile = (question: string) =>
   tool({
@@ -16,7 +17,7 @@ const getConnectedProfile = (question: string) =>
     }),
     execute: async ({ address }) => {
       try {
-        const response = await fetch(`https://api.myco.wtf/api/profile?address=${address}`)
+        const response = await fetch(`${API_APP_URL}/api/profile?address=${address}`)
         if (!response.ok) {
           return {
             context: {

@@ -1,13 +1,16 @@
 import { useChatProvider } from "@/providers/ChatProvider";
 import { useFileUploadProvider } from "@/providers/FileUploadProvider";
-import { cn } from "@/lib/utils";
+import { useCollectionProvider } from "@/providers/CollectionProvider";
 import useConnectWallet from "@/hooks/useConnectWallet";
+import { NEW_COLLECTION } from "@/lib/consts";
+import { cn } from "@/lib/utils";
 import { Button } from "../ui/Button";
 
 const ProceedButton = ({ className }: { className?: string }) => {
   const { append, pending } = useChatProvider();
   const { address } = useConnectWallet();
   const { imageUri, mimeType, name } = useFileUploadProvider();
+  const { selectedCollection } = useCollectionProvider();
 
   const onSubmit = async () => {
     append({
@@ -16,7 +19,12 @@ const ProceedButton = ({ className }: { className?: string }) => {
       content: `Create a new token.
 ${imageUri ? "Image: " + imageUri : ""}
 ${mimeType ? "MimeType: " + mimeType : ""}
-${name ? "Title: " + name : ""}`,
+${name ? "Title: " + name : ""}
+${selectedCollection?.address ?
+  (selectedCollection.address === NEW_COLLECTION.address ?
+    "Collection Address: New collection" :
+    "Collection Address: " + selectedCollection.address) :
+  ""}`,
     })
   };
 
