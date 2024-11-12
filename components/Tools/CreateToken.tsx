@@ -14,11 +14,14 @@ const CreateToken = () => {
     <div className="w-full">
       {(status === CreateTokenResponse.MISSING_MEDIA ||
         status === CreateTokenResponse.MISSING_TITLE ||
-        status === CreateTokenResponse.MISSING_COLLECTION
+        status === CreateTokenResponse.MISSING_COLLECTION ||
+        status === CreateTokenResponse.MISSING_THUMBNAIL
       ) && (
         <>
           <Answer content={context.answer} role="assistant" />
-          {(status === CreateTokenResponse.MISSING_MEDIA) && (<MediaUpload />)}
+          {(status === CreateTokenResponse.MISSING_MEDIA ||
+            status === CreateTokenResponse.MISSING_THUMBNAIL
+          ) && (<MediaUpload />)}
           {(status === CreateTokenResponse.MISSING_TITLE) && (<Title />)}
           {status === CreateTokenResponse.MISSING_COLLECTION && <CollectionSelect />}
           <ProceedButton />
