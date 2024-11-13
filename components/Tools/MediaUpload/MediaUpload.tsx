@@ -61,7 +61,8 @@ const MediaUpload = () => {
     <div className="grid w-full max-w-3xl items-center gap-4 pl-3">
       <div
         className={cn(
-          'relative rounded-md min-h-[300px] w-[300px] aspect-square border-dashed border-2 border-black',
+          'relative rounded-md min-h-[300px] w-[300px]',
+          !blurImageUrl && 'aspect-square border-dashed border-2 border-black',
         )}
       >
         <input

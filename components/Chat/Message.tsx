@@ -4,11 +4,11 @@ import { useToolCallProvider } from "@/providers/ToolCallProvider";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import ToolContent from "../Tools/ToolContent";
+import Answer from "./Answer";
 
 const Message = ({ message }: { message: AIMessage }) => {
   const { profile } = useProfileSearch();
   const { context } = useToolCallProvider();
-  console.log(context)
 
   return (
     <div
@@ -29,6 +29,7 @@ const Message = ({ message }: { message: AIMessage }) => {
           )}
         </div>
       )}
+      {message.content && <Answer content={message.content} role={message.role} />}
       {context && <ToolContent />}
     </div>
   );
