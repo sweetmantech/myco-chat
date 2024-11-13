@@ -8,9 +8,9 @@ const createToken = (question: string) => tool({
     Do NOT attempt to answer questions on these topics without calling this tool first.
     
     Example questions that MUST trigger this tool:
+    - "Create"
     - "Create a new token."
-    - "I wanna create a new token."
-    - "Create"`,
+    - "I wanna create a new token."`,
   parameters: z.object({
     address: z.string().describe("The creator wallet address."),
     image: z.string().describe("The image to create the token with."),
