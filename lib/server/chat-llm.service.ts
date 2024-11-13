@@ -63,6 +63,7 @@ class ChatLLMService {
     const settings = await chatMessagesService.getChatSettings(
       referenceId,
       address as Address,
+      lastMessage.content,
     );
     const systemMessage = settings.systemMessage;
     const maxTokens = settings.maxTokens;
