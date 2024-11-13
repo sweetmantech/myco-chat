@@ -1,9 +1,9 @@
 import { LoaderCircle, TvMinimalPlay } from "lucide-react";
-import useProfileSerach from "@/hooks/useProfileSearch";
+import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 
 const Thinking = () => {
-  const { profile } = useProfileSerach();
+  const { profile } = useProfileSearch();
 
   return (
     <div className="flex gap-2 w-full max-w-3xl mx-auto items-center pb-2 text-black">
