@@ -19,10 +19,12 @@ const useInitialMessages = () => {
   const fetchInitialMessages = async (walletAddress: Address) => {
     try {
       const convId = pathId as string;
+      if (!convId) return;
       const messages = await getInitialMessages(walletAddress, convId);
       setInitialMessages(messages);
     } catch (error) {
       console.error("Error fetching initial messages:", error);
+      return;
     }
   };
 
