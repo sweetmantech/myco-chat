@@ -20,7 +20,6 @@ const getInitialMessages = async (
       .offset(0)
       .build(),
   });
-  
   const messages: StackMessage[] = events.map((event) => {
     const data = {
       id: event.metadata.id,

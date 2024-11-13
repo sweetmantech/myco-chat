@@ -13,9 +13,9 @@ export function createChatMessagesService() {
 class ChatMessagesService {
   constructor() {}
 
-  async getChatSettings(chatReferenceId: string, address: Address, question: string) {
+  async getChatSettings(chatReferenceId: string, address: Address) {
     const context = await this.fetchRelevantContext(address);
-    const tools = this.fetchRelevantTools(question);
+    const tools = this.fetchRelevantTools();
 
     const systemMessage = `You are a helpful assistant
 Here is some relevant data to help you answer:
@@ -43,11 +43,10 @@ Please use this information to provide accurate and relevant responses and don't
     }
   }
 
-  private fetchRelevantTools(question: string) {
+  private fetchRelevantTools() {
     try {
       return {
-        getConnectedProfile: getConnectedProfile(question),
-        createToken: createToken(question),
+        getConnectedProfile: getConnectedProfile(),
       };
     } catch (error) {
       console.error("Error reading or parsing JSON files:", error);
