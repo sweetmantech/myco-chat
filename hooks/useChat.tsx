@@ -14,7 +14,7 @@ const useChat = () => {
   const { address, connectWallet } = useConnectWallet();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const { push } = useRouter();
-  const { initialMessages } = useInitialMessages();
+  const { initialMessages, fetchInitialMessages } = useInitialMessages();
   const { conversationId, conversationRef } = useConversations();
   const csrfToken = useCsrfToken();
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
@@ -48,6 +48,7 @@ const useChat = () => {
       await finalCallback(
         message,
         messages[messages.length - lastQuestionOffset],
+        conversationRef.current,
       );
       void queryClient.invalidateQueries({
         queryKey: ["credits", accountId],
@@ -81,6 +82,11 @@ const useChat = () => {
     return true;
   };
 
+  const clearQuery = async () => {
+    if (!address) return;
+    await fetchInitialMessages(address);
+  };
+
   const append = async (message: Message) => {
     if (!isPrepared()) return;
     setCurrentQuestion(message);
@@ -106,6 +112,7 @@ const useChat = () => {
     input,
     pending,
     append,
+    clearQuery,
     handleInputChange,
     handleSubmit,
     finalCallback,
