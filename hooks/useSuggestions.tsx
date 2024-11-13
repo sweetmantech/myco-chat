@@ -30,7 +30,7 @@ const useSuggestions = () => {
     await trackNewMessage(
       address as Address,
       {
-        content: message.content,
+        content: message.content.replace(/[^a-zA-Z0-9\s,\.]/g, ""),
         role: message.role,
         id: `${address}-${Date.now()}`,
       },
