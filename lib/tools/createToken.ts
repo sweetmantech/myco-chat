@@ -19,17 +19,7 @@ const createToken = (question: string) => tool({
     collectionAddress: z.string().optional().describe("The contract address of the collection."),
     mimeType: z.string().optional().describe("The type of media."),
   }),
-  execute: async ({ image, animation, title, collectionAddress, mimeType }) => {    
-    if (animation && !image) {
-      return {
-        context: {
-          status: CreateTokenResponse.MISSING_THUMBNAIL,
-          answer: "Please provide a Thumbnail to proceed.",
-        },
-        question,
-      };
-    }
-
+  execute: async ({ image, title, collectionAddress, mimeType }) => {
     if (!image || !mimeType) {
       return {
         context: {
