@@ -1,26 +1,25 @@
 import { useEffect, useRef } from "react";
-import ReactMarkdown from "react-markdown";
-import { Message as AIMessage } from "ai";
 import { TvMinimalPlay } from "lucide-react";
-import { useChatProvider } from "@/providers/ChatProvider";
-import { useProfileProvider } from "@/providers/ProfileProvider";
+import ReactMarkdown from "react-markdown";
+import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
+import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
+import { Message } from "ai";
 
 const Messages = () => {
   const { messages, pending } = useChatProvider();
-  const { profile } = useProfileProvider();
+  const { profile } = useProfileSearch();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const scrollDown = () => scrollRef.current?.scrollIntoView({ behavior: "auto" });
 
   useEffect(() => {
-    scrollDown()
+    scrollRef.current?.scrollIntoView({ behavior: "auto" });
   });
 
   return (
     <div className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
       <div className="space-y-4 flex flex-col">
-        {messages.map((message: AIMessage, index: number) => message.content && (
+        {messages.map((message: Message, index: number) => message.content && (
           <div
             key={index}
             className={message.role === "assistant" ? "flex" : ""}
@@ -29,9 +28,9 @@ const Messages = () => {
               message.role === "assistant" && (
                 <div className="w-8 h-8">
                   {
-                    profile ? (
+                    profile.length > 0 ? (
                       <img
-                        src={getZoraPfpLink(profile)}
+                        src={getZoraPfpLink(profile[0])}
                         alt="PFP"
                         width={36}
                         height={36}
