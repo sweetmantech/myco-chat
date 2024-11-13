@@ -4,13 +4,7 @@ import getZoraPfpLink from "../zora/getZoraPfpLink";
 
 const getConnectedProfile = () =>
   tool({
-    description: `Get the connected zora profile.
-    IMPORTANT: Always call this tool first for ANY question related to getting zora profile.
-    Do NOT attempt to answer questions on these topics without calling this tool first.
-    
-    Example questions that MUST trigger this tool:
-    - "What's my zora profile?"
-    - "What's my connected zora profile?"`,
+    description: "Get the connected profile for a coinbase smart wallet. Call this whenever you need to know the connected profile, for example when a customer asks 'What is my Zora profile'",
     parameters: z.object({
       address: z.string().describe("The connected coinbase smart wallet."),
     }),

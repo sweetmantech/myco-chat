@@ -4,7 +4,6 @@ import { Address } from 'viem';
 import getContext from '../getContext';
 import { AI_MODEL } from '../consts';
 import getConnectedProfile from '../tools/getConnectedProfile';
-import createToken from '../tools/createToken';
 
 export function createChatMessagesService() {
   return new ChatMessagesService();
