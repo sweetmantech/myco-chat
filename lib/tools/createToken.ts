@@ -4,11 +4,12 @@ import { CreateTokenResponse } from "../toolResponse.types";
 
 const createToken = (question: string) => tool({
   description: `Create a new token.
-    IMPORTANT: Always call this tool first for ANY question related to creating a new token.
+    IMPORTANT: Always call this tool first for ANY action involving token creation.
+    Use this tool if you need a new token, regardless of how you phrase your request. 
     Do NOT attempt to answer questions on these topics without calling this tool first.
     
     Example questions that MUST trigger this tool:
-    - "Create"
+    - "Create."
     - "Create a new token."
     - "I wanna create a new token."`,
   parameters: z.object({
