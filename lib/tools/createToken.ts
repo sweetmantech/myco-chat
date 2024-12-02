@@ -13,7 +13,7 @@ const createToken = (question: string) =>
     - "I wanna create a new token."
     - "Create"`,
     parameters: z.object({
-      address: z.string().describe("Wallet Adressssss"),
+      address: z.string().describe("The creator wallet address."),
       image: z.string().describe("The image to create the token with."),
       animation: z
         .string()
