@@ -1,17 +1,14 @@
-'use client'
+"use client";
 
-import { useAccount, useDisconnect } from 'wagmi'
-import useConnectWallet from '@/hooks/useConnectWallet'
-import Button from '@/components/Button'
+import { usePrivy } from "@privy-io/react-auth";
+import Button from "@/components/Button";
 
 export default function LoginButton() {
-  const { status } = useAccount()
-  const { connectWallet } = useConnectWallet()
-  const { disconnect } = useDisconnect()
+  const { ready, authenticated, login, logout } = usePrivy();
 
-  if (['connecting', 'reconnecting'].includes(status)) return <Button disabled>Loading...</Button>
+  if (!ready) return <Button disabled>Loading...</Button>;
 
-  if (status === 'connected') return <Button onClick={disconnect}>Disconnect</Button>
+  if (authenticated) return <Button onClick={logout}>Disconnect</Button>;
 
-  return <Button onClick={connectWallet}>Connect</Button>
+  return <Button onClick={login}>Connect</Button>;
 }
