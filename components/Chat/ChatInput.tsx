@@ -7,14 +7,9 @@ import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
 
 const ChatInput = () => {
-  const {
-    handleSubmit,
-    handleInputChange,
-    input,
-    pending,
-  } = useChatProvider();
+  const { handleSubmit, handleInputChange, input, pending } = useChatProvider();
   const { profile } = useProfileSearch();
-  const color = (!pending && input.length > 0) ? "#000000" : "#F2E8CC";
+  const color = !pending && input.length > 0 ? "#000000" : "#F2E8CC";
 
   const pathname = usePathname();
 
@@ -32,19 +27,17 @@ const ChatInput = () => {
       {!isNewChat && <Suggestions />}
       <div className="w-full max-w-[555px] bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
         <form onSubmit={handleSubmit} className="w-full flex items-center">
-          {
-            profile.length > 0 ? (
-              <img
-                src={getZoraPfpLink(profile[0])}
-                alt="PFP"
-                width={36}
-                height={36}
-                className="rounded-full"
-              />
-            ) : (
-              <TvMinimalPlay size={32} color={color} />
-            )
-          }
+          {profile.length > 0 ? (
+            <img
+              src={getZoraPfpLink(profile[0])}
+              alt="PFP"
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
+          ) : (
+            <TvMinimalPlay size={32} color={color} />
+          )}
           <textarea
             value={input}
             onChange={handleInputChange}
