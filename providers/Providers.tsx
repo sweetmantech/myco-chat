@@ -10,9 +10,9 @@ const queryClient = new QueryClient();
 const Providers = ({ children }: { children: React.ReactNode }) => (
   <WagmiProvider>
     <QueryClientProvider client={queryClient}>
-      <ChatProvider>
-        <PrivyProvider>{children}</PrivyProvider>
-      </ChatProvider>
+      <PrivyProvider>
+        <ChatProvider>{children}</ChatProvider>
+      </PrivyProvider>
     </QueryClientProvider>
   </WagmiProvider>
 );
