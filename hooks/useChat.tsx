@@ -9,9 +9,11 @@ import useConversations from "./useConversations";
 import { useCsrfToken } from "@/packages/shared/src/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import useInitialMessages from "./useInitialMessages";
+import { usePrivy } from "@privy-io/react-auth";
 
 const useChat = () => {
   const { address, connectWallet } = useConnectWallet();
+  const { login } = usePrivy();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const { push } = useRouter();
   const { initialMessages, fetchInitialMessages } = useInitialMessages();
@@ -76,7 +78,8 @@ const useChat = () => {
 
   const isPrepared = () => {
     if (!address) {
-      connectWallet();
+      // connectWallet();
+      login();
       return false;
     }
     return true;

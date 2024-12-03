@@ -6,16 +6,19 @@ import useConnectWallet from "@/hooks/useConnectWallet";
 import Button from "../Button";
 import LoginButton from "../LoginButton";
 import Tooltip from "../ui/Tooltip";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Header = () => {
   const { push } = useRouter();
   const { address, connectWallet } = useConnectWallet();
+  const { login } = usePrivy();
 
   const handleClick = (link: string) => {
     if (address) {
       push(link);
     } else {
-      connectWallet();
+      // connectWallet();
+      login();
     }
   };
 
@@ -28,10 +31,7 @@ const Header = () => {
           message="New Chat"
           className="!z-[100]"
         >
-          <Button
-            className="min-w-fit"
-            onClick={() => handleClick("/")}
-          >
+          <Button className="min-w-fit" onClick={() => handleClick("/")}>
             <Plus size={32} />
           </Button>
         </Tooltip>
@@ -40,10 +40,7 @@ const Header = () => {
           message="Chat History"
           className="!z-[100]"
         >
-          <Button
-            className="min-w-fit"
-            onClick={() => handleClick("/history")}
-          >
+          <Button className="min-w-fit" onClick={() => handleClick("/history")}>
             <BookOpen size={32} />
           </Button>
         </Tooltip>
