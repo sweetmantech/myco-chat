@@ -17,6 +17,10 @@ module.exports = {
         background: {
           DEFAULT: '#F2E8CC',
         },
+        privy: {
+          loading: '#676FFF',
+          success: '#10B981',
+        }
       },
       fontFamily: {
         nounish: ['LondrinaSolid-Regular', 'sans-serif'],
