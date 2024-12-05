@@ -21,18 +21,18 @@ const Header = () => {
 
   return (
     <div className="flex justify-between fixed top-0 left-0 w-screen z-[100] p-4">
-      <div className="font-nounish text-4xl text-black">myco.wtf</div>
-      <div className="flex items-center gap-4">
+      <div className="font-nounish text-2xl md:text-4xl text-black">myco.wtf</div>
+      <div className="flex items-center gap-2 md:gap-4">
         <Tooltip
           id={"new-conversation-tooltip"}
           message="New Chat"
           className="!z-[100]"
         >
           <Button
-            className="min-w-fit"
+            className="min-w-fit p-3 md:p-4"
             onClick={() => handleClick("/")}
           >
-            <Plus size={32} />
+            <Plus className="w-4 h-4 md:w-8 md:h-8" />
           </Button>
         </Tooltip>
         <Tooltip
@@ -41,10 +41,10 @@ const Header = () => {
           className="!z-[100]"
         >
           <Button
-            className="min-w-fit"
+            className="min-w-fit p-3 md:p-4"
             onClick={() => handleClick("/history")}
           >
-            <BookOpen size={32} />
+            <BookOpen className="w-4 h-4 md:w-8 md:h-8" />
           </Button>
         </Tooltip>
         <LoginButton />
