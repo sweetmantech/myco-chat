@@ -5,7 +5,7 @@ export default function LandingPage() {
   return (
     <div className="flex font-nounish flex-col h-[100vh] bg-background border border-black">
       <main className="flex-1 flex flex-col justify-center p-4">
-        <div className="flex flex-col lg:flex-row items-center mt-8 space-y-4 lg:space-y-0 lg:space-x-4">
+        <div className="flex flex-col items-center mt-8 space-y-4">
           <Suggestions />
         </div>
       </main>
