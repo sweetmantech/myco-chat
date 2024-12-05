@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
           - Ensure that questions are forward-thinking, aimed at helping the user make informed decisions or identify key trends.
           - Keep questions to 10 words or less.
           - Dumb it down to a 7th grade reading level.
-          - Limit number of questions to 4 max.
+          - Limit number of questions to 2 max.
           - Use first person point of view when answering.
 
           For example:
