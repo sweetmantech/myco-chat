@@ -18,7 +18,7 @@ module.exports = {
           DEFAULT: '#F2E8CC',
         },
         privy: {
-          loading: '#676FFF',
+          loading: '#000',
           success: '#10B981',
         }
       },

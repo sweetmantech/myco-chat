@@ -15,7 +15,7 @@ const PrivyProvider = ({ children }: { children: ReactNode }) => {
         loginMethods: ['email', 'wallet'],
         appearance: {
           theme: 'light',
-          accentColor: '#676FFF',
+          accentColor: '#000',
           showWalletLoginFirst: false,
         },
         embeddedWallets: {
