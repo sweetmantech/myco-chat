@@ -7,7 +7,7 @@ const Suggestions = () => (
     <div className="rounded-full overflow-hidden">
       <Image src="/myco-logo.png" alt="Mushroom logo" width={80} height={80} />
     </div>
-    <div className="flex items-start space-x-4">
+    <div className="flex flex-col lg:flex-row items-start space-y-4 lg:space-x-4 lg:items-center lg:space-y-0">
       {SUGGESTIONS.map((suggestion) => (
         <SuggestionButton
           suggestion={suggestion}
