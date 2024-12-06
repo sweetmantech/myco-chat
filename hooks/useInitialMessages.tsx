@@ -11,10 +11,10 @@ const useInitialMessages = () => {
   const { conversation: pathId } = useParams();
 
   useEffect(() => {
-    if (address) {
+    if (address && pathId) {
       fetchInitialMessages(address);
     }
-  }, [address]);
+  }, [address, pathId]);
 
   const fetchInitialMessages = async (walletAddress: Address) => {
     try {
