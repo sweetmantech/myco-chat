@@ -7,7 +7,7 @@ import usePrivyAddress from "./usePrivyAddress";
 
 const useInitialMessages = () => {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
-  const  address   = usePrivyAddress();
+  const { address } = usePrivyAddress();
   const { conversation: pathId } = useParams();
 
   useEffect(() => {

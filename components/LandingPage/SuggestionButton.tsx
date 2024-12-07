@@ -14,7 +14,7 @@ const SuggestionButton = ({
   initial?: boolean;
 }) => {
   const { append, pending } = useChatProvider();
-  const address = usePrivyAddress();
+  const {address} = usePrivyAddress();
 
   const onSubmit = async (message: string) =>
     append({

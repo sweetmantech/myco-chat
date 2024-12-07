@@ -7,7 +7,7 @@ import usePrivyAddress from "./usePrivyAddress";
 
 const useConversations = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const address = usePrivyAddress();
+  const { address } = usePrivyAddress();
   const { conversation } = useParams();
   const conversationRef = useRef(conversation as string);
 
