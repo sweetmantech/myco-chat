@@ -3,11 +3,11 @@ import { Address } from "viem";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import getInitialMessages from "@/lib/stack/getInitialMessages";
-import useConnectWallet from "./useConnectWallet";
+import usePrivyAddress from "./usePrivyAddress";
 
 const useInitialMessages = () => {
   const [initialMessages, setInitialMessages] = useState<Message[]>([]);
-  const { address } = useConnectWallet();
+  const address = usePrivyAddress();
   const { conversation: pathId } = useParams();
 
   useEffect(() => {

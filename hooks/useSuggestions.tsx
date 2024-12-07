@@ -4,10 +4,10 @@ import { Message } from "ai";
 import { Address } from "viem";
 import { SUGGESTIONS } from "@/lib/consts";
 import trackNewMessage from "@/lib/stack/trackNewMessage";
-import useConnectWallet from "./useConnectWallet";
+import usePrivyAddress from "./usePrivyAddress";
 
 const useSuggestions = () => {
-  const { address } = useConnectWallet();
+  const address = usePrivyAddress();
   const [suggestions, setSuggestions] = useState(SUGGESTIONS);
   const [currentQuestion, setCurrentQuestion] = useState<Message | null>(null);
   const { conversation: pathId } = useParams();
