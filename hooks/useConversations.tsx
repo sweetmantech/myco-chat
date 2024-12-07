@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import { Conversation } from "@/lib/conversation.types";
 import getConversations from "@/lib/stack/getConversations";
-import useConnectWallet from "./useConnectWallet";
+import usePrivyAddress from "./usePrivyAddress";
 
 const useConversations = () => {
   const [conversations, setConversations] = useState<Conversation[]>([]);
-  const { address } = useConnectWallet();
+  const address = usePrivyAddress();
   const { conversation } = useParams();
   const conversationRef = useRef(conversation as string);
 
