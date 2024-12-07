@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "Myco Chat",
@@ -19,6 +21,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <ToastContainer />
         </Providers>
       </body>
     </html>

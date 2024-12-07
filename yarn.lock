@@ -3707,7 +3707,19 @@
     "@walletconnect/window-getters" "^1.0.1"
     tslib "1.14.1"
 
-abitype@^1.0.6, abitype@1.0.6:
+"@zoralabs/protocol-deployments@^0.3.10":
+  version "0.3.10"
+  resolved "https://registry.npmjs.org/@zoralabs/protocol-deployments/-/protocol-deployments-0.3.10.tgz"
+  integrity sha512-lwCYNQ+5NX36SuMizbKionbVntht+wUqtK7m9xOSIUT2KgzDq/4l0/waVKWXPdgBkyQsQQ4f+eI563GuCK/NXw==
+
+"@zoralabs/protocol-sdk@^0.11.10":
+  version "0.11.10"
+  resolved "https://registry.npmjs.org/@zoralabs/protocol-sdk/-/protocol-sdk-0.11.10.tgz"
+  integrity sha512-EgyLX0TaJnUTY1MVNrGTVIHOQSb85/3Ar0jlPfVYku8BLVCUZbTqCKuAnAQQ6ZUm7eWDlg7jDZH1nV2RxU4nGA==
+  dependencies:
+    "@zoralabs/protocol-deployments" "^0.3.10"
+
+abitype@^1.0.2, abitype@^1.0.6, abitype@1.0.6:
   version "1.0.6"
   resolved "https://registry.npmjs.org/abitype/-/abitype-1.0.6.tgz"
   integrity sha512-MMSqYh4+C/aVqI2RQaWqbvI4Kxo5cQV40WQ4QFtDnNzCkqChm8MuENhElmynZlO0qUy/ObkEUaXtKqYnx1Kp3A==
@@ -4525,7 +4537,7 @@ clsx@^1.2.1:
   resolved "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz"
   integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
 
-clsx@^2.0.0, clsx@^2.1.1:
+clsx@^2.0.0, clsx@^2.1.0, clsx@^2.1.1:
   version "2.1.1"
   resolved "https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
@@ -8918,7 +8930,7 @@ react-devtools-core@^5.3.1:
     shell-quote "^1.6.1"
     ws "^7"
 
-"react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", react-dom@^18, "react-dom@^18 || ^19", "react-dom@^18 || ^19 || ^19.0.0-rc", react-dom@^18.2.0, "react-dom@>= 0.14.0", "react-dom@>= 16.8.0", react-dom@>=16.14.0, react-dom@>=16.8.0:
+"react-dom@^16.8.0 || ^17.0.0 || ^18.0.0", react-dom@^18, "react-dom@^18 || ^19", "react-dom@^18 || ^19 || ^19.0.0-rc", react-dom@^18.2.0, "react-dom@>= 0.14.0", "react-dom@>= 16.8.0", react-dom@>=16.14.0, react-dom@>=16.8.0, react-dom@>=18:
   version "18.3.1"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.3.1.tgz"
   integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
@@ -9008,6 +9020,13 @@ react-refresh@^0.14.0:
   version "0.14.2"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.14.2.tgz"
   integrity sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==
+
+react-toastify@^10.0.6:
+  version "10.0.6"
+  resolved "https://registry.npmjs.org/react-toastify/-/react-toastify-10.0.6.tgz"
+  integrity sha512-yYjp+omCDf9lhZcrZHKbSq7YMuK0zcYkDFTzfRFgTXkTFHZ1ToxwAonzA4JI5CxA91JpjFLmwEsZEgfYfOqI1A==
+  dependencies:
+    clsx "^2.1.0"
 
 react-tooltip@^5.28.0:
   version "5.28.0"
@@ -10532,7 +10551,7 @@ vfile@^6.0.0:
     "@types/unist" "^3.0.0"
     vfile-message "^4.0.0"
 
-viem@^2.1.1, viem@^2.21.16, viem@^2.21.36, viem@^2.21.9, viem@^2.7.12, viem@2.x:
+viem@^2.1.1, viem@^2.21.16, viem@^2.21.21, viem@^2.21.36, viem@^2.21.9, viem@^2.7.12, viem@2.x:
   version "2.21.53"
   resolved "https://registry.npmjs.org/viem/-/viem-2.21.53.tgz"
   integrity sha512-0pY8clBacAwzc59iV1vY4a6U4xvRlA5tAuhClJCKvqA6rXJzmNMMvxQ0EG79lkHr7WtBEruXz8nAmONXwnq4EQ==
