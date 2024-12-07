@@ -6,10 +6,12 @@ import useConnectWallet from "@/hooks/useConnectWallet";
 import Button from "../Button";
 import LoginButton from "../LoginButton";
 import Tooltip from "../ui/Tooltip";
+import usePrivyAddress from "@/hooks/usePrivyAddress";
 
 const Header = () => {
   const { push } = useRouter();
-  const { address, connectWallet } = useConnectWallet();
+  const { connectWallet } = useConnectWallet();
+  const address = usePrivyAddress();
 
   const handleClick = (link: string) => {
     if (address) {

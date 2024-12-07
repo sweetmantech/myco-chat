@@ -9,9 +9,11 @@ import useConversations from "./useConversations";
 import { useCsrfToken } from "@/packages/shared/src/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import useInitialMessages from "./useInitialMessages";
+import usePrivyAddress from "./usePrivyAddress";
 
 const useChat = () => {
-  const { address, connectWallet } = useConnectWallet();
+  const { connectWallet } = useConnectWallet();
+  const address = usePrivyAddress();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const { push } = useRouter();
   const { initialMessages, fetchInitialMessages } = useInitialMessages();
