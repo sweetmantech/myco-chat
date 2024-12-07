@@ -1,7 +1,7 @@
 import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { useRef, useState } from 'react'
-import Button from '../Button'
+import { Button } from '../ui/Button'
 import { Pause, Play } from 'lucide-react'
 import { Slider } from '../ui/Slider'
 import { useFileUploadProvider } from '@/providers/FileUploadProvider'
