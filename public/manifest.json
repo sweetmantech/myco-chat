@@ -1,0 +1,11 @@
+{
+    "name": "Myco-chat",
+    "short_name": "Myco-chat",
+    "description": "A progressive web app built with next.js",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#F2E8CC",
+    "theme_color": "#F2E8CC",
+    "icons": []
+  }
+  
