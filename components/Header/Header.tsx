@@ -2,23 +2,22 @@
 
 import { BookOpen, Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
-import useConnectWallet from "@/hooks/useConnectWallet";
-import usePrivyAddress from "@/hooks/usePrivyAddress";
 import Button from "../Button";
 import LoginButton from "../LoginButton";
 import Tooltip from "../ui/Tooltip";
 import usePrivyAddress from "@/hooks/usePrivyAddress";
+import { usePrivy } from "@privy-io/react-auth";
 
 const Header = () => {
   const { push } = useRouter();
-  const { connectWallet } = useConnectWallet();
-  const address = usePrivyAddress();
+  const { login } = usePrivy();
+  const { address } = usePrivyAddress();
 
   const handleClick = (link: string) => {
     if (address) {
       push(link);
     } else {
-      connectWallet();
+      login();
     }
   };
 

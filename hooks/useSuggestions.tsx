@@ -7,7 +7,7 @@ import trackNewMessage from "@/lib/stack/trackNewMessage";
 import usePrivyAddress from "./usePrivyAddress";
 
 const useSuggestions = () => {
-  const address = usePrivyAddress();
+  const { address } = usePrivyAddress();
   const [suggestions, setSuggestions] = useState(SUGGESTIONS);
   const [currentQuestion, setCurrentQuestion] = useState<Message | null>(null);
   const { conversation: pathId } = useParams();
