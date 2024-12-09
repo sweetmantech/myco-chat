@@ -6,7 +6,7 @@ import Head from "next/head";
 
 export const metadata: Metadata = {
   title: "Myco Chat",
-  description: "A progressive web app built with next.js",
+  description: "Intelligent assistants for your digital art. Zora compatible. Styled with tailwindcss. Copy and paste. Open Source. Based.",
   themeColor: "#F2E8CC",
 };
 
