@@ -3,10 +3,11 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
 import Head from "next/head";
+import { APP_DESCRIPTION } from "@/lib/consts";
 
 export const metadata: Metadata = {
   title: "Myco Chat",
-  description: "Intelligent assistants for your digital art. Zora compatible. Styled with tailwindcss. Copy and paste. Open Source. Based.",
+  description: APP_DESCRIPTION,
   themeColor: "#F2E8CC",
 };
 

@@ -13,3 +13,5 @@ export const SUGGESTIONS = [
   "What did I create this week???",
   "What's my Zora score???",
 ]
+
+export const APP_DESCRIPTION = "Intelligent assistants for your digital art. Zora compatible. Styled with tailwindcss. Copy and paste. Open Source. Based."
