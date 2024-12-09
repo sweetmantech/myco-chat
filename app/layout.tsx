@@ -6,9 +6,9 @@ import Head from "next/head";
 import manifest from "@/public/manifest.json";
 
 export const metadata: Metadata = {
-  title: "Myco Chat",
+  title: manifest.name,
   description: manifest.description,
-  themeColor: "#F2E8CC",
+  themeColor: manifest.theme_color,
 };
 
 
@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en" className="font-nounish overflow-hidden">
       <Head>
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#F2E8CC" />
+        <meta name="theme-color" content={manifest.theme_color} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
