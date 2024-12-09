@@ -1,3 +1,4 @@
+"use client"
 import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { cn } from '@/lib/utils'
 import Spinner from '@/components/ui/Spinner'

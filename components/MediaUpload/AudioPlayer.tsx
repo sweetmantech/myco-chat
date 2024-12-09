@@ -1,3 +1,4 @@
+"use client"
 import getIpfsLink from '@/lib/ipfs/getIpfsLink'
 import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { useRef, useState } from 'react'

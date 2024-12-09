@@ -11,7 +11,7 @@ export const POST = enhanceRouteHandler(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const service = createChatLLMService();
     const referenceId = "if1Fg9bo"; // hard coded for demo
-
+    
     try {    
       return await service.streamResponse(body, referenceId);
     } catch (error) {
