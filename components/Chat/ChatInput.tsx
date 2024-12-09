@@ -5,6 +5,7 @@ import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import SubmitButton from "./SubmitButton";
 import Suggestions from "./Suggestions";
+import manifest from "@/public/manifest.json";
 
 const ChatInput = () => {
   const {
@@ -14,7 +15,7 @@ const ChatInput = () => {
     pending,
   } = useChatProvider();
   const { profile } = useProfileSearch();
-  const color = (!pending && input.length > 0) ? "#000000" : "#F2E8CC";
+  const color = (!pending && input.length > 0) ? "#000000" : manifest.theme_color;
 
   const pathname = usePathname();
 
