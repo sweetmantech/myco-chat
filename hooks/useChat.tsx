@@ -3,17 +3,17 @@ import { Message } from "ai";
 import { useChat as useAiChat } from "ai/react";
 import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
-import useConnectWallet from "./useConnectWallet";
 import useSuggestions from "./useSuggestions";
 import useConversations from "./useConversations";
 import { useCsrfToken } from "@/packages/shared/src/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import useInitialMessages from "./useInitialMessages";
 import usePrivyAddress from "./usePrivyAddress";
+import { usePrivy } from "@privy-io/react-auth";
 
 const useChat = () => {
-  const { connectWallet } = useConnectWallet();
-  const address = usePrivyAddress();
+  const { login } = usePrivy();
+  const {address} = usePrivyAddress();
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const { push } = useRouter();
   const { initialMessages, fetchInitialMessages } = useInitialMessages();
@@ -78,7 +78,7 @@ const useChat = () => {
 
   const isPrepared = () => {
     if (!address) {
-      connectWallet();
+      login();
       return false;
     }
     return true;

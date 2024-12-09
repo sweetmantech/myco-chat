@@ -5,7 +5,7 @@ import usePrivyAddress from './usePrivyAddress';
 const useProfileSearch = () => {
   const [profile, setProfile] = useState<ZoraProfile[]>([])
 
-  const address = usePrivyAddress();
+  const { address } = usePrivyAddress();
 
   const fetchResults = useCallback(async (query: string) => {
     if (query.length > 0) {
