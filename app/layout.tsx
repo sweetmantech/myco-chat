@@ -3,13 +3,14 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
 import Head from "next/head";
-import { APP_DESCRIPTION } from "@/lib/consts";
+import manifest from "@/public/manifest.json";
 
 export const metadata: Metadata = {
   title: "Myco Chat",
-  description: APP_DESCRIPTION,
+  description: manifest.description,
   themeColor: "#F2E8CC",
 };
+
 
 export default function RootLayout({
   children,

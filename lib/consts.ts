@@ -14,6 +14,3 @@ export const SUGGESTIONS = [
   "What's my Zora score???",
 ]
 
-import manifest from '@/public/manifest.json';
-
-export const APP_DESCRIPTION = manifest.description;
