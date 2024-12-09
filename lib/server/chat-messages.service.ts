@@ -11,7 +11,7 @@ export function createChatMessagesService() {
 }
 
 class ChatMessagesService {
-  constructor() {}
+  constructor() { }
 
   async getChatSettings(chatReferenceId: string, address: Address, question: string) {
     const context = await this.fetchRelevantContext(address);
