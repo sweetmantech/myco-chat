@@ -1,8 +1,8 @@
 import { Lightbulb } from "lucide-react";
 import { useChatProvider } from "@/providers/ChatProvider";
 import { cn } from "@/lib/utils";
-import useConnectWallet from "@/hooks/useConnectWallet";
 import { Button } from "../ui/Button";
+import usePrivyAddress from "@/hooks/usePrivyAddress";
 
 const SuggestionButton = ({
   suggestion,
@@ -14,7 +14,7 @@ const SuggestionButton = ({
   initial?: boolean;
 }) => {
   const { append, pending } = useChatProvider();
-  const { address } = useConnectWallet();
+  const {address} = usePrivyAddress();
 
   const onSubmit = async (message: string) =>
     append({
