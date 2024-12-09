@@ -13,4 +13,3 @@ export const SUGGESTIONS = [
   "What did I create this week???",
   "What's my Zora score???",
 ]
-
