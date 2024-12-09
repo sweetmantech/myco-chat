@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 import Button from "../Button";
 import LoginButton from "../LoginButton";
 import Tooltip from "../ui/Tooltip";
-import usePrivyAddress from "@/hooks/usePrivyAddress";
 import { usePrivy } from "@privy-io/react-auth";
+import usePrivyAddress from "@/hooks/usePrivyAddress";
 
 const Header = () => {
   const { push } = useRouter();
