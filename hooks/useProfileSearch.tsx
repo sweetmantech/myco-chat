@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from 'react'
 import { ZoraProfile } from '@/lib/zora.types';
-import useConnectWallet from './useConnectWallet';
+import usePrivyAddress from './usePrivyAddress';
 
 const useProfileSearch = () => {
   const [profile, setProfile] = useState<ZoraProfile[]>([])
 
-  const { address } = useConnectWallet();
+  const { address } = usePrivyAddress();
 
   const fetchResults = useCallback(async (query: string) => {
     if (query.length > 0) {
