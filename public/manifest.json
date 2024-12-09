@@ -1,7 +1,7 @@
 {
     "name": "Myco-chat",
     "short_name": "Myco-chat",
-    "description": "A progressive web app built with next.js",
+    "description": "Intelligent assistants for your digital art. Zora compatible. Styled with tailwindcss. Copy and paste. Open Source. Based.",
     "start_url": "/",
     "display": "standalone",
     "background_color": "#F2E8CC",
