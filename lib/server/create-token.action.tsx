@@ -7,7 +7,10 @@ import { ReactNode } from "react";
 import { SYSTEM_PROMPT } from "@/lib/consts";
 import { createTool } from "../tools/create-token.tool";
 import { AIState, UIState } from "@/lib/createAction.types";
-import {AI_MODEL} from "@/lib/consts";
+import { AI_MODEL } from "@/lib/consts";
+import OpenAI from "openai";
+
+const openai = new OpenAI();
 
 export async function sendMessage(message: string): Promise<{
   id: number;
@@ -24,8 +27,21 @@ export async function sendMessage(message: string): Promise<{
     },
   ]);
 
-  const reply = await streamUI({
+  const stream = await openai.chat.completions.create({
     model: AI_MODEL,
+    messages: [
+      {
+        role: "system",
+        content: SYSTEM_PROMPT,
+      },
+      ...history.get(),
+    ],
+    stream: true,
+  });
+
+  const reply = await streamUI({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    model: stream as any,
     messages: [
       {
         role: "system",
