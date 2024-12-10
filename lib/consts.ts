@@ -28,10 +28,8 @@ export const PROFILE_APP_URL = process.env.NEXT_PUBLIC_PROFILE_APP_URL || 'https
 export const API_APP_URL = 'https://api.myco.wtf'
 export const SUPPORTED_FILES = ['image', 'audio', 'video']
 
-
-
-
-
-
-
-
+export const SYSTEM_PROMPT = `\
+You are a helpful assistant that can create tokens on the chain.
+You can create a token by calling the create tool.
+Messages inside [] means that it is a UI element or a user event.
+`; 
