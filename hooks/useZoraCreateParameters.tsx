@@ -12,7 +12,7 @@ import usePrivyAddress from './usePrivyAddress'
 const useZoraCreateParameters = (collection?: Address) => {
   const publicClient = usePublicClient()
   const searchParams = useSearchParams()
-  const address = usePrivyAddress()
+  const { address } = usePrivyAddress()
   const { profile } = useProfileProvider()
   const createMetadata = useCreateMetadata()
   const creatorAddress = useCreatorAddress()
