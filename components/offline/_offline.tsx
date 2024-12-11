@@ -26,7 +26,7 @@ export default function Offline() {
 
       <footer className="p-4">
         <p className="text-md text-gray-500 text-center">
-          MycoChat - Currently Offline
+          Myco-Chat - Currently Offline
         </p>
       </footer>
     </div>
