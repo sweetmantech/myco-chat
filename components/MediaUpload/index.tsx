@@ -1,4 +1,4 @@
-import { MediaUpload } from './MediaUpload'
+import MediaUpload from './MediaUpload'
 
 export default MediaUpload
 

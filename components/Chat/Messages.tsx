@@ -6,11 +6,14 @@ import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
 import { Message } from "ai";
+import ToolContent from "@/lib/tools/ToolContent";
+import { useToolCallProvider } from "@/providers/ToolCallProvider";
 
 const Messages = () => {
   const { messages, pending } = useChatProvider();
   const { profile } = useProfileSearch();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const { context } = useToolCallProvider();
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "auto" });
@@ -53,6 +56,7 @@ const Messages = () => {
                 {message.content}
               </ReactMarkdown>
             </div>
+            {context && <ToolContent />}
           </div>
         ))}
         {pending && <Thinking />}

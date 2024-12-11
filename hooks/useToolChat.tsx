@@ -3,11 +3,14 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { useChatProvider } from "@/providers/ChatProvider";
+import { useZoraCreateProvider } from "@/providers/ZoraCreateProvider";
+import { CreateTokenResponse } from "@/lib/toolResponse.types";
 
 const useTokenCreation = (question?: string, toolName?: string) => {
   const { finalCallback, clearQuery } = useChatProvider();
   const { conversation: conversationId } = useParams();
   const [beginCall, setBeginCall] = useState(false);
+  const { imageUri, animationUri, mimeType } = useZoraCreateProvider();
 
   const {
     messages,
@@ -19,8 +22,14 @@ const useTokenCreation = (question?: string, toolName?: string) => {
       question,
       toolName,
       context: {
-        // Token creation specific context can be added here
-        // For example: image, title, collectionAddress, etc.
+        imageUri,
+        animationUri,
+        mimeType,
+        status: !imageUri 
+          ? CreateTokenResponse.MISSING_IMAGE 
+          : !question 
+          ? CreateTokenResponse.MISSING_TITLE 
+          : CreateTokenResponse.SIGN_TRANSACTION
       },
     },
     onError: console.error,
@@ -54,7 +63,7 @@ const useTokenCreation = (question?: string, toolName?: string) => {
 
     if (!beginCall || !question) return;
     initTokenCreation();
-  }, [beginCall, question]);
+  }, [beginCall, question, append]);
 
   return {
     messages,
