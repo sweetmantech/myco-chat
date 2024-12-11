@@ -21,6 +21,11 @@ export const SUGGESTIONS = [
   "What's my Zora score???",
 ]
 
+// MOBILE DEVICE
+export const MOBILE_BREAKPOINT = 768;
+export const MOBILE_REGEX = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+
 // IPFS
 export const ONE_MB = 1024 * 1024
 export const MAX_FILE_SIZE = 5 * ONE_MB
