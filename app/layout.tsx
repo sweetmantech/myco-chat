@@ -20,8 +20,8 @@ export const metadata: Metadata = {
     title: manifest.name,
   },
   icons: {
-    icon: "/icon-192x192.png",
-    apple: "/icon-192x192.png",
+    icon: "/icons/icon-192x192.png",
+    apple: "/icons/apple-touch-icon.png",
   },
 };
 
