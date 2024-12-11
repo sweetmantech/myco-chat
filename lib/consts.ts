@@ -13,3 +13,7 @@ export const SUGGESTIONS = [
   "What did I create this week???",
   "What's my Zora score???",
 ]
+
+// MOBILE DEVICE
+export const MOBILE_BREAKPOINT = 768;
+export const MOBILE_REGEX = /Mobi|Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
