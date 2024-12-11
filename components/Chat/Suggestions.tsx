@@ -4,8 +4,9 @@ import SuggestionButton from "../LandingPage/SuggestionButton";
 const Suggestions = () => {
   const { suggestions } = useChatProvider();
 
+
   return (
-    <div className="flex flex-col items-center space-y-1 mb-2">
+    <div className="flex flex-col lg:flex-row items-start space-y-4 lg:space-x-4 mb-2 lg:items-center lg:space-y-0">
       {suggestions.map((suggestion) => (
         <SuggestionButton
           suggestion={suggestion}
