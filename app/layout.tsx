@@ -2,15 +2,28 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
-import Head from "next/head";
 import manifest from "@/public/manifest.json";
 
 export const metadata: Metadata = {
   title: manifest.name,
   description: manifest.description,
   themeColor: manifest.theme_color,
+  manifest: "/manifest.json",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: manifest.name,
+  },
+  icons: {
+    icon: "/icon-192x192.png",
+    apple: "/icon-192x192.png",
+  },
 };
-
 
 export default function RootLayout({
   children,
@@ -19,11 +32,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="font-nounish overflow-hidden">
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content={manifest.theme_color} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body>
         <Providers>
           <Header />
