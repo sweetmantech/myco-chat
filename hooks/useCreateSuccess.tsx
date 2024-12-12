@@ -16,7 +16,7 @@ export default function useCreateSuccess(
   onSuccess: () => void,
   isExistingContract: boolean,
 ) {
-  const address = usePrivyAddress()
+  const {address} = usePrivyAddress()
   const { data: callsStatus } = useCallsStatus({
     id: callsStatusId as string,
     query: {

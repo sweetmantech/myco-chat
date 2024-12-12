@@ -1,10 +1,10 @@
 import { PROFILE } from '@/lib/profile'
 import { useEffect, useState } from 'react'
-import { useAccount } from 'wagmi'
+import usePrivyAddress from './usePrivyAddress'
 
 const useProfile = () => {
   const [profile, setProfile] = useState<PROFILE | null>(null)
-  const { address } = useAccount()
+  const { address } = usePrivyAddress()
 
   useEffect(() => {
     const init = async () => {

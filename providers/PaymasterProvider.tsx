@@ -12,7 +12,7 @@ type PaymasterContextType = {
 const PaymasterContext = createContext<PaymasterContextType | undefined>(undefined)
 
 const PaymasterProvider = ({ children }: { children: React.ReactNode }) => {
-  const address = usePrivyAddress()
+  const {address} = usePrivyAddress()
 
   const { data: availableCapabilities } = useCapabilities({
     account: address,

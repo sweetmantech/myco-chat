@@ -1,18 +1,17 @@
 import { useProfileProvider } from '@/providers/ProfileProvider'
 import { useSearchParams } from 'next/navigation'
 import { isAddress } from 'viem'
-import { useAccount } from 'wagmi'
+import usePrivyAddress from './usePrivyAddress'
 
 const useCreatorAddress = () => {
-  const { address } = useAccount()
+  const { address } = usePrivyAddress()
   const { profile } = useProfileProvider()
   const searchParams = useSearchParams()
 
   const defaultAdmin = searchParams.get('defaultAdmin')
   const connnectedProfileAddress = profile?.connectedZoraProfile?.address
-  const fallbackCreatorAddress = isAddress(defaultAdmin) ? defaultAdmin : address
+  const fallbackCreatorAddress = defaultAdmin && isAddress(defaultAdmin) ? defaultAdmin : address
   const creatorAddress = connnectedProfileAddress || fallbackCreatorAddress
-
   return creatorAddress
 }
 
