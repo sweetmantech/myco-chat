@@ -51,8 +51,11 @@ export function useInstallPrompt() {
     const { outcome } = await prompt.userChoice;
     
     if (outcome === 'accepted') {
+      console.log('User accepted the install prompt');
       setPrompt(null);
       setIsInstallable(false);
+    }else{
+        console.log('User dismissed the install prompt');
     }
 
     return outcome;
