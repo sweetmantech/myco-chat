@@ -4,15 +4,28 @@ import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Head from "next/head";
 import manifest from "@/public/manifest.json";
 
 export const metadata: Metadata = {
   title: manifest.name,
   description: manifest.description,
   themeColor: manifest.theme_color,
+  manifest: "/manifest.json",
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 1,
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: manifest.name,
+  },
+  icons: {
+    icon: "/icons/icon-192x192.png",
+    apple: "/icons/apple-touch-icon.png",
+  },
 };
-
 
 export default function RootLayout({
   children,
@@ -21,11 +34,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="font-nounish overflow-hidden">
-      <Head>
-        <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content={manifest.theme_color} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body>
         <Providers>
           <Header />
