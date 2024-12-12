@@ -4,7 +4,7 @@ import { isAddress } from 'viem'
 import usePrivyAddress from './usePrivyAddress'
 
 const useCreatorAddress = () => {
-  const { address } = usePrivyAddress()
+  const { address } = usePrivyAddress();
   const { profile } = useProfileProvider()
   const searchParams = useSearchParams()
 

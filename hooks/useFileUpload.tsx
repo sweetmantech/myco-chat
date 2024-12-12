@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import usePrivyAddress from './usePrivyAddress'
 
 const useFileUpload = () => {
-  const {address} = usePrivyAddress()
+  const {address }= usePrivyAddress()
   const { setName, setImageUri, setAnimationUri, setMimeType, animationUri } =
     useZoraCreateProvider()
   const [blurImageUrl, setBlurImageUrl] = useState<string>('')

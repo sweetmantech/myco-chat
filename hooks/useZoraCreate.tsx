@@ -15,7 +15,7 @@ import usePrivyAddress from './usePrivyAddress'
 
 export default function useZoraCreate() {
   const { push } = useRouter()
-  const {address} = usePrivyAddress()
+  const{ address } = usePrivyAddress()
   const { getCapabilities } = usePaymasterProvider()
   const { data: callsStatusId, writeContractsAsync } = useWriteContracts()
   const { switchChainAsync } = useSwitchChain()

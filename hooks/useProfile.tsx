@@ -4,7 +4,7 @@ import usePrivyAddress from './usePrivyAddress'
 
 const useProfile = () => {
   const [profile, setProfile] = useState<PROFILE | null>(null)
-  const { address } = usePrivyAddress()
+  const {address} = usePrivyAddress();
 
   useEffect(() => {
     const init = async () => {

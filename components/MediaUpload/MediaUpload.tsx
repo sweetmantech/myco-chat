@@ -1,4 +1,3 @@
-"use client"
 import { useZoraCreateProvider } from '@/providers/ZoraCreateProvider'
 import { cn } from '@/lib/utils'
 import Spinner from '@/components/ui/Spinner'
@@ -10,13 +9,7 @@ import Image from 'next/image'
 import VideoPlayer from './VideoPlayer'
 import { useFileUploadProvider } from '@/providers/FileUploadProvider'
 
-interface MediaUploadProps {
-  onFileSelect?: (file: File | null) => void
-  selectedFile?: File | null
-  isGenerating?: boolean
-}
-
-export function MediaUpload({ isGenerating }: MediaUploadProps) {
+const MediaUpload = () => {
   const { imageUri, animationUri, mimeType } = useZoraCreateProvider()
   const { fileUpload, loading, error, blurImageUrl } = useFileUploadProvider()
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -61,34 +54,27 @@ export function MediaUpload({ isGenerating }: MediaUploadProps) {
   }
 
   return (
-    <div className="w-full rounded-lg border border-gray-200 bg-white p-4">
-      {isGenerating ? (
-        <div className="flex items-center justify-center space-x-2">
-          <Spinner />
-          <span className="text-sm text-gray-500">Generating response...</span>
-        </div>
-      ) : (
-        <div className="grid w-full max-w-3xl items-center gap-4">
-          <div
-            className={cn(
-              'relative rounded-md h-[300px] w-[300px]',
-              !imageUri && !animationUri && 'aspect-square',
-              (loading || (!imageUri && !animationUri)) && 'border-dashed border-2 border-black',
-            )}
-          >
-            <input
-              ref={fileInputRef}
-              id="media"
-              type="file"
-              className="hidden"
-              onChange={fileUpload}
-              accept="image/*, audio/*, video/*"
-            />
-            {renderMedia()}
-          </div>
-          {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-        </div>
-      )}
+    <div className="grid w-full max-w-3xl items-center gap-4">
+      <div
+        className={cn(
+          'relative rounded-md h-[300px] w-[300px]',
+          !imageUri && !animationUri && 'aspect-square',
+          (loading || (!imageUri && !animationUri)) && 'border-dashed border-2 border-black',
+        )}
+      >
+        <input
+          ref={fileInputRef}
+          id="media"
+          type="file"
+          className="hidden"
+          onChange={fileUpload}
+          accept="image/*, audio/*, video/*"
+        />
+        {renderMedia()}
+      </div>
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
     </div>
   )
 }
+
+export default MediaUpload
