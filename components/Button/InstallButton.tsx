@@ -2,14 +2,12 @@
 
 import { useDevice } from '@/hooks/useMobileDevice';
 import { useInstallPrompt } from '@/hooks/useInstallPrompt';
-import { useEffect } from 'react';
+
 
 export function InstallButton() {
   const { isMobile } = useDevice();
   const { isInstallable, promptToInstall } = useInstallPrompt();
 
-  useEffect(() => {
-  }, [isMobile, isInstallable]);
 
   if (!isMobile || !isInstallable) {
     return null;
