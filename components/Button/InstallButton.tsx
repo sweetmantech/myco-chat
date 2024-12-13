@@ -9,7 +9,6 @@ export function InstallButton() {
   const { isInstallable, promptToInstall } = useInstallPrompt();
 
   useEffect(() => {
-    console.log('InstallButton Debug:', { isMobile, isInstallable });
   }, [isMobile, isInstallable]);
 
   if (!isMobile || !isInstallable) {
