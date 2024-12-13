@@ -42,7 +42,6 @@ export function useInstallPrompt() {
 
   const promptToInstall = async () => {
     if (!prompt) {
-      console.log('Install prompt not available');
       return;
     }
 
@@ -51,11 +50,9 @@ export function useInstallPrompt() {
     const { outcome } = await prompt.userChoice;
     
     if (outcome === 'accepted') {
-      console.log('User accepted the install prompt');
-      setPrompt(null);
+        setPrompt(null);
       setIsInstallable(false);
     }else{
-        console.log('User dismissed the install prompt');
     }
 
     return outcome;
