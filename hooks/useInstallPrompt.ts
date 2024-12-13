@@ -52,9 +52,7 @@ export function useInstallPrompt() {
     if (outcome === 'accepted') {
         setPrompt(null);
       setIsInstallable(false);
-    }else{
     }
-
     return outcome;
   };
 
