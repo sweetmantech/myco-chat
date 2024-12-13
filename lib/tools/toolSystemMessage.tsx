@@ -1,15 +1,17 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import instructions from "@/evals/scripts/instructions.json";
+import { Tools } from "@/lib/Tool";
 
-const toolSystemMessage = (context: { status?: string }, question: string, toolName: string) => {
-  if (toolName === "createToken") {
+const toolSystemMessage = (context: any, question: any, toolName: string) => {
+  if (toolName === Tools.createToken) {
     return `
     Context: ${JSON.stringify(context)}
     Question: ${question}
-    ${instructions.create_token}
+    ${instructions.createToken}
     `;
   }
 
-  return "";
+  return instructions.createToken;
 };
 
 export default toolSystemMessage;
