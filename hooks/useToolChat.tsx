@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Message, useChat } from "ai/react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { v4 as uuidV4 } from "uuid";
 import { useChatProvider } from "@/providers/ChatProvider";
 import { useZoraCreateProvider } from "@/providers/ZoraCreateProvider";
 import { CreateTokenResponse } from "@/lib/toolResponse.types";
-import usePrivyAddress from "./usePrivyAddress";
 import { Tools } from "@/lib/Tool";
 
 interface ToolContext {
@@ -24,19 +23,19 @@ const useToolChat = (question?: string, toolName?: string) => {
   const { conversation: conversationId } = useParams();
   const [beginCall, setBeginCall] = useState(false);
   const { imageUri, animationUri, mimeType } = useZoraCreateProvider();
-  const { address } = usePrivyAddress();
+  const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
+  const hasInitialized = useRef(false);
 
-  // Build context based on tool type
   const context: ToolContext = toolName === Tools.createToken ? {
     imageUri,
     animationUri,
     mimeType,
     title: question,
-    status: !imageUri 
-      ? CreateTokenResponse.MISSING_IMAGE 
-      : !question 
-      ? CreateTokenResponse.MISSING_TITLE 
-      : CreateTokenResponse.SIGN_TRANSACTION
+    status: !imageUri
+      ? CreateTokenResponse.MISSING_IMAGE
+      : !question
+        ? CreateTokenResponse.MISSING_TITLE
+        : CreateTokenResponse.SIGN_TRANSACTION
   } : {};
 
   const {
@@ -45,24 +44,32 @@ const useToolChat = (question?: string, toolName?: string) => {
     isLoading: loading,
   } = useChat({
     api: "/api/tool_call",
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: {
+      accountId,
       question,
       toolName,
-      address,
       context,
     },
-    onError: console.error,
+    onError: (error) => {
+      console.error('Tool chat error:', error);
+    },
     onFinish: async (message) => {
-      await finalCallback(
-        message,
-        {
-          id: uuidV4(),
-          content: question as string,
-          role: "user" as const,
-        } as Message,
-        conversationId as string,
-      );
-      await clearQuery();
+      if (!hasInitialized.current) {
+        await finalCallback(
+          message,
+          {
+            id: uuidV4(),
+            content: question as string,
+            role: "user" as const,
+          } as Message,
+          conversationId as string,
+        );
+        await clearQuery();
+        hasInitialized.current = true;
+      }
     },
   });
 
@@ -72,17 +79,25 @@ const useToolChat = (question?: string, toolName?: string) => {
 
   useEffect(() => {
     const initToolCall = async () => {
-      await append({
-        id: uuidV4(),
-        content: question as string,
-        role: "user" as const,
-      } as Message);
-      setBeginCall(false);
+      if (!hasInitialized.current) {
+        await append({
+          id: uuidV4(),
+          content: question as string,
+          role: "user" as const,
+        } as Message);
+        setBeginCall(false);
+        hasInitialized.current = true;
+      }
     };
 
     if (!beginCall || !question) return;
     initToolCall();
   }, [beginCall, question, append]);
+
+  // Reset initialization flag when tool or question changes
+  useEffect(() => {
+    hasInitialized.current = false;
+  }, [toolName, question]);
 
   return {
     messages,

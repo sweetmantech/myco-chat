@@ -18,7 +18,7 @@ const useMessages = () => {
   const queryClient = useQueryClient();
   const { address } = usePrivyAddress();
   const [toolCall, setToolCall] = useState<any>(null);
-
+  const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const pathname = usePathname();
   const isNewChat = pathname === "/";
 
@@ -34,8 +34,10 @@ const useMessages = () => {
     api: `/api/chat`,
     headers: {
       "X-CSRF-Token": csrfToken,
+      'Content-Type': 'application/json',
     },
     body: {
+      accountId,
       address,
       conversationId: conversationRef.current,
     },
