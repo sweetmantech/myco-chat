@@ -4,12 +4,16 @@ const useIsIOS = () => {
     if (typeof window === 'undefined') return false;
     
     const userAgent = window.navigator.userAgent.toLowerCase();
-    const isIOS = /iphone|ipad|ipod/.test(userAgent);
+    const isIOS = /iphone|ipad|ipod|ios/.test(userAgent);
     const isIPadOS = userAgent.includes('macintosh') && navigator.maxTouchPoints > 1;
     
     const isStandalone = 'standalone' in window.navigator && (window.navigator as any).standalone === true;
     
-    return (isIOS || isIPadOS) && !isStandalone;
+    const isSafari = /safari/.test(userAgent);
+    const isChrome = /crios/.test(userAgent);
+    const isFirefox = /fxios/.test(userAgent);
+   
+    return (isIOS || isIPadOS) && !isStandalone && isSafari && !isChrome && !isFirefox;
   };
 
   return isIos();

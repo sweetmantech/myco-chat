@@ -7,8 +7,8 @@ const IOSInstallPrompt: React.FC = () => {
   if (!isIOS) return null;
 
   return (
-    <div className="fixed w-11/12 mx-auto !top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-black px-6 py-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-      <h3 className="font-semibold mb-2">Install Myco-Chat on your iPhone</h3>
+    <div className="fixed w-11/12 max-w-md mx-auto !top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background text-black px-6 py-3 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+      <h3 className="font-semibold mb-2 text-lg">Install Myco-Chat on your iPhone</h3>
       <p className="text-sm text-black">
         1. Tap the share button <span className="inline-block">
           <svg className="w-4 h-4 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor">
