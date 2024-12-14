@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Message, useChat } from "ai/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -5,12 +6,38 @@ import { v4 as uuidV4 } from "uuid";
 import { useChatProvider } from "@/providers/ChatProvider";
 import { useZoraCreateProvider } from "@/providers/ZoraCreateProvider";
 import { CreateTokenResponse } from "@/lib/toolResponse.types";
+import usePrivyAddress from "./usePrivyAddress";
+import { Tools } from "@/lib/Tool";
 
-const useTokenCreation = (question?: string, toolName?: string) => {
+interface ToolContext {
+  imageUri?: string;
+  animationUri?: string;
+  mimeType?: string;
+  title?: string;
+  collectionAddress?: string;
+  status?: CreateTokenResponse;
+  [key: string]: any;
+}
+
+const useToolChat = (question?: string, toolName?: string) => {
   const { finalCallback, clearQuery } = useChatProvider();
   const { conversation: conversationId } = useParams();
   const [beginCall, setBeginCall] = useState(false);
   const { imageUri, animationUri, mimeType } = useZoraCreateProvider();
+  const { address } = usePrivyAddress();
+
+  // Build context based on tool type
+  const context: ToolContext = toolName === Tools.createToken ? {
+    imageUri,
+    animationUri,
+    mimeType,
+    title: question,
+    status: !imageUri 
+      ? CreateTokenResponse.MISSING_IMAGE 
+      : !question 
+      ? CreateTokenResponse.MISSING_TITLE 
+      : CreateTokenResponse.SIGN_TRANSACTION
+  } : {};
 
   const {
     messages,
@@ -21,16 +48,8 @@ const useTokenCreation = (question?: string, toolName?: string) => {
     body: {
       question,
       toolName,
-      context: {
-        imageUri,
-        animationUri,
-        mimeType,
-        status: !imageUri 
-          ? CreateTokenResponse.MISSING_IMAGE 
-          : !question 
-          ? CreateTokenResponse.MISSING_TITLE 
-          : CreateTokenResponse.SIGN_TRANSACTION
-      },
+      address,
+      context,
     },
     onError: console.error,
     onFinish: async (message) => {
@@ -52,7 +71,7 @@ const useTokenCreation = (question?: string, toolName?: string) => {
   )?.[0]?.content;
 
   useEffect(() => {
-    const initTokenCreation = async () => {
+    const initToolCall = async () => {
       await append({
         id: uuidV4(),
         content: question as string,
@@ -62,7 +81,7 @@ const useTokenCreation = (question?: string, toolName?: string) => {
     };
 
     if (!beginCall || !question) return;
-    initTokenCreation();
+    initToolCall();
   }, [beginCall, question, append]);
 
   return {
@@ -71,7 +90,9 @@ const useTokenCreation = (question?: string, toolName?: string) => {
     loading,
     answer,
     setBeginCall,
+    context,
+    toolName,
   };
 };
 
-export default useTokenCreation;
+export default useToolChat;

@@ -1,14 +1,14 @@
 "use client";
 
-import useChat from "@/hooks/useChat";
+import useNewChat from "@/hooks/useNewChat";
 import React, { createContext, useContext, useMemo } from "react";
 
-const ChatContext = createContext<ReturnType<typeof useChat>>(
-  {} as ReturnType<typeof useChat>
+const ChatContext = createContext<ReturnType<typeof useNewChat>>(
+  {} as ReturnType<typeof useNewChat>
 );
 
 const ChatProvider = ({ children }: { children: React.ReactNode }) => {
-  const chat = useChat();
+  const chat = useNewChat();
 
   const value = useMemo(() => ({ ...chat }), [chat]);
 

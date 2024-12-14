@@ -1,8 +1,8 @@
-import useConversations from "@/hooks/useConversations";
 import Conversation from "./Conversation";
+import { useConversationsProvider } from "@/providers/ConverstaionsProvider";
 
 const HistoryPage = () => {
-  const { conversations } = useConversations();
+  const { conversations } = useConversationsProvider();
 
   return (
     <div className="flex font-nounish flex-col h-[100vh] bg-background border border-black">

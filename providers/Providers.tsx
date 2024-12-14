@@ -8,6 +8,7 @@ import { ToolCallProvider } from "./ToolCallProvider";
 import { Message } from "ai";
 import { ZoraCreateProvider } from "./ZoraCreateProvider";
 import { PaymasterProvider } from "./PaymasterProvider";
+import { ConversationsProvider } from "./ConverstaionsProvider";
 
 const queryClient = new QueryClient();
 
@@ -15,19 +16,21 @@ const queryClient = new QueryClient();
 const emptyMessage: Message = { id: "", role: "assistant", content: "" };
 
 const Providers = ({ children }: { children: React.ReactNode }) => (
-  <PrivyProvider>
-    <WagmiProvider>
-      <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <PrivyProvider>
+      <WagmiProvider>
         <PaymasterProvider>
           <ZoraCreateProvider>
-            <ToolCallProvider message={emptyMessage} scrollTo={() => {}}>
-              <ChatProvider>{children}</ChatProvider>
+            <ToolCallProvider message={emptyMessage} scrollTo={() => { }}>
+              <ConversationsProvider>
+                <ChatProvider>{children}</ChatProvider>
+              </ConversationsProvider>
             </ToolCallProvider>
           </ZoraCreateProvider>
         </PaymasterProvider>
-      </QueryClientProvider>
-    </WagmiProvider>
-  </PrivyProvider>
+      </WagmiProvider>
+    </PrivyProvider>
+  </QueryClientProvider>
 );
 
 export default Providers;

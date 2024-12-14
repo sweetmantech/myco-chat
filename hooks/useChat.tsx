@@ -4,7 +4,7 @@ import { useChat as useAiChat } from "ai/react";
 import { usePathname, useRouter } from "next/navigation";
 import { v4 as uuidV4 } from "uuid";
 import useSuggestions from "./useSuggestions";
-import useConversations from "./useConversations";
+import { useConversationsProvider } from "@/providers/ConverstaionsProvider";
 import { useCsrfToken } from "@/packages/shared/src/hooks";
 import { useQueryClient } from "@tanstack/react-query";
 import useInitialMessages from "./useInitialMessages";
@@ -17,7 +17,7 @@ const useChat = () => {
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
   const { push } = useRouter();
   const { initialMessages, fetchInitialMessages } = useInitialMessages();
-  const { conversationId, conversationRef } = useConversations();
+  const { conversationId, conversationRef } = useConversationsProvider();
   const csrfToken = useCsrfToken();
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const lastQuestionOffset = 2;
