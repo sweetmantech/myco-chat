@@ -59,8 +59,10 @@ const useChat = () => {
   });
 
   useEffect(() => {
-    if (initialMessages.length) setMessages(initialMessages);
-  }, [initialMessages]);
+    if (!isNewChat && initialMessages.length) {
+      setMessages(initialMessages);
+    }
+  }, [initialMessages, isNewChat]);
 
   useEffect(() => {
     if (isNewChat) {
