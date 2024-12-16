@@ -14,8 +14,8 @@ export function AppDownloadModal() {
   }
 
   return (
-    <div className='fixed font-nounish text-black !top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-4  w-8/12 bg-background'>
-      <div className='rounded-3xl shadow-lg border border-black p-4 flex flex-col space-y-10'>
+    <div className='fixed font-nounish text-black !top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-4  w-11/12 mx-auto bg-transparent shadow-lg'>
+      <div className='rounded-3xl border border-black p-4 flex flex-col space-y-10'>
         <div className='flex flex-col space-y-2'>
           <h2 className='text-2xl font-bold'>Download the app</h2>
           <p className='text-lg font-semibold'>For the best experience, download the app.</p>
