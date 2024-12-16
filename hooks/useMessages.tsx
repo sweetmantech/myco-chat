@@ -21,6 +21,7 @@ const useMessages = () => {
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const pathname = usePathname();
   const isNewChat = pathname === "/";
+  const messagesRef = useRef<typeof messages>([]);
 
   const {
     messages,
@@ -31,7 +32,7 @@ const useMessages = () => {
     isLoading: pending,
     setMessages,
   } = useAiChat({
-    api: `/api/chat`,
+    api: `/api/tool_call`,
     headers: {
       "X-CSRF-Token": csrfToken,
       'Content-Type': 'application/json',
@@ -40,6 +41,7 @@ const useMessages = () => {
       accountId,
       address,
       conversationId: conversationRef.current,
+      messages: messagesRef.current || [],
     },
     initialMessages,
     onError: console.error,
@@ -58,8 +60,6 @@ const useMessages = () => {
       });
     },
   });
-
-  const messagesRef = useRef(messages);
 
   useEffect(() => {
     if (messages.length) messagesRef.current = messages;
