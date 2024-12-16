@@ -3,7 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
 import manifest from "@/public/manifest.json";
-import { InstallButton } from "@/components/Button/InstallButton";
+import { AppDownloadModal } from "@/components/Button/AppDownloadModal";
 
 export const metadata: Metadata = {
   title: manifest.name,
@@ -37,7 +37,7 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
-          <InstallButton />
+          <AppDownloadModal />
         </Providers>
       </body>
     </html>

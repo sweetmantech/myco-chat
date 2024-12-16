@@ -62,5 +62,6 @@ export function useInstallPrompt() {
     isInstallable,
     isInstalled,
     promptToInstall,
+    setIsInstallable
   };
 } 
