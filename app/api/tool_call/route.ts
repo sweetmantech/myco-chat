@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
     // Extract tool information from the last message if available
     const lastMessage = messages[messages.length - 1];
     const toolInvocations = lastMessage?.toolInvocations || [];
-    const toolInvocation = toolInvocations.find(t => t.state === "result");
+    const toolInvocation = toolInvocations.find((t: { state: string }) => t.state === "result");
     
     const toolName = body.toolName || toolInvocation?.toolName;
     const question = body.question || toolInvocation?.result?.question || lastMessage?.content;
@@ -38,7 +38,6 @@ export async function POST(req: NextRequest) {
       }],
       tools: {
         createToken: {
-          type: "function",
           description: "Create a new token with provided parameters",
           parameters: {
             type: "object",
