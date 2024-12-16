@@ -14,7 +14,7 @@ export function AppDownloadModal() {
   }
 
   return (
-    <div className='fixed font-nounish text-black !top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-4  w-8/12 mx-auto bg-transparent shadow-lg'>
+    <div className='fixed font-nounish text-black !top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col space-y-4  w-8/12 mx-auto bg-transparent'>
       <div className='rounded-3xl border border-black p-4 flex flex-col space-y-10 shadow-md'>
         <div className='flex flex-col space-y-2'>
           <h2 className='text-2xl font-bold'>Download the app</h2>
@@ -27,7 +27,7 @@ export function AppDownloadModal() {
           Download
         </button>
       </div>
-      <button onClick={() => setIsInstallable(false)} className='text-black rounded-full border border-black px-6 py-3 font-bold shadow-lg'>Not Now</button>
+      <button onClick={() => setIsInstallable(false)} className='text-black rounded-full border border-black px-6 py-3 font-bold shadow-md'>Not Now</button>
     </div>
   );
 } 
