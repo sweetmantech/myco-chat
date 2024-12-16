@@ -13,7 +13,7 @@ const Conversation = ({ id, name, className }: { id: string; name: string; class
         className,
       )}
     >
-      <p className="truncate">{name}</p>
+      <p className="!truncate !overflow-x-hidden">{name}</p>
     </Button>
   );
 };
