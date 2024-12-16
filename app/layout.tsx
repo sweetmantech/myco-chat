@@ -3,6 +3,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Providers from "@/providers/Providers";
 import manifest from "@/public/manifest.json";
+import { InstallButton } from "@/components/Button/InstallButton";
+import IOSInstallPrompt from '@/components/IOSInstallPrompt';
 
 export const metadata: Metadata = {
   title: manifest.name,
@@ -36,6 +38,8 @@ export default function RootLayout({
         <Providers>
           <Header />
           {children}
+          <InstallButton />
+          <IOSInstallPrompt />
         </Providers>
       </body>
     </html>
