@@ -4,8 +4,7 @@ import { Tools } from "@/lib/Tool";
 
 const ToolContent = () => {
   const { toolName } = useToolCallProvider();
-  console.log("ToolName in ToolContent:", toolName);
-  const renderToolContent = () => {
+    const renderToolContent = () => {
     switch (toolName) {
       case Tools.createToken:
         return <MediaUpload />;

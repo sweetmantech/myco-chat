@@ -15,6 +15,7 @@ interface ToolContext {
   title?: string;
   collectionAddress?: string;
   status?: CreateTokenResponse;
+  toolName?: string;
   [key: string]: any;
 }
 
@@ -26,7 +27,7 @@ const useToolChat = (question?: string, toolName?: string) => {
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const hasInitialized = useRef(false);
 
-  const context: ToolContext = toolName === Tools.createToken ? {
+  const context: ToolContext = {
     imageUri,
     animationUri,
     mimeType,
@@ -35,8 +36,9 @@ const useToolChat = (question?: string, toolName?: string) => {
       ? CreateTokenResponse.MISSING_IMAGE
       : !question
         ? CreateTokenResponse.MISSING_TITLE
-        : CreateTokenResponse.SIGN_TRANSACTION
-  } : {};
+        : CreateTokenResponse.SIGN_TRANSACTION,
+    toolName: Tools.createToken
+  };
 
   const {
     messages,

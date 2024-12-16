@@ -10,7 +10,7 @@ import { Tools } from "@/lib/Tool";
 import { CreateTokenResponse } from "@/lib/toolResponse.types";
 
 const useToolCall = (message: Message) => {
-  console.log('Message in useToolCall:', message); // Debug log
+  
   const { finalCallback } = useChatProvider();
   const { conversation: conversationId } = useParams();
   const [isCalled, setIsCalled] = useState(false);
@@ -19,42 +19,25 @@ const useToolCall = (message: Message) => {
 
   useEffect(() => {
     const init = async () => {
-      console.log('Tool call init with:', { toolName, context, question }); // Debug log
-      
-      const newToolCallMessage = getToolCallMessage(toolName, context);
-      if (newToolCallMessage) {
-        await finalCallback(
-          newToolCallMessage,
-          { id: uuidV4(), content: question, role: "user" as const } as Message,
-          conversationId as string,
-        );
-        return;
-      }
-
-      const isAssistant = message.role === "assistant";
-      if (!isAssistant || isCalled) return;
-      setIsCalled(true);
-
-      switch (toolName) {
-        case Tools.createToken:
-          const tokenStatus = context?.status;
-          if (tokenStatus === CreateTokenResponse.MISSING_IMAGE ||
-              tokenStatus === CreateTokenResponse.MISSING_TITLE ||
-              tokenStatus === CreateTokenResponse.MISSING_COLLECTION ||
-              tokenStatus === CreateTokenResponse.SIGN_TRANSACTION) {
-            setBeginCall(true);
-          }
-          break;
-        default:
-          setBeginCall(true);
-          break;
+            
+      if (message.content.toLowerCase().includes('create') || message.content.toLowerCase().includes('token')) {
+        const defaultContext = {
+          status: CreateTokenResponse.MISSING_IMAGE
+        };
+        
+        const newToolCallMessage = getToolCallMessage(Tools.createToken, defaultContext);
+        if (newToolCallMessage) {
+          await finalCallback(
+            newToolCallMessage,
+            { id: uuidV4(), content: question, role: "user" as const } as Message,
+            conversationId as string,
+          );
+          return;
+        }
+        
+        setBeginCall(true);
       }
     };
-    
-    if (!context || !question){
-      console.log('Missing context or question'); // Debug log
-      return;
-    }
     
     init();
   }, [question, context, toolName, conversationId, finalCallback, isCalled, message, setBeginCall]);

@@ -42,7 +42,6 @@ export function useInstallPrompt() {
 
   const promptToInstall = async () => {
     if (!prompt) {
-      console.log('Install prompt not available');
       return;
     }
 

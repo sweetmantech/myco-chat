@@ -8,7 +8,6 @@ import { CreateTokenResponse } from "@/lib/toolResponse.types";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    console.log(body)
     const { messages = [] } = body;
     
     // Extract tool information from the last message if available
@@ -49,11 +48,12 @@ export async function POST(req: NextRequest) {
                 description: "The current status of token creation process"
               }
             },
-            toolChoice: 'required'
+            required: ["status"]
           }
         }
       },
-      experimental_toolCallStreaming: true,
+      toolChoice: { type: "tool", toolName: "createToken" },
+      experimental_toolCallStreaming: true
     });
 
     return result.toDataStreamResponse();
