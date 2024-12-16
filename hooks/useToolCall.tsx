@@ -10,6 +10,7 @@ import { Tools } from "@/lib/Tool";
 import { CreateTokenResponse } from "@/lib/toolResponse.types";
 
 const useToolCall = (message: Message) => {
+  console.log('Message in useToolCall:', message); // Debug log
   const { finalCallback } = useChatProvider();
   const { conversation: conversationId } = useParams();
   const [isCalled, setIsCalled] = useState(false);
@@ -18,6 +19,8 @@ const useToolCall = (message: Message) => {
 
   useEffect(() => {
     const init = async () => {
+      console.log('Tool call init with:', { toolName, context, question }); // Debug log
+      
       const newToolCallMessage = getToolCallMessage(toolName, context);
       if (newToolCallMessage) {
         await finalCallback(
@@ -48,7 +51,11 @@ const useToolCall = (message: Message) => {
       }
     };
     
-    if (!context || !question) return;
+    if (!context || !question){
+      console.log('Missing context or question'); // Debug log
+      return;
+    }
+    
     init();
   }, [question, context, toolName, conversationId, finalCallback, isCalled, message, setBeginCall]);
 

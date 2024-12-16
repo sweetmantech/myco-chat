@@ -52,6 +52,21 @@ const useToolChat = (question?: string, toolName?: string) => {
       question,
       toolName,
       context,
+      tools: {
+        createToken: {
+          description: "Create a new token with provided parameters",
+          parameters: {
+            type: "object",
+            properties: {
+              status: {
+                type: "string",
+                enum: Object.values(CreateTokenResponse)
+              }
+            },
+            required: ["status"]
+          }
+        }
+      }
     },
     onError: (error) => {
       console.error('Tool chat error:', error);

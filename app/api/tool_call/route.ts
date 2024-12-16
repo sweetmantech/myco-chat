@@ -8,6 +8,7 @@ import { CreateTokenResponse } from "@/lib/toolResponse.types";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    console.log(body)
     const { messages = [] } = body;
     
     // Extract tool information from the last message if available
@@ -19,13 +20,13 @@ export async function POST(req: NextRequest) {
     const question = body.question || toolInvocation?.result?.question || lastMessage?.content;
     const context = body.context || toolInvocation?.result?.context || {};
 
-    if (!toolName && messages.length > 0) {
+    // Only require toolName if there's a tool invocation
+    if (toolInvocations.length > 0 && !toolName) {
       console.error('Tool call API - missing toolName');
       return Response.json({ message: "toolName is required" }, { status: 400 });
     }
 
     const systemMessage = toolSystemMessage(context || {}, question || "", toolName);
-    console.log('Generated system message:', systemMessage);
 
     const result = await streamText({
       model: openai(AI_MODEL) as LanguageModelV1,
@@ -38,19 +39,21 @@ export async function POST(req: NextRequest) {
       }],
       tools: {
         createToken: {
-          description: "Create a new token with provided parameters",
+          description: "Create a new token with provided parameters. ALWAYS call this tool first for ANY token creation related questions.",
           parameters: {
             type: "object",
             properties: {
               status: {
                 type: "string",
-                enum: Object.values(CreateTokenResponse)
+                enum: Object.values(CreateTokenResponse),
+                description: "The current status of token creation process"
               }
             },
-            required: ["status"]
+            toolChoice: 'required'
           }
         }
-      }
+      },
+      experimental_toolCallStreaming: true,
     });
 
     return result.toDataStreamResponse();

@@ -9,6 +9,7 @@ import { useQueryClient } from "@tanstack/react-query";
 
 import { useConversationsProvider } from "@/providers/ConverstaionsProvider";
 import usePrivyAddress from "./usePrivyAddress";
+import { CreateTokenResponse } from "@/lib/toolResponse.types";
 
 const useMessages = () => {
   const { finalCallback, suggestions, setCurrentQuestion } = useSuggestions();
@@ -21,7 +22,6 @@ const useMessages = () => {
   const accountId = "3664dcb4-164f-4566-8e7c-20b2c93f9951";
   const pathname = usePathname();
   const isNewChat = pathname === "/";
-  const messagesRef = useRef<typeof messages>([]);
 
   const {
     messages,
@@ -41,7 +41,21 @@ const useMessages = () => {
       accountId,
       address,
       conversationId: conversationRef.current,
-      messages: messagesRef.current || [],
+      tools: {
+        createToken: {
+          description: "Create a new token with provided parameters",
+          parameters: {
+            type: "object",
+            properties: {
+              status: {
+                type: "string",
+                enum: Object.values(CreateTokenResponse)
+              }
+            },
+            required: ["status"]
+          }
+        }
+      }
     },
     initialMessages,
     onError: console.error,
@@ -60,6 +74,8 @@ const useMessages = () => {
       });
     },
   });
+
+  const messagesRef = useRef(messages);
 
   useEffect(() => {
     if (messages.length) messagesRef.current = messages;
