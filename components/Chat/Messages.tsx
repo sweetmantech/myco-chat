@@ -5,17 +5,22 @@ import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
+import ImageMessage from "./ImageMessage";
 import { Message } from "ai";
-
 const Messages = () => {
   const { messages, pending } = useChatProvider();
   const { profile } = useProfileSearch();
   const scrollRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "auto" });
   });
-
+  const renderMessageContent = (content: string) => {
+    const imageMatch = content.match(/<image>(.*?)<\/image>/);
+    if (imageMatch) {
+      return <ImageMessage src={imageMatch[1]} />;
+    }
+    return <ReactMarkdown>{content}</ReactMarkdown>;
+  };
   return (
     <div className="w-full max-w-xl mt-4 mb-2 overflow-y-auto">
       <div className="space-y-4 flex flex-col">
@@ -49,9 +54,7 @@ const Messages = () => {
                 : "flex-1 bg-transparent text-black"
                 }`}
             >
-              <ReactMarkdown className="text-sm">
-                {message.content}
-              </ReactMarkdown>
+              {renderMessageContent(message.content)}
             </div>
           </div>
         ))}
@@ -61,5 +64,4 @@ const Messages = () => {
     </div>
   );
 };
-
 export default Messages;
