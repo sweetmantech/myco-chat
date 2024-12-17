@@ -20,9 +20,16 @@ const createToken = (question: string) => tool({
     mimeType: z.string().optional().describe("The type of media."),
   }),
   execute: async ({ image, title, collectionAddress, mimeType }) => {
+    const baseContext = {
+      toolName: 'createToken',
+      status: null,
+      answer: '',
+    };
+
     if (!image || !mimeType) {
       return {
         context: {
+          ...baseContext,
           status: CreateTokenResponse.MISSING_IMAGE,
           answer: "Please provide a image to proceed.",
         },
@@ -33,6 +40,7 @@ const createToken = (question: string) => tool({
     if (!title) {
       return {
         context: {
+          ...baseContext,
           status: CreateTokenResponse.MISSING_TITLE,
           answer: "Please provide a title.",
         },
@@ -43,6 +51,7 @@ const createToken = (question: string) => tool({
     if (!collectionAddress) {
       return {
         context: {
+          ...baseContext,
           status: CreateTokenResponse.MISSING_COLLECTION,
           answer: "Please select a collection.",
         },
@@ -52,6 +61,7 @@ const createToken = (question: string) => tool({
 
     return {
       context: {
+        ...baseContext,
         status: CreateTokenResponse.SIGN_TRANSACTION,
         answer: "Please sign a transaction.",
       },
