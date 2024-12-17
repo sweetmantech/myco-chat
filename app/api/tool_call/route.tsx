@@ -10,7 +10,6 @@ import MediaUpload from '@/components/MediaUpload';
 import { openai } from '@ai-sdk/openai';
 
 
-//We send this to the LLM to instantiate
 const systemMessage = `
     You are a token creation assistant. When a user expresses interest in creating a token or mentions anything about token creation, ALWAYS use the createToken tool.
 

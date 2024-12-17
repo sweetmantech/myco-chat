@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import instructions from "@/evals/scripts/instructions.json";
 import { Tools } from "@/lib/Tool";
 
 const toolSystemMessage = (context: any, question: any, toolName: string) => {
@@ -19,12 +18,17 @@ const toolSystemMessage = (context: any, question: any, toolName: string) => {
     - Use this tool to handle all token creation requests
     - The tool will guide through collecting: image, title, collection address
     - Always call this tool first for any token-related creation questions
-
-    ${instructions.createToken}
     `;
   }
-
-  return instructions.createToken;
+  return `
+    I am an AI assistant equipped with various tools to help you. 
+    
+    Current Context: ${JSON.stringify(context)}
+    User Question: ${question}
+    
+    Available Tool: ${toolName}
+    - I will use the most appropriate tool to assist you based on your request
+  `;
 };
 
 export default toolSystemMessage;
