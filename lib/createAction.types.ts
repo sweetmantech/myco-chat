@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 
 export type AIState = Array<{
   id?: number;
-  name?: "create";
+  name?: "createToken";
   role: "user" | "assistant" | "system";
   content: string;
 }>;

@@ -5,6 +5,7 @@ import Providers from "@/providers/Providers";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import manifest from "@/public/manifest.json";
+import { AI } from "./api/tool_call/route";
 
 export const metadata: Metadata = {
   title: manifest.name,
@@ -33,6 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <AI>
+
     <html lang="en" className="font-nounish overflow-hidden">
       <body>
         <Providers>
@@ -42,5 +45,6 @@ export default function RootLayout({
         </Providers>
       </body>
     </html>
+    </AI>
   );
 }
