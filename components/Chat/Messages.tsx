@@ -6,6 +6,7 @@ import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
 import Thinking from "./Thinking";
 import { Message } from "ai";
+import ToolContent from "@/lib/tools/ToolContent";
 
 const Messages = () => {
   const { messages, pending } = useChatProvider();
@@ -49,9 +50,13 @@ const Messages = () => {
                 : "flex-1 bg-transparent text-black"
                 }`}
             >
-              <ReactMarkdown className="text-sm">
-                {message.content}
-              </ReactMarkdown>
+              {message.role === "assistant" ? (
+                <ToolContent message={message} />
+              ) : (
+                <ReactMarkdown className="text-sm">
+                  {message.content}
+                </ReactMarkdown>
+              )}
             </div>
           </div>
         ))}
