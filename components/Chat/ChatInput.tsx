@@ -1,27 +1,17 @@
-import { TvMinimalPlay } from "lucide-react";
-import { usePathname } from "next/navigation";
 import useProfileSearch from "@/hooks/useProfileSearch";
 import getZoraPfpLink from "@/lib/zora/getZoraPfpLink";
 import { useChatProvider } from "@/providers/ChatProvider";
-import SubmitButton from "./SubmitButton";
-import Suggestions from "./Suggestions";
 import manifest from "@/public/manifest.json";
+import { TvMinimalPlay } from "lucide-react";
+import SubmitButton from "./SubmitButton";
+import Image from "next/image";
 
 const ChatInput = () => {
-  const {
-    handleSubmit,
-    handleInputChange,
-    input,
-    pending,
-  } = useChatProvider();
+  const { handleSubmit, handleInputChange, input, pending } = useChatProvider();
   const { profile } = useProfileSearch();
-  const color = (!pending && input.length > 0) ? "#000000" : manifest.theme_color;
+  const color = !pending && input.length > 0 ? "#000000" : manifest.theme_color;
 
-  const pathname = usePathname();
-
-  const isNewChat = pathname === "/";
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleKeyDown = async (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey && !pending) {
       e.preventDefault();
       handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
@@ -30,22 +20,19 @@ const ChatInput = () => {
 
   return (
     <div className="w-full flex flex-col items-center">
-      {!isNewChat && <Suggestions />}
       <div className="w-full max-w-[555px] bg-white py-3 rounded-3xl border border-gray-300 p-1.5 mb-3 shadow-lg flex items-center">
         <form onSubmit={handleSubmit} className="w-full flex items-center">
-          {
-            profile.length > 0 ? (
-              <img
-                src={getZoraPfpLink(profile[0])}
-                alt="PFP"
-                width={36}
-                height={36}
-                className="rounded-full"
-              />
-            ) : (
-              <TvMinimalPlay size={32} color={color} />
-            )
-          }
+          {profile.length > 0 ? (
+            <Image
+              src={getZoraPfpLink(profile[0])}
+              alt="PFP"
+              width={36}
+              height={36}
+              className="rounded-full"
+            />
+          ) : (
+            <TvMinimalPlay size={32} color={color} />
+          )}
           <textarea
             value={input}
             onChange={handleInputChange}
